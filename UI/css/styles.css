@@ -1,0 +1,122 @@
+:root {
+    --blue: #007bff;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --dark: #343a40;
+    --myColor1: #025928;
+    --myColor2: #3c8c30;
+    --myColor3: #d96704;
+    --myColor4: #818385;
+    --myColor5: #303030;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --transition: all 0.2s ease-out;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: auto 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.button {
+    padding: 0.8rem 3rem;
+    height: 2.5rem;
+    background-color: rgba(177, 169, 169, 0.1);
+    color: black;
+    border: 2px solid rgba(0 , 0, 0, 0.3);
+    cursor: pointer;
+    transition: var(--transition)
+}
+
+.button:hover {
+    background-color: rgba(177, 169, 169, 0.5);
+    border: 2px solid rgba(0 , 0, 0, 1);
+}
+    
+.button:active {
+    box-shadow: 0 0 0;
+}
+
+.main-nav {
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 1rem 2rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    background-color: var(--blue);
+    /* background-color: #9ce609; */
+}
+
+.main-nav__brand {
+    margin-right: auto;
+}
+
+.main-nav__brand img {
+    height: 2.5rem;
+}
+
+.main-nav__items {
+    list-style: none;
+    display: flex;
+    font-size: 0.8rem;
+    /* color: white; */
+}
+
+.main-nav__item {
+    padding: 0.8rem;
+    cursor: pointer;
+    text-align: center;
+    width: 6rem;
+}
+
+.main-nav__item:nth-child(1) {
+    display: none;
+}
+
+.main-nav__item a {
+    color: white;
+    border: 1px solid white;
+    padding: 0.8rem 0.8rem;
+    transition: all 0.2s ease-out;
+}
+
+.main-nav__item a:hover {
+    background-color: white;
+    color: var(--blue);
+}
