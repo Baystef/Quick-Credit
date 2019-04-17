@@ -1,26 +1,32 @@
 :root {
     /* --blue: #007bff;
     --red: #dc3545;
-    --orange: #fd7e14;
     --yellow: #ffc107;
     --teal: #20c997;
     --cyan: #17a2b8; */
     --white: #fff;
-    --myColor1: #025928;
-    --myColor2: #3c8c30;
-    --myColor3: #d96704;
-    --myColor4: #818385;
-    --myColor5: #303030;
+    --darkGreen: #025928;
+    --lightGreen: #3c8c30;
+    --orange: #d96704;
+    --lightGrey: #818385;
+    --darkGrey: #303030;
     --breakpoint-sm: 576px;
     --breakpoint-md: 768px;
     --transition: all 0.2s ease-out;
-    --margin-2: 2rem;
 }
+
+/* .main-container {
+    min-height: 100%;
+    display: block;
+    position: relative;
+    margin-bottom: 1rem;
+} */
 
 .main {
     text-align: center;
     margin-left: 2rem;
     margin-right: 2rem;
+    height: 100%;
 }
 
 .main-header {
@@ -32,9 +38,11 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 80vh;
     text-align: center;
+    height: 80vh;
+    padding: 2rem;
     color: var(--white);
+    position: relative;
 }
 
 .main-header-text, .main-header-button {
@@ -44,21 +52,21 @@
 .main-header::before {
     content: '.';
     position: absolute;
-    height: 90vh;
+    height: 100%;
     width: 100vw;
     right: 0;
     top: 0;
-    background: var(--myColor5);
+    background: var(--darkGrey);
     opacity: 0.6;
     z-index: 1;
 }
 
 .quick {
-    color: var(--myColor3);
+    color: var(--orange);
 }
 
 .credit {
-    color: var(--myColor4);
+    color: var(--lightGrey);
 }
 
 .main-header-button {
@@ -69,12 +77,12 @@
 .main-works {
     display: flex;
     flex-direction: column;
-    height: 55vh;
+    height: 55%;
     margin: 1rem 0;
 }
 
 .main-works-title {
-    color: var(--myColor5);
+    color: var(--darkGrey);
 }
 
 .main-works-container {
@@ -90,7 +98,7 @@
 }
 
 .main-works-image {
-    border: 1px solid var(--myColor4);
+    border: 1px solid var(--lightGrey);
     width: 120px;
     height: 120px;
 }
@@ -98,7 +106,7 @@
 .fas {
     font-size: 4rem;
     padding-top: 1.8rem;
-    color: var(--myColor2);
+    color: var(--lightGreen);
 }
 
 
@@ -106,7 +114,7 @@
     .main-header {
         text-align: left;
         align-items: flex-start;
-        padding-left: var(--margin-2);
+        padding-left: 2rem;
     }
     
     .main-works-container {
