@@ -11,8 +11,6 @@
     --lightGrey: #818385;
     --lighterGrey: rgba(196, 200, 204, 0.884);
     --darkGrey: #303030;
-    --breakpoint-sm: 576px;
-    --breakpoint-md: 768px;
     --transition: all 0.2s ease-out;
     --button-bg-hover: rgba(177, 169, 169, 0.5);
 }
@@ -71,7 +69,7 @@ a {
     position: relative;
     z-index: 1;
     background-color: var(--white);
-    max-width: 22.5rem;
+    max-width: 24rem;
     margin: 0 auto 6.25rem;
     padding: 2.8rem;
     text-align: center;
@@ -86,6 +84,7 @@ a {
 
 .form-link a:hover {
     text-decoration: underline;
+    text-decoration-skip-ink: auto;
 }
 
 label {
@@ -160,7 +159,6 @@ label {
     color: var(--darkGreen);
 }
 
-/* Mobile Nav */
 
 
 /* Mobile Nav(sidebar) styles */
