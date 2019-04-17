@@ -9,6 +9,7 @@
     --lightGreen: #3c8c30;
     --orange: #d96704;
     --lightGrey: #818385;
+    --lighterGrey: rgba(196, 200, 204, 0.884);
     --darkGrey: #303030;
     --breakpoint-sm: 576px;
     --breakpoint-md: 768px;
@@ -16,6 +17,7 @@
     --button-bg-hover: rgba(177, 169, 169, 0.5);
 }
 
+/* General Styles */
 *,
 *::before,
 *::after {
@@ -65,6 +67,46 @@ a {
     transform: translate(1px);
 }
 
+.form {
+    position: relative;
+    z-index: 1;
+    background-color: var(--white);
+    max-width: 22.5rem;
+    margin: 0 auto 6.25rem;
+    padding: 2.8rem;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)
+}
+
+
+
+.form-link a {
+    color: var(--orange)
+}
+
+.form-link a:hover {
+    text-decoration: underline;
+}
+
+label {
+    float: left;
+    color: var(--darkGrey);
+    padding-bottom: 0.3rem;
+}
+
+.input {
+    background: var(--lighterGrey);
+    outline: 0;
+    width: 100%;
+    border: 0;
+    margin: 0 0 0.9rem;
+    padding: 0.9rem;
+    font-size: 0.8rem;
+}
+
+.input::placeholder {
+    color: var(--lightGrey);
+}
 
 
 /* Nav Styles */
@@ -255,13 +297,13 @@ a {
         display: inline;
     }
 
-    .main-nav__item:nth-child(2) a{
+    .main-nav__item:nth-child(2) a {
         color: var(--deepGreen);
         background: var(--white);
     }
 
-    .main-nav__item:nth-child(2) a:hover{
-       box-shadow: 3px 3px 5px var(--darkGrey), -3px -3px 5px var(--darkGrey);
+    .main-nav__item:nth-child(2) a:hover {
+        box-shadow: 3px 3px 5px var(--darkGrey), -3px -3px 5px var(--darkGrey);
     }
 
     .footer-link {
