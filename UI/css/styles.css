@@ -79,7 +79,6 @@ a {
     align-items: center;
     justify-content: space-around;
     background-color: var(--darkGreen);
-    /* background-color: #9ce609; */
 }
 
 .main-nav__brand {
@@ -103,7 +102,7 @@ a {
     width: 6rem;
 }
 
-.main-nav__item:nth-child(1) {
+.main-nav__item:nth-child(2) {
     display: none;
 }
 
@@ -120,12 +119,7 @@ a {
 }
 
 /* Mobile Nav */
-.mobile-nav__item--cta a:hover,
-.mobile-nav__item--cta a:active {
-    color: var(--orange);
-    background: white;
-    border: none;
-}
+
 
 /* Mobile Nav(sidebar) styles */
 .mobile-nav {
@@ -136,7 +130,7 @@ a {
     left: 0;
     background: white;
     width: 80%;
-    height: 100vh;
+    height: 80vh;
 }
 
 .mobile-nav__items {
@@ -148,7 +142,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .mobile-nav__item {
@@ -157,6 +151,24 @@ a {
 
 .mobile-nav__item a {
     font-size: 1.5rem;
+}
+
+.mobile-nav__item a:hover,
+.mobile-nav__item a:active {
+    color: var(--lightGrey);
+}
+
+.mobile-nav__item--cta a:hover,
+.mobile-nav__item--cta a:active {
+    color: var(--orange);
+    background: white;
+    border: none;
+}
+
+.open {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Menu button */
@@ -178,6 +190,7 @@ a {
     transition: var(--transition);
 }
 
+/* Menu button click effect */
 .menu-btn.close {
     transform: rotate(180deg);
 }
@@ -238,8 +251,17 @@ a {
         display: none;
     }
 
-    .main-nav__item:nth-child(1) {
+    .main-nav__item:nth-child(2) {
         display: inline;
+    }
+
+    .main-nav__item:nth-child(2) a{
+        color: var(--deepGreen);
+        background: var(--white);
+    }
+
+    .main-nav__item:nth-child(2) a:hover{
+       box-shadow: 3px 3px 5px var(--darkGrey), -3px -3px 5px var(--darkGrey);
     }
 
     .footer-link {
