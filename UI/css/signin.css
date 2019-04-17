@@ -6,6 +6,7 @@
   --lighterGreen: #57c746;
   --orange: #d96704;
   --lightGrey: #818385;
+  --lighterGrey: rgba(196, 200, 204, 0.884);
   --darkGrey: #303030;
   --transition: all 0.2s ease-out;
 }
@@ -13,6 +14,7 @@
 body {
   z-index: -1;
   background-color: var(--lightGrey);
+  min-height: 100%;
 }
 
 .container {
@@ -34,4 +36,18 @@ body {
 .signin-button:hover,
 .signin-button:active {
   background-color: var(--lighterGreen);
+}
+
+.forgot-password {
+  color: var(--lighterGrey);
+}
+
+.forgot-password:hover {
+  color: var(--lightGrey);
+  text-decoration: underline;
+  text-decoration-skip-ink: auto;
+}
+
+.footer {
+  margin-top: -3rem;
 }
