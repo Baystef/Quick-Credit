@@ -1,0 +1,27 @@
+{
+  "name": "quick-credit",
+  "version": "1.0.0",
+  "description": "Online Lending Platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Baystef/Quick-Credit.git"
+  },
+  "keywords": [
+    "Node\u001b[D\u001b[D\u001b[D\u001b[D[\u001b[C\u001b"
+  ],
+  "author": "Adebayo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Baystef/Quick-Credit/issues"
+  },
+  "homepage": "https://github.com/Baystef/Quick-Credit#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2"
+  }
+}
