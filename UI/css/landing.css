@@ -1,0 +1,125 @@
+:root {
+    /* --blue: #007bff;
+    --red: #dc3545;
+    --yellow: #ffc107;
+    --teal: #20c997;
+    --cyan: #17a2b8; */
+    --white: #fff;
+    --darkGreen: #025928;
+    --lightGreen: #3c8c30;
+    --orange: #d96704;
+    --lightGrey: #818385;
+    --darkGrey: #303030;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --transition: all 0.2s ease-out;
+}
+
+/* .main-container {
+    min-height: 100%;
+    display: block;
+    position: relative;
+    margin-bottom: 1rem;
+} */
+
+.main {
+    text-align: center;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    height: 100%;
+}
+
+.main-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url(../images/header-1.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    height: 80vh;
+    padding: 2rem;
+    color: var(--white);
+    position: relative;
+}
+
+.main-header-text, .main-header-button {
+    z-index: 2;
+}
+
+.main-header::before {
+    content: '.';
+    position: absolute;
+    height: 100%;
+    width: 100vw;
+    right: 0;
+    top: 0;
+    background: var(--darkGrey);
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.quick {
+    color: var(--orange);
+}
+
+.credit {
+    color: var(--lightGrey);
+}
+
+.main-header-button {
+    border: 1px solid white;
+    color: white;
+}
+
+.main-works {
+    display: flex;
+    flex-direction: column;
+    height: 55%;
+    margin: 1rem 0;
+}
+
+.main-works-title {
+    color: var(--darkGrey);
+}
+
+.main-works-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.main-works-card {
+    width: 18rem;
+    height: 18rem;
+}
+
+.main-works-image {
+    border: 1px solid var(--lightGrey);
+    width: 120px;
+    height: 120px;
+}
+
+.fas {
+    font-size: 4rem;
+    padding-top: 1.8rem;
+    color: var(--lightGreen);
+}
+
+
+@media (min-width: 40rem) {
+    .main-header {
+        text-align: left;
+        align-items: flex-start;
+        padding-left: 2rem;
+    }
+    
+    .main-works-container {
+        flex-direction: row;
+        margin: auto 0;
+    }
+}
+
