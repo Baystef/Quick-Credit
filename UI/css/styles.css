@@ -104,6 +104,10 @@ label {
     font-size: 0.8rem;
 }
 
+.input:focus {
+    border: 1px solid var(--darkGrey);
+}
+
 .input::placeholder {
     color: var(--lightGrey);
 }
@@ -303,6 +307,10 @@ label {
 
     .main-nav__item:nth-child(2) a:hover {
         box-shadow: 3px 3px 5px var(--darkGrey), -3px -3px 5px var(--darkGrey);
+    }
+
+    .form-link, label {
+        font-size: 0.8rem;
     }
 
     .footer-link {
