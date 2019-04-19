@@ -1,0 +1,85 @@
+:root {
+  --red: #dc3545;
+  --white: #fff;
+  --darkGreen: #025928;
+  --lightGreen: #3c8c30;
+  --lighterGreen: #57c746;
+  --orange: #d96704;
+  --lightGrey: #818385;
+  --lighterGrey: rgba(196, 200, 204, 0.884);
+  --darkGrey: #303030;
+  --dashboard: #fcfcfc;
+  --transition: all 0.2s ease-out;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  flex: 0.25;
+  height: 100%;
+  background-color: var(--dashboard);
+  box-shadow: 1px 0 5px var(--lighterGrey);
+  position: relative;
+}
+
+.welcome-container {
+  text-align: center;
+  margin-top: 0;
+  padding: 1rem;
+}
+
+.welcome {
+  color: var(--darkGrey);
+}
+
+.dashboard-nav__items {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.dashboard-nav__item {
+  padding: 0.5rem 0 0.5rem 1rem;
+  background-color: var(--lighterGrey);
+  border-bottom: 1px solid rgba(255, 252, 252, 0.856);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.dashboard-nav__item:hover,
+.dashboard-nav__item:active,
+.active {
+  background-color: var(--lightGrey)
+}
+
+.logout {
+  position: absolute;
+  bottom: 3%;
+  align-self: center;
+  border: none;
+  background-color: var(--dashboard);
+  cursor: pointer;
+}
+
+.logout, .fa-power-off {
+  color: var(--orange);
+}
+
+.logout:hover,
+.fa-power-off:hover,
+.logout:active,
+.fa-power-off:active {
+  color: var(--red);
+}
+
+.dashboard-body {
+  flex: 0.75;
+  align-self: flex-end;
+  height: 100%;
+  background-color: var(--white);
+  padding: 2rem;
+}
