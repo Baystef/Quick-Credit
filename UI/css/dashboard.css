@@ -9,12 +9,14 @@
   --lighterGrey: rgba(196, 200, 204, 0.884);
   --darkGrey: #303030;
   --dashboard: #fcfcfc;
+  --boxShadow:  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   --transition: all 0.2s ease-out;
 }
 
 .container {
   height: 100%;
   display: flex;
+  font-size: 0.6rem;
 }
 
 aside {
@@ -24,6 +26,7 @@ aside {
   height: 100%;
   background-color: var(--dashboard);
   box-shadow: 1px 0 5px var(--lighterGrey);
+  overflow: auto;
   position: relative;
 }
 
@@ -65,7 +68,8 @@ aside {
   cursor: pointer;
 }
 
-.logout, .fa-power-off {
+.logout,
+.fa-power-off {
   color: var(--orange);
 }
 
@@ -79,7 +83,135 @@ aside {
 .dashboard-body {
   flex: 0.75;
   align-self: flex-end;
+  align-items: center;
+  justify-content: center;
   height: 100%;
-  background-color: var(--white);
+  background-color: var(--dashboard);
+  padding: 1.2rem 0.5rem;
+  overflow: auto;
+}
+
+.instructions {
+  text-align: center;
+}
+
+.rate {
+  color: var(--orange);
+}
+
+.amount {
+  color: var(--lighterGreen);
+}
+
+.duration {
+  font-weight:bold;
+}
+
+.dashboard-card__container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.dashboard-card__loan--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.dashboard-card {
+  width: 5rem;
+  height: 5rem;
+  margin: 0.5rem;
+  padding: 0.2rem;
+  background-color: var(--lighterGrey);
+  box-shadow: 1px 1px 1px var(--lightGrey), -1px -1px 1px var(--lightGrey);
+  transition: var(--transition);
+}
+
+.dashboard-card:hover {
+  box-shadow: 1px 1px 4px var(--lightGrey), -1px -1px 4px var(--lightGrey)
+}
+
+.dashboard-card__title {
+  text-align: center;
+  font-size: 0.5rem;
+  font-weight: bolder;
+}
+
+.acct-stat__verified,
+.loan-stat__verified {
+  padding-left: 25%;
+}
+
+.dashboard-card__loan {
+  width: 20rem;
+  height: 13rem;
+  margin: 0.5rem;
+  background-color: var(--lighterGrey);
+}
+
+.estimate {
+  display: flex;
+  align-items: center;
+  height: 10rem;
+  justify-content: center;
   padding: 2rem;
+}
+
+.estimate-title {
+  border-right: 1px solid rgba(255, 252, 252, 0.856);
+  padding-right: 1rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.estimate div {
+  width: 4rem;
+  height: 4rem;
+  text-align: center;
+  margin: 1rem;
+}
+
+.loan-form {
+  height: 100%;
+  max-width: 100%;
+}
+
+.loan-apply__btn {
+  color: var(--white);
+  background-color: var(--lightGreen);
+}
+
+.loan-apply__btn:hover,
+.loan-apply__btn:active {
+  background-color: var(--lighterGreen);
+}
+
+@media (min-width: 40rem) {
+  .container {
+    font-size: 1.2rem;
+  }
+
+  .dashboard-card {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .dashboard-card__loan--container {
+    margin-bottom: 2rem;
+  }
+
+  .dashboard-card__loan {
+    width: 30rem;
+    margin: 1rem;
+  }
+
+  .estimate {
+    width: 35rem;
+  }
+
+  .estimate div {
+    margin: 1.5rem;
+  }
 }

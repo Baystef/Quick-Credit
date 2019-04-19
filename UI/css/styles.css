@@ -12,6 +12,7 @@
     --lighterGrey: rgba(196, 200, 204, 0.884);
     --extraLightGrey: rgba(241, 241, 241, 0.788);
     --darkGrey: #303030;
+    --boxShadow:  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     --transition: all 0.2s ease-out;
     --button-bg-hover: rgba(177, 169, 169, 0.5);
 }
@@ -74,7 +75,7 @@ a {
     margin: 0 auto 6.25rem;
     padding: 2.8rem;
     text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)
+    box-shadow: var(--boxShadow);
 }
 
 
