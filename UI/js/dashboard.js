@@ -11,10 +11,12 @@ function estimateRepayment() {
   const interestAccrued = document.querySelector('#interest-accr');
   const totalPayment = document.querySelector('#total-repayment');
   const interestRate = 0.05;
+
   const interest = parseFloat(((amount * interestRate) / tenor).toFixed(2));
   let payment = ((amount / tenor) + interest).toFixed(2);
   payment = payment.toLocaleString('en');
   const total = Number(amount) + interest;
+
   monthlyInstallment.innerHTML = payment;
   interestAccrued.innerHTML = interest;
   totalPayment.innerHTML = total;
