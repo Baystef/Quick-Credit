@@ -56,14 +56,19 @@ td::before {
   }
 
   tr {
-    border-top: 4px solid #3c3c3b;
-    border-bottom: 4px solid #3c3c3b;
+    border-top: 4px solid var(--darkGrey);
+    border-bottom: 4px solid var(--darkGrey);
     display: block;
     margin-bottom: 2em;
   }
 
+  tr:hover {
+    border-top: 4px solid var(--white);
+    border-bottom: 4px solid var(--white);
+  }
+
   td {
-    border-bottom: 1px solid #3c3c3b;
+    border-bottom: 1px solid var(--darkGrey);
     display: flex;
   }
 

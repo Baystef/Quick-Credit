@@ -60,21 +60,6 @@
   cursor: pointer;
 }
 
-/* Tables */
-table {
-  max-width: 100%;
-}
-
-th {
-  font-weight: bold;
-}
-
-/* tbody tr:hover {
-  background: var(--darkGrey);
-  cursor: pointer;
-} */
-
-
 /* Desktop Styles */
 @media (min-width: 40rem) {
   table {
