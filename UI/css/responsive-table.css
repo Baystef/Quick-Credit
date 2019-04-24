@@ -18,13 +18,12 @@ tr {
 tbody tr:hover {
   background: var(--darkGrey);
   color: var(--white);
-  cursor: pointer;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 th {
   background-color: #555;
-  color: #fff;
+  color: var(--white);
 }
 
 th,
@@ -70,6 +69,11 @@ td::before {
   td {
     border-bottom: 1px solid var(--darkGrey);
     display: flex;
+  }
+
+  td:hover {
+    border-top: 1px solid var(--white);
+    border-bottom: 1px solid var(--white);
   }
 
   td::before {

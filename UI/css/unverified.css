@@ -1,0 +1,23 @@
+td:last-child {
+  display: flex;
+  align-items: center;
+}
+
+td:last-child button {
+  padding: 3px;
+  margin-top: 4px;
+  color: var(--white);
+}
+
+td:last-child button:hover {
+  box-shadow: 1.5px 1.5px 3px var(--lightGrey), -1.5px -1.5px 3px var(--lightGrey);
+}
+
+td:last-child button:nth-child(1) {
+  background-color: var(--red);
+}
+
+td:last-child button:nth-child(2) {
+  margin-left: 3px;
+  background-color: var(--lighterGreen);
+}
