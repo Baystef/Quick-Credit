@@ -37,15 +37,20 @@ body {
 }
 
 .forgot-password {
-  color: var(--lighterGrey);
+  color: var(--lightGrey);
 }
 
 .forgot-password:hover {
-  color: var(--lightGrey);
   text-decoration: underline;
   text-decoration-skip-ink: auto;
 }
 
 .footer {
   margin-top: -3rem;
+}
+
+@media (min-width: 40rem) {
+  .forgot-password {
+    font-size: 0.8rem;
+  }
 }
