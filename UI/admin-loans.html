@@ -23,8 +23,8 @@
       </div>
       <nav class="dashboard-nav">
         <ul class="dashboard-nav__items">
-          <li class="dashboard-nav__item active"><a href="admin.html">Users</a></li>
-          <li class="dashboard-nav__item"><a href="admin-loans.html">Loans</a></li>
+          <li class="dashboard-nav__item"><a href="admin.html">Users</a></li>
+          <li class="dashboard-nav__item active"><a href="admin-loans.html">Loans</a></li>
           <li class="dashboard-nav__item"><a href="admin-repayments.html">Repayments</a></li>
         </ul>
       </nav>
@@ -33,13 +33,14 @@
     </aside>
 
     <section class="dashboard-body">
-      <h2 class="users dashboard-title">Registered Users</h2>
+      <h2 class="users dashboard-title">All Loans</h2>
       <section class="users-container">
         <nav class="dashboard-subnav">
           <ul class="dashboard-subnav__items">
-            <li class="dashboard-subnav__item active"><a href="admin.html">All</a></li>
-            <li class="dashboard-subnav__item"><a href="verified.html">verified</a></li>
-            <li class="dashboard-subnav__item"><a href="unverified.html">Unverified</a></li>
+            <li class="dashboard-subnav__item active"><a href="admin-loans.html">All</a></li>
+            <li class="dashboard-subnav__item"><a href="admin-loans-approved.html">Approved</a></li>
+            <li class="dashboard-subnav__item"><a href="admin-loans-pending.html">Pending</a></li>
+            <li class="dashboard-subnav__item"><a href="admin-loans-rejected.html">Rejected</a></li>
           </ul>
 
           <form class="dashboard-search__form">
@@ -52,55 +53,65 @@
           <thead role="rowgroup">
             <tr role="row">
               <th role="columnheader">id</th>
-              <th role="columnheader">First Name</th>
-              <th role="columnheader">Last Name</th>
-              <th role="columnheader">Email</th>
-              <th role="columnheader">Work Address</th>
-              <th role="columnheader">Home Address</th>
-              <th role="columnheader">Phone &#8470</th>
+              <th role="columnheader">User</th>
+              <th role="columnheader">Amount (&#8358)</th>
+              <th role="columnheader">Interest (&#8358)</th>
+              <th role="columnheader">Monthly Installment (&#8358)</th>
+              <th role="columnheader">Repayment Due (&#8358)</th>
+              <th role="columnheader">Tenor (Months)</th>
+              <th role="columnheader">Repaid</th>
+              <th role="columnheader">Application Date</th>
               <th role="columnheader">Status</th>
             </tr>
           </thead>
           <tbody role="rowgroup">
             <tr role="row">
               <td role="cell">1</td>
-              <td role="cell">Adebayo</td>
-              <td role="cell">Daramola</td>
               <td role="cell">daramola.quic@yahoo.com</td>
-              <td role="cell">27, Johnson Street, Lagos</td>
-              <td role="cell">2, Dideolu Drive, Ibadan</td>
-              <td role="cell">07012345678</td>
-              <td role="cell">Verified</td>
+              <td role="cell">50000</td>
+              <td role="cell">1250</td>
+              <td role="cell">5000</td>
+              <td role="cell">51250</td>
+              <td role="cell">9</td>
+              <td role="cell">false</td>
+              <td role="cell">27 Nov, 2018</td>
+              <td role="cell">approved</td>
             </tr>
             <tr role="row">
               <td role="cell">2</td>
-              <td role="cell">Afolabi</td>
-              <td role="cell">Mustapha</td>
               <td role="cell">afolabi.mustapha@gmail.com</td>
-              <td role="cell">1, Ipaja Road, Lagos</td>
-              <td role="cell">3, Ebedi Street, Ilorin</td>
-              <td role="cell">07098765432</td>
-              <td role="cell">unverified</td>
+              <td role="cell">45000</td>
+              <td role="cell">850</td>
+              <td role="cell">3700</td>
+              <td role="cell">0</td>
+              <td role="cell">6</td>
+              <td role="cell">true</td>
+              <td role="cell">5 Mar, 2019</td>
+              <td role="cell">approved</td>
             </tr>
             <tr role="row">
               <td role="cell">3</td>
-              <td role="cell">Durowaiye</td>
-              <td role="cell">Gabriel</td>
               <td role="cell">duro.gab@hotmail.com</td>
-              <td role="cell">5, Chevron Drive, Lekki</td>
-              <td role="cell">281D, Ajao Estate, Lagos</td>
-              <td role="cell">07034343434</td>
-              <td role="cell">verified</td>
+              <td role="cell">32000</td>
+              <td role="cell">900</td>
+              <td role="cell">2600</td>
+              <td role="cell">32900</td>
+              <td role="cell">5</td>
+              <td role="cell">false</td>
+              <td role="cell">10 Jul, 2019</td>
+              <td role="cell">rejected</td>
             </tr>
             <tr role="row">
               <td role="cell">4</td>
-              <td role="cell">Bolaji</td>
-              <td role="cell">Stephen</td>
               <td role="cell">B.stef@yahoomail.com</td>
-              <td role="cell">75, Abule-Egba Road, Lagos-Abeokuta way</td>
-              <td role="cell">16, old Ota road, Ogun</td>
-              <td role="cell">07012983476</td>
-              <td role="cell">unverified</td>
+              <td role="cell">15000</td>
+              <td role="cell">525</td>
+              <td role="cell">2300</td>
+              <td role="cell">15525</td>
+              <td role="cell">3</td>
+              <td role="cell">false</td>
+              <td role="cell">29 Jan, 2019</td>
+              <td role="cell">pending</td>
             </tr>
           </tbody>
         </table>
