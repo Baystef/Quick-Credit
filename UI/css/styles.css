@@ -7,6 +7,7 @@
     --white: #fff;
     --darkGreen: #025928;
     --lightGreen: #3c8c30;
+    --lighterGreen: #57c746;
     --orange: #d96704;
     --lightGrey: #818385;
     --lighterGrey: rgba(196, 200, 204, 0.884);
@@ -14,6 +15,7 @@
     --darkGrey: #303030;
     --boxShadow:  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     --transition: all 0.2s ease-out;
+    --modal-transition: opacity 0.2s ease-out, transform 500ms ease-out;
     --button-bg-hover: rgba(177, 169, 169, 0.5);
 }
 
@@ -212,9 +214,9 @@ label {
 }
 
 .open {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
+    display: block !important;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 
 /* Menu button */
@@ -288,6 +290,59 @@ label {
     color: var(--lightGrey, white);
 }
 
+/* Modal styles */
+.modal {
+    position: fixed;
+    opacity: 0;
+    transform: translateY(-3rem);
+    transition: var(--modal-transition); 
+    z-index: 200;
+    top: 20%;
+    left: 30%;
+    width: 40%;
+    background: white;
+    padding: 1rem;
+    border: 1px solid var(--extraLightGrey);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.modal__title {
+    text-align: center;
+    margin: 0 0 1rem 0;
+}
+
+.modal__actions {
+    text-align: center;
+}
+
+.modal__action {
+    border: 1px solid var(--darkGreen);
+    background: var(--darkGreen);
+    text-decoration: none;
+    color: white;
+    font: inherit;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.modal__action:hover,
+.modal__action:active {
+    background: var(--lighterGreen);
+    border-color: var(--lighterGreen);
+}
+
+.modal__action--negative {
+    background: red;
+    border-color: red;
+}
+
+.modal__action--negative:hover,
+.modal__action--negative:active {
+    background: #ff5454;
+    border-color: #ff5454;
+}
+
+/* Desktop Styles */
 @media (min-width: 40rem) {
     body {
         font-size: 1.2rem;
