@@ -1,6 +1,9 @@
-.signup-title {
-  text-align: center;
-  margin-bottom: 5rem;
+.container {
+  margin-top: 5rem;
+}
+
+.main-nav__brand--container {
+  margin-bottom: 2rem;
 }
 
 fieldset {
