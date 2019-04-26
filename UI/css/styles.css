@@ -1,9 +1,5 @@
 :root {
-    /* --blue: #007bff;
     --red: #dc3545;
-    --yellow: #ffc107;
-    --teal: #20c997;
-    --cyan: #17a2b8; */
     --white: #fff;
     --darkGreen: #025928;
     --lightGreen: #3c8c30;
@@ -13,7 +9,8 @@
     --lighterGrey: rgba(196, 200, 204, 0.884);
     --extraLightGrey: rgba(241, 241, 241, 0.788);
     --darkGrey: #303030;
-    --boxShadow:  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    --dashboard: #fcfcfc;
+    --boxShadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     --transition: all 0.2s ease-out;
     --modal-transition: opacity 0.2s ease-out, transform 500ms ease-out;
     --button-bg-hover: rgba(177, 169, 169, 0.5);
@@ -79,8 +76,6 @@ a {
     text-align: center;
     box-shadow: var(--boxShadow);
 }
-
-
 
 .form-link a {
     color: var(--orange)
@@ -217,6 +212,7 @@ label {
     display: block !important;
     opacity: 1 !important;
     transform: translateY(0) !important;
+    z-index: 500 !important;
 }
 
 /* Menu button */
@@ -295,7 +291,7 @@ label {
     position: fixed;
     opacity: 0;
     transform: translateY(-3rem);
-    transition: var(--modal-transition); 
+    transition: var(--modal-transition);
     z-index: 200;
     top: 20%;
     left: 30%;
@@ -352,6 +348,10 @@ label {
         display: none;
     }
 
+    .main-nav {
+        padding: 1rem 6rem;
+    }
+
     .main-nav__item:nth-child(2) {
         display: inline;
     }
@@ -362,10 +362,11 @@ label {
     }
 
     .main-nav__item:nth-child(2) a:hover {
-        box-shadow: 3px 3px 5px var(--darkGrey), -3px -3px 5px var(--darkGrey);
+        box-shadow: var(--boxShadow);
     }
 
-    .form-link, label {
+    .form-link,
+    label {
         font-size: 0.8rem;
     }
 
