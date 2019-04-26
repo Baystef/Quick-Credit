@@ -1,5 +1,15 @@
 body {
   background-color: var(--lightGrey);
+  margin: 0;
+}
+
+.main-nav__brand--container {
+  display: flex;
+  padding: 2rem;
+}
+
+.main-nav__brand {
+  margin: auto;
 }
 
 .container {
@@ -8,6 +18,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: -6.5rem;
+}
+
+.form-title {
+  color: var(--darkGrey);
 }
 
 .signup-button,
