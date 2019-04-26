@@ -15,8 +15,8 @@ fieldset {
 }
 
 @media (min-width: 40rem) {
-  .signup-title {
-    margin-bottom: 0;
+  .container {
+    margin-top: auto;
   }
 
   .form {
