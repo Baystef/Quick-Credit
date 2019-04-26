@@ -1,0 +1,29 @@
+.container {
+  margin-top: 5rem;
+}
+
+.main-nav__brand--container {
+  margin-bottom: 2rem;
+}
+
+fieldset {
+  border: 0;
+}
+
+.footer {
+  margin-top: 3rem;
+}
+
+@media (min-width: 40rem) {
+  .container {
+    margin-top: auto;
+  }
+
+  .form {
+    min-width: 40rem;
+  }
+
+  .form-container{
+    display: flex;
+  }
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Quick Credit</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+    integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="backdrop"></div>
+  
+  <section class="modal">
+    <h1 class="modal__title">Are you sure you want to log out?</h1>
+    <section class="modal__actions">
+      <a href="signin.html" class="modal__action">Yes</a>
+      <button class="modal__action modal__action--negative" type="button">No</button>
+    </section>
+  </section>
+
+  <div class="container">
+    <aside>
+      <div class="welcome-container">
+        <h3 class="welcome">Welcome, <br>Daramola Adebayo</h3>
+      </div>
+      <nav class="dashboard-nav">
+        <ul class="dashboard-nav__items">
+          <li class="dashboard-nav__item active"><a href="dashboard.html">Apply for Loan</a></li>
+          <li class="dashboard-nav__item"><a href="repayment-history.html">History</a></li>
+          <li class="dashboard-nav__item"><a href="account-settings.html">Account Settings</a></li>
+        </ul>
+      </nav>
+
+      <button class="logout"><i class="fas fa-power-off"></i> Log Out</button>
+    </aside>
+
+    <section class="dashboard-body">
+      <div class="dashboard-card__container">
+        <section class="dashboard-card acct-stat">
+          <p class="dashboard-card__title acct-stat__title">Account Status</p>
+          <h4 class="acct-stat__verified">Verified</h4>
+        </section>
+        <section class="dashboard-card loan-stat">
+          <p class="dashboard-card__title loan-stat__title">Loan Application</p>
+          <h4 class="loan-stat__verified">Pending</h4>
+        </section>
+        <!-- <section class="dashboard-card"></section> -->
+      </div>
+
+      <p class="instructions">Interest on all Loans is at a fixed rate of <span class="rate">5%</span><br>
+        Minimum Loan Amount is <span class="amount"><span>&#8358</span>5000</span> and Maximum is <span
+          class="amount"><span>&#8358</span>500000</span><br>
+        Maximum Tenor(Duration of Loan repayment) is <span class="duration">12months</span></p>
+
+      <div class="dashboard-card__loan--container">
+        <section class="dashboard-card__loan">
+          <form action="" class="form loan-form">
+            <label for="amount">Amount (&#8358)</label>
+            <input type="number" name="amount" id="amount" class="input" min="5000" max="500000" step="1000"
+              onchange="estimateRepayment()">
+            <label for="tenor">Tenor (Months)</label>
+            <input type="number" name="tenor" id="tenor" class="input" min="1" max="12" onchange="estimateRepayment()">
+          </form>
+        </section>
+
+        <section class="dashboard-card__loan estimate">
+          <h3 class="estimate-title">Estimated Amounts</h3>
+          <div class="interest">
+            <label for="interest-accr">Interest Accrued (&#8358)</label>
+            <h4 class="interest-accr__val" id="interest-accr"></h4>
+          </div>
+          <div class="Monthly">
+            <label for="installment">Monthly installment (&#8358)</label>
+            <h4 class="monthly-val" id="installment"></h4>
+          </div>
+          <div class="total-repayment">
+            <label for="total-repayment">Total Repayment (&#8358)</label>
+            <h4 class="total-repayment__val" id="total-repayment"></h4>
+          </div>
+        </section>
+        <button class="button loan-apply__btn">Apply for Loan</button>
+      </div>
+
+    </section>
+
+
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+
+</html>

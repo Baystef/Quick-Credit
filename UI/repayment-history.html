@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Quick Credit</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/repayment-history.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+    integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="backdrop"></div>
+
+  <section class="modal">
+    <h1 class="modal__title">Are you sure you want to log out?</h1>
+    <section class="modal__actions">
+      <a href="signin.html" class="modal__action">Yes</a>
+      <button class="modal__action modal__action--negative" type="button">No</button>
+    </section>
+  </section>
+
+  <div class="container">
+    <aside>
+      <div class="welcome-container">
+        <h3 class="welcome">History</h3>
+      </div>
+      <nav class="dashboard-nav">
+        <ul class="dashboard-nav__items">
+          <li class="dashboard-nav__item"><a href="dashboard.html">Apply for Loan</a></li>
+          <li class="dashboard-nav__item active"><a href="repayment-history.html">History</a></li>
+          <li class="dashboard-nav__item"><a href="account-settings.html">Account Settings</a></li>
+        </ul>
+      </nav>
+
+      <button class="logout"><i class="fas fa-power-off"></i> Log Out</button>
+    </aside>
+
+    <section class="dashboard-body">
+      <h2 class="repayment-history">Your Repayment History</h2>
+      <section class="repayment-history__container">
+        <div class="repayment-history__items">
+          <p class="repayment-history__item">01</p>
+          <h5 class="repayment-history__title">Loan ID</h5>
+        </div>
+        <div class="repayment-history__items">
+          <p class="repayment-history__item">5000</p>
+          <h5 class="repayment-history__title">Loan Amount (<span>&#8358</span>)</h5>
+        </div>
+        <div class="repayment-history__items">
+          <p class="repayment-history__item">1200</p>
+          <h5 class="repayment-history__title">Interest Accrued (<span>&#8358</span>)</h5>
+        </div>
+        <div class="repayment-history__items">
+          <p class="repayment-history__item">3000</p>
+          <h5 class="repayment-history__title">Monthly Payment (<span>&#8358</span>)</h5>
+        </div>
+        <div class="repayment-history__items">
+          <p class="repayment-history__item">50000</p>
+          <h5 class="repayment-history__title">Total Repayment Due (<span>&#8358</span>)</h5>
+        </div>
+        <div class="repayment-history__items">
+          <p class="repayment-history__item">20th April, 2019</p>
+          <h5 class="repayment-history__title">Application Date</h5>
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+
+</html>

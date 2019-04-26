@@ -1,0 +1,14 @@
+.forgot-password {
+  color: var(--lightGrey);
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  text-decoration-skip-ink: auto;
+}
+
+@media (min-width: 40rem) {
+  .forgot-password {
+    font-size: 0.8rem;
+  }
+}
