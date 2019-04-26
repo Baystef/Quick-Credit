@@ -1,27 +1,3 @@
-:root {
-    /* --blue: #007bff;
-    --red: #dc3545;
-    --yellow: #ffc107;
-    --teal: #20c997;
-    --cyan: #17a2b8; */
-    --white: #fff;
-    --darkGreen: #025928;
-    --lightGreen: #3c8c30;
-    --orange: #d96704;
-    --lightGrey: #818385;
-    --darkGrey: #303030;
-    --breakpoint-sm: 576px;
-    --breakpoint-md: 768px;
-    --transition: all 0.2s ease-out;
-}
-
-/* .main-container {
-    min-height: 100%;
-    display: block;
-    position: relative;
-    margin-bottom: 1rem;
-} */
-
 .main {
     text-align: center;
     margin-left: 2rem;
@@ -114,7 +90,7 @@
     .main-header {
         text-align: left;
         align-items: flex-start;
-        padding-left: 2rem;
+        padding-left: 6rem;
     }
     
     .main-works-container {

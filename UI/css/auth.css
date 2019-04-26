@@ -1,0 +1,31 @@
+body {
+  background-color: var(--lightGrey);
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-button,
+.signin-button {
+  width: 100%;
+  background-color: var(--lightGreen);
+  padding: 0.9rem;
+  border: 0;
+  color: var(--white);
+}
+
+.signup-button:hover,
+.signup-button:active,
+.signin-button:hover,
+.signin-button:active {
+  background-color: var(--lighterGreen);
+}
+
+.footer {
+  margin-top: -3rem;
+}
