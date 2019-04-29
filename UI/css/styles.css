@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
 :root {
     --red: #dc3545;
     --white: #fff;
@@ -32,7 +34,7 @@ body {
     margin: auto 0;
     padding: 0;
     font-size: 0.8rem;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', sans-serif;
 }
 
 ul,
@@ -137,13 +139,6 @@ label {
     list-style: none;
     display: flex;
     font-size: 0.8rem;
-}
-
-.main-nav__item {
-    padding: 0.8rem;
-    cursor: pointer;
-    text-align: center;
-    width: 6rem;
 }
 
 .main-nav__item:nth-child(2) {
@@ -253,8 +248,9 @@ label {
 
 /* Footer Styles */
 .footer {
-    position: relative;
+    position: fixed;
     bottom: 0;
+    left: 0;
     height: 3rem;
     width: 100%;
     background-color: var(--darkGrey);
@@ -262,6 +258,7 @@ label {
     text-align: center;
     padding: 1rem;
     margin-top: 1rem;
+    z-index: 1000;
 }
 
 .footer-links {
@@ -354,6 +351,7 @@ label {
 
     .main-nav__item:nth-child(2) {
         display: inline;
+        margin-left: 0.8rem;
     }
 
     .main-nav__item:nth-child(2) a {
@@ -363,6 +361,9 @@ label {
 
     .main-nav__item:nth-child(2) a:hover {
         box-shadow: var(--boxShadow);
+        background-color: var(--orange);
+        color: var(--white);
+        border: 1px solid var(--orange);
     }
 
     .form-link,
