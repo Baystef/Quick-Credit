@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import server from '../index';
+// import server from '../index';
 
 describe('test', () => {
   it('should return a string', () => {
