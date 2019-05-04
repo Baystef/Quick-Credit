@@ -1,9 +1,12 @@
 import express from 'express';
+import user from './src/routes/users';
 
 const app = express();
+app.use(express.json());
+app.use('/api/v1/auth', user);
 
-app.get('/', (req, res) => {
-  res.send('This is Quick Credit');
+app.get('/api/v1', (req, res) => {
+  res.status(200).send({ message: 'This is Quick Credit' });
 });
 
 
