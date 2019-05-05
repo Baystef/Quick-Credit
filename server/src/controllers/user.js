@@ -6,13 +6,8 @@ class User {
       firstName, lastName, email, password, phoneNo, homeAddress, workAddress,
     } = req.body;
 
-    if (!firstName || !lastName || !email || !password
-      || !phoneNo || !homeAddress || !workAddress) {
-      return res.status(400).json({ status: 400, error: 'All fields are required' });
-    }
-
     const exists = users.find(user => user.email === email);
-    if (exists) return res.status(400).json({ status: 400, error: 'User already exists' });
+    if (exists) return res.status(422).json({ status: 422, error: 'User already exists' });
 
     const newUser = {
       id: users.length + 1,
