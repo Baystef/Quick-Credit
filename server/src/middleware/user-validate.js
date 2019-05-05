@@ -45,7 +45,7 @@ class Validation {
       .checkBody('phoneNo')
       .notEmpty()
       .withMessage('Phone number is required')
-      .isNumber()
+      .isInt()
       .withMessage('Phone number should be numbers only')
       .trim()
       .isLength({ min: 13 })
