@@ -2,6 +2,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../index';
 
+
 const { expect } = chai;
 chai.use(chaiHttp);
 
@@ -399,6 +400,117 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Address should be between 10 to 60 characters');
         expect(res.body.error).to.exist;
+        done(err);
+      });
+  });
+});
+
+// Tests for the Signin route
+describe('SIGNIN route', () => {
+  it('should login a user account successfully', (done) => {
+    const user = {
+      email: 'daramola.steve@gmail.com',
+      password: 'testing30',
+    };
+    chai
+      .request(server)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.data).to.exist;
+        expect(res.body.data.token).to.exist;
+        done(err);
+      });
+  });
+
+  it('should return 400 if email is invalid', (done) => {
+    const user = {
+      email: 'daramola.ste@gmail',
+      password: 'testing30',
+    };
+    chai
+      .request(server)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body).to.be.a('object');
+        expect(res.body.error).to.exist;
+        expect(res.body.error).to.equal('Email Address is invalid');
+        done(err);
+      });
+  });
+
+  it('should return 400 if email is not found', (done) => {
+    const user = {
+      email: 'daramola.ste@gmail.com',
+      password: 'testing30',
+    };
+    chai
+      .request(server)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body).to.be.a('object');
+        expect(res.body.error).to.exist;
+        expect(res.body.error).to.equal('Invalid Email or Password');
+        done(err);
+      });
+  });
+
+  it('should return 400 if password is wrong/invalid', (done) => {
+    const user = {
+      email: 'daramola.steve@gmail.com',
+      password: 'testing38',
+    };
+    chai
+      .request(server)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body).to.be.a('object');
+        expect(res.body.error).to.exist;
+        expect(res.body.error).to.equal('Invalid Email or Password');
+        done(err);
+      });
+  });
+
+  it('should return 400 if email is omited', (done) => {
+    const user = {
+      email: '',
+      password: 'testing30',
+    };
+    chai
+      .request(server)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body).to.be.a('object');
+        expect(res.body.error).to.exist;
+        expect(res.body.error).to.equal('Email is required');
+        done(err);
+      });
+  });
+
+  it('should return 400 if password is omited', (done) => {
+    const user = {
+      email: 'daramola.steve@gmail.com',
+      password: '',
+    };
+    chai
+      .request(server)
+      .post('/api/v1/auth/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body).to.be.a('object');
+        expect(res.body.error).to.exist;
+        expect(res.body.error).to.equal('Password is required');
         done(err);
       });
   });
