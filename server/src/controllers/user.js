@@ -13,7 +13,7 @@ class User {
    * @param {object} res response object
    * @returns {object} JSON response
    */
-  static register(req, res) {
+  static signUp(req, res) {
     const {
       firstName, lastName, email, password, phoneNo, homeAddress, workAddress,
     } = req.body;
@@ -44,6 +44,35 @@ class User {
 
     users.push(newUser);
     return res.status(201).json({ status: '201', data: newUser });
+  }
+
+  /**
+   * @description User signin
+   * @param {object} req request object
+   * @param {object} res response object
+   * @returns {object} user object
+   */
+  static signIn(req, res) {
+    const { email, password } = req.body;
+    const withEmail = users.findIndex(user => user.email === email);
+
+    if (withEmail !== -1) {
+      const verify = Authentication.comparePassword(
+        users[withEmail].password,
+        password,
+      );
+
+      if (verify) {
+        return res.status(200).json({
+          status: 200,
+          data: users[withEmail],
+        });
+      }
+    }
+    return res.status(400).json({
+      status: 400,
+      error: 'Invalid Email or Password',
+    });
   }
 }
 

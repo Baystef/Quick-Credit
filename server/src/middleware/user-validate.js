@@ -78,6 +78,31 @@ class Validation {
 
     next();
   }
+
+  static signinValidate(req, res, next) {
+    req
+      .checkBody('email')
+      .notEmpty()
+      .withMessage('Email is required')
+      .trim()
+      .isEmail()
+      .withMessage('Email Address is invalid')
+      .customSanitizer(email => email.toLowerCase());
+
+    req
+      .checkBody('password')
+      .notEmpty()
+      .withMessage('Password is required');
+
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({
+        status: 400,
+        error: errors[0].msg,
+      });
+    }
+    return next();
+  }
 }
 
 export default Validation;
