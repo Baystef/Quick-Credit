@@ -46,21 +46,27 @@ export const users = [
 export const loans = [
   {
     id: 1,
-    user: 'daramola@quick.com',
-    status: 'approved',
+    user: 'daramola.steve@gmail.com',
     loanAmount: 50000,
     tenor: 5,
+    status: 'approved',
     repaid: false,
-    get interest() {
-      return (0.05 * this.loanAmount);
-    },
-    get monthlyInstall() {
-      return (this.loanAmount + this.interest) / this.tenor;
-    },
-    get balance() {
-      return (this.loanAmount + this.interest);
-    },
-    createdAt: new Date(),
+    interest: 2500,
+    paymentInstallment: 10500,
+    balance: 52500,
+    createdAt: '5/6/2019, 1:37:13 PM',
+  },
+  {
+    id: 2,
+    user: 'daramola@quic.com',
+    loanAmount: 100000,
+    tenor: 7,
+    status: 'pending',
+    repaid: false,
+    interest: 5000,
+    paymentInstallment: 15000,
+    balance: 105000,
+    createdAt: '5/6/2019, 1:42:42 PM',
   },
 ];
 
