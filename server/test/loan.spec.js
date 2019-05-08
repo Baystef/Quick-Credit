@@ -7,7 +7,8 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 describe('LOANS route', () => {
-  describe('Create Loans route', () => {
+  // Loan application tests
+  describe('CREATE LOANS route', () => {
     it('should return 201 on loan application success', (done) => {
       const user = {
         firstName: 'Steve',
@@ -23,7 +24,6 @@ describe('LOANS route', () => {
         .post('/api/v1/auth/signup')
         .send(user)
         .end((signuperr, signupres) => {
-          console.log(`Bearer signup ${signupres.body.data.token}`);
           const token = `Bearer ${signupres.body.data.token}`;
           const loanApply = {
             firstName: 'Steve',
@@ -167,6 +167,190 @@ describe('LOANS route', () => {
               expect(res.body.status).to.equal(400);
               expect(res.body.error).to.exist;
               expect(res.body.error).to.equal('Tenor must be a number');
+              done();
+            });
+        });
+    });
+  });
+
+  // Get all loan application tests
+  describe('GET ALL LOANS route', () => {
+    it('should return a status 200 with all loan applications', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          chai
+            .request(server)
+            .get('/api/v1/loans')
+            .set('authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.be.equal(200);
+              expect(res.body).to.be.a('object');
+              expect(res.body.data).to.be.a('array');
+              expect(res.body.data[0].interest).to.exist;
+              expect(res.body.data[0].paymentInstallment).to.exist;
+              done();
+            });
+        });
+    });
+
+    it('should return 403 if user is not an admin', (done) => {
+      const notAdmin = {
+        email: 'daramola@quick.com',
+        password: 'quickcredit',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(notAdmin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          chai
+            .request(server)
+            .get('/api/v1/loans')
+            .set('authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.be.equal(403);
+              expect(res.body).to.be.a('object');
+              expect(res.body.error).to.exist;
+              expect(res.body.error).to.equal('Access denied');
+              done();
+            });
+        });
+    });
+
+    it('should return 401 if token is not provided or invalid', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `${loginres.body.data.token}`;
+          chai
+            .request(server)
+            .get('/api/v1/loans')
+            .set('authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.be.equal(401);
+              expect(res.body).to.be.a('object');
+              expect(res.body.error).to.exist;
+              expect(res.body.error).to.equal('Invalid token or none provided');
+              done();
+            });
+        });
+    });
+  });
+
+  // Loan query parameter tests
+  describe('GET REPAID OR CURRENT LOANS route', () => {
+    it('should return 200 and all approved & repaid loans', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          chai
+            .request(server)
+            .get('/api/v1/loans?status=approved&repaid=true')
+            .set('authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.equal(200);
+              expect(res.body).to.be.a('object');
+              expect(res.body.data).to.be.a('array');
+              expect(res.body.data[0].interest).to.exist;
+              expect(res.body.data[0].paymentInstallment).to.exist;
+              done();
+            });
+        });
+    });
+
+    it('should return 200 and all approved & unrepaid loans', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          chai
+            .request(server)
+            .get('/api/v1/loans?status=approved&repaid=false')
+            .set('authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.equal(200);
+              expect(res.body).to.be.a('object');
+              expect(res.body.data).to.be.a('array');
+              expect(res.body.data[0].interest).to.exist;
+              expect(res.body.data[0].paymentInstallment).to.exist;
+              done();
+            });
+        });
+    });
+
+    it('should return 400 for invalid status query', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          chai
+            .request(server)
+            .get('/api/v1/loans?status=approval&repaid=false')
+            .set('authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.be.equal(400);
+              expect(res.body).to.be.a('object');
+              expect(res.body.error).to.exist;
+              expect(res.body.error).to.equal('Invalid status query');
+              done();
+            });
+        });
+    });
+
+    it('should return 400 for invalid repaid query', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          chai
+            .request(server)
+            .get('/api/v1/loans?status=approved&repaid=yes')
+            .set('authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.be.equal(400);
+              expect(res.body).to.be.a('object');
+              expect(res.body.error).to.exist;
+              expect(res.body.error).to.equal('Invalid repaid query');
               done();
             });
         });
