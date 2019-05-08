@@ -79,7 +79,8 @@ class LoanValidation {
    * @function next() pass control to the next middleware function
    */
   static approvedValidate(req, res, next) {
-    req.checkQuery('status')
+    req
+      .checkQuery('status')
       .optional()
       .isAlpha()
       .withMessage('Invalid status query type')
@@ -93,6 +94,21 @@ class LoanValidation {
       .withMessage('Invalid repaid query type')
       .isBoolean()
       .withMessage('Invalid repaid query');
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({
+        status: 400,
+        error: errors[0].msg,
+      });
+    }
+    return next();
+  }
+
+  static oneLoanValidate(req, res, next) {
+    req
+      .checkParams('id')
+      .isNumeric()
+      .withMessage('Invalid loan query type');
     const errors = req.validationErrors();
     if (errors) {
       return res.status(400).json({

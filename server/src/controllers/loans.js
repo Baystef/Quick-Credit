@@ -92,6 +92,28 @@ class Loan {
       data: loans,
     });
   }
+
+  /**
+   * @method getALoan retrieves a single specified loan
+   * @param {object} req request parameter
+   * @param {object} res response object {status, data}
+   * @returns {object} A specified loan
+   */
+  static getALoan(req, res) {
+    let { id } = req.params;
+    id = Number(id);
+    const aLoan = loans.find(loan => loan.id === id);
+    if (aLoan) {
+      return res.status(200).json({
+        status: 200,
+        data: aLoan,
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      error: 'Loan does not exist',
+    });
+  }
 }
 
 export default Loan;

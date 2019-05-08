@@ -356,4 +356,82 @@ describe('LOANS route', () => {
         });
     });
   });
+
+  describe('GET A LOAN route', () => {
+    it('should return 200 and a specific loan application', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          chai
+            .request(server)
+            .get('/api/v1/loans/1')
+            .set('authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.equal(200);
+              expect(res.body).to.be.a('object');
+              expect(res.body.data.user).to.exist;
+              expect(res.body.data.interest).to.exist;
+              expect(res.body.data.paymentInstallment).to.exist;
+              done();
+            });
+        });
+    });
+
+    it('should return 400 if parameter is not a number', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          chai
+            .request(server)
+            .get('/api/v1/loans/b')
+            .set('authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.equal(400);
+              expect(res.body).to.be.a('object');
+              expect(res.body.error).to.exist;
+              expect(res.body.error).to.equal('Invalid loan query type');
+              done();
+            });
+        });
+    });
+
+    it('should return 404 if loan id not found', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          chai
+            .request(server)
+            .get('/api/v1/loans/8')
+            .set('authorization', token)
+            .end((err, res) => {
+              expect(res.status).to.equal(404);
+              expect(res.body).to.be.a('object');
+              expect(res.body.error).to.exist;
+              expect(res.body.error).to.equal('Loan does not exist');
+              done();
+            });
+        });
+    });
+  });
 });
