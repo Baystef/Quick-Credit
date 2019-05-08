@@ -4,6 +4,13 @@
  */
 
 class LoanValidation {
+  /**
+   * @description loanApplyValidate validates all fields in loan
+   * application request body
+   * @param {object} req request object
+   * @param {object} res response object {error status, error message}
+   * @function next() pass control to the next middleware function
+   */
   static loanApplyValidate(req, res, next) {
     req
       .checkBody('firstName')
@@ -54,6 +61,38 @@ class LoanValidation {
       .isInt({ min: 1, max: 12 })
       .withMessage('Tenor minimum is 1 and maximum is 12 months');
 
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({
+        status: 400,
+        error: errors[0].msg,
+      });
+    }
+    return next();
+  }
+
+  /**
+   * @description approvedValidate validates query
+   * parameters(status and repaid) in the request query
+   * @param {object} req request object
+   * @param {object} res response object {error status, error message}
+   * @function next() pass control to the next middleware function
+   */
+  static approvedValidate(req, res, next) {
+    req.checkQuery('status')
+      .optional()
+      .isAlpha()
+      .withMessage('Invalid status query type')
+      .equals('approved')
+      .withMessage('Invalid status query');
+
+    req
+      .checkQuery('repaid')
+      .optional()
+      .isAlpha()
+      .withMessage('Invalid repaid query type')
+      .isBoolean()
+      .withMessage('Invalid repaid query');
     const errors = req.validationErrors();
     if (errors) {
       return res.status(400).json({

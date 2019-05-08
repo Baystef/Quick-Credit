@@ -66,6 +66,32 @@ class Loan {
       data: loanApplied,
     });
   }
+
+  /**
+   * @method getAllLoans retrieves all loans from the data structure
+   * and also if query is specified, it return loans that match the specified query
+   * @param {object} req request object
+   * @param {object} res response object {status,data}
+   * @returns [array] array of loans
+   */
+  static getAllLoans(req, res) {
+    const { status } = req.query;
+    let { repaid } = req.query;
+
+    if (status && repaid) {
+      // This parses status from string back to boolean
+      repaid = JSON.parse(repaid);
+      const approved = loans.filter(loan => loan.status === status && loan.repaid === repaid);
+      return res.status(200).json({
+        status: 200,
+        data: approved,
+      });
+    }
+    return res.status(200).json({
+      status: 200,
+      data: loans,
+    });
+  }
 }
 
 export default Loan;
