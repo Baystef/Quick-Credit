@@ -4,9 +4,9 @@ import authorization from '../middleware/authorization';
 import Loan from '../controllers/loans';
 import validation from '../middleware/loan-validate';
 
-const { loanApplyValidate, approvedValidate, oneLoanValidate } = validation;
+const { loanApplyValidate, approvedValidate, oneLoanValidate , approveRejectValidate} = validation;
 const { verifyUser, verifyAdmin } = authorization;
-const { loanApply, getAllLoans, getALoan } = Loan;
+const { loanApply, getAllLoans, getALoan, approveRejectLoan } = Loan;
 
 
 const router = express.Router();
@@ -20,6 +20,9 @@ router.get('/loans', approvedValidate, verifyUser, verifyAdmin, getAllLoans);
 
 // Get a specific loan application
 router.get('/loans/:id', oneLoanValidate, verifyUser, verifyAdmin, getALoan);
+
+// Approve or reject a loan application
+router.patch('/loans/:id', approveRejectValidate, verifyUser, verifyAdmin, approveRejectLoan);
 
 
 export default router;
