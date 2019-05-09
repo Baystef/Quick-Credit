@@ -434,4 +434,88 @@ describe('LOANS route', () => {
         });
     });
   });
+
+  // Loan Status(Appproved or Rejected) Tests
+  describe('LOAN STATUS UPDATE route', () => {
+    it('should return 200 and update the loan status of a specific user', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          const updateStatus = { status: 'approved' };
+          chai
+            .request(server)
+            .patch('/api/v1/loans/3')
+            .set('authorization', token)
+            .send(updateStatus)
+            .end((err, res) => {
+              expect(res.status).to.equal(200);
+              expect(res.body).to.be.a('object');
+              expect(res.body.data.status).to.exist;
+              expect(res.body.data.status).to.match(/^(approved|rejected)$/);
+              done();
+            });
+        });
+    });
+
+    it('should return 400 if an invalid status is provided', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          const updateStatus = { status: 'approval' };
+          chai
+            .request(server)
+            .patch('/api/v1/loans/3')
+            .set('authorization', token)
+            .send(updateStatus)
+            .end((err, res) => {
+              expect(res.status).to.equal(400);
+              expect(res.body).to.be.a('object');
+              expect(res.body.error).to.exist;
+              expect(res.body.error).to.equal('Status is invalid');
+              done();
+            });
+        });
+    });
+
+    it('should return 404 if loanID is not found', (done) => {
+      const admin = {
+        email: 'admin@quickcredit.com',
+        password: 'quickcreditsecret',
+      };
+      chai
+        .request(server)
+        .post('/api/v1/auth/signin')
+        .send(admin)
+        .end((loginerr, loginres) => {
+          const token = `Bearer ${loginres.body.data.token}`;
+          const updateStatus = { status: 'approved' };
+          chai
+            .request(server)
+            .patch('/api/v1/loans/20')
+            .set('authorization', token)
+            .send(updateStatus)
+            .end((err, res) => {
+              expect(res.status).to.equal(404);
+              expect(res.body).to.be.a('object');
+              expect(res.body.error).to.exist;
+              expect(res.body.error).to.equal('Loan does not exist');
+              done();
+            });
+        });
+    });
+  });
 });

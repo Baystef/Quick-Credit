@@ -118,6 +118,30 @@ class LoanValidation {
     }
     return next();
   }
+
+  static approveRejectValidate(req, res, next) {
+    req
+      .checkParams('id')
+      .isNumeric()
+      .withMessage('Invalid loan query type');
+
+    req
+      .checkBody('status')
+      .notEmpty()
+      .withMessage('Status is required')
+      .isAlpha()
+      .withMessage('Invalid status type')
+      .matches(/^(approved|rejected)$/)
+      .withMessage('Status is invalid');
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({
+        status: 400,
+        error: errors[0].msg,
+      });
+    }
+    return next();
+  }
 }
 
 export default LoanValidation;

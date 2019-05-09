@@ -114,6 +114,39 @@ class Loan {
       error: 'Loan does not exist',
     });
   }
+
+  /**
+   * @method approveRejectLoan approves or rejects a loan for a particular user
+   * @param {object} req request object
+   * @param {object} res response object
+   * @returns {object}
+   */
+  static approveRejectLoan(req, res) {
+    const { status } = req.body;
+    let { id } = req.params;
+    id = Number(id);
+
+    const pending = loans.find(loan => loan.id === id);
+    if (pending) {
+      pending.status = status;
+      const newStatus = {
+        loanId: pending.id,
+        loanAmount: pending.loanAmount,
+        tenor: pending.tenor,
+        status: pending.status,
+        monthlyInstallment: pending.paymentInstallment,
+        interest: pending.interest,
+      };
+      return res.status(200).json({
+        status: 200,
+        data: newStatus,
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      error: 'Loan does not exist',
+    });
+  }
 }
 
 export default Loan;
