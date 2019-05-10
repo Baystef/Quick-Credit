@@ -9,6 +9,7 @@ app.use(morgan('tiny'));
 app.use(express.json());
 
 app.use('/api/v1/auth', user);
+app.use('/api/v1/', user);
 app.use('/api/v1', loan);
 
 app.get('/api/v1', (req, res) => {
