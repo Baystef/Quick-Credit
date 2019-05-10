@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 class Validation {
   static signupValidate(req, res, next) {
     req
@@ -76,7 +75,7 @@ class Validation {
     const errors = req.validationErrors();
     if (errors) return res.status(400).json({ status: 400, error: errors[0].msg });
 
-    next();
+    return next();
   }
 
   static signinValidate(req, res, next) {
@@ -94,6 +93,22 @@ class Validation {
       .notEmpty()
       .withMessage('Password is required');
 
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({
+        status: 400,
+        error: errors[0].msg,
+      });
+    }
+    return next();
+  }
+
+  static newUserVerifyValidate(req, res, next) {
+    req
+      .checkParams('email')
+      .isEmail()
+      .withMessage('Email Address is invalid')
+      .customSanitizer(email => email.toLowerCase());
     const errors = req.validationErrors();
     if (errors) {
       return res.status(400).json({

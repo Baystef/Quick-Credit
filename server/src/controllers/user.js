@@ -74,6 +74,32 @@ class User {
       error: 'Invalid Email or Password',
     });
   }
+
+  static newUserVerify(req, res) {
+    const { email } = req.params;
+    const unverified = users.find(user => user.email === email);
+
+    if (unverified) {
+      unverified.status = 'verified';
+
+      const newStatus = {
+        email: unverified.email,
+        firstName: unverified.firstName,
+        lastName: unverified.lastName,
+        password: unverified.password,
+        address: unverified.workAddress,
+        status: unverified.status,
+      };
+      return res.status(200).json({
+        status: 200,
+        data: newStatus,
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      error: 'User does not exist',
+    });
+  }
 }
 
 export default User;
