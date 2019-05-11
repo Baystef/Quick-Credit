@@ -120,11 +120,23 @@ export const loans = [
   },
 ];
 
-// export const repayments = [
-//   {
-//     id: 1,
-//     loanId: loans.find(x => x.user === 'daramola@quick.com').id,
-//     loanAmount: loans.find(x => x.user === 'daramola@quick.com').loanAmount,
-//     createdOn: new Date(),
-//   },
-// ];
+export const repayments = [
+  {
+    id: 1,
+    loanId: 2,
+    createdOn: '5/6/2019, 1:42:42 PM',
+    amount: 100000,
+    monthlyInstallment: 15000,
+    paidAmount: 30000,
+    balance: 75000,
+  },
+  {
+    id: 2,
+    loanId: 1,
+    createdOn: '5/6/2019, 1:37:13 PM',
+    amount: 50000,
+    monthlyInstallment: 10500,
+    paidAmount: 10500,
+    balance: 42000,
+  },
+];
