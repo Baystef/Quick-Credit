@@ -49,6 +49,24 @@ class Repayments {
       error: 'Loan does not exist',
     });
   }
+
+  static getRepaymentHistory(req, res) {
+    const id = Number(req.params.id);
+
+    const history = repayments.filter(repayment => repayment.loanId === id);
+
+
+    if (history) {
+      return res.status(200).json({
+        status: 200,
+        data: history,
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      error: 'You have no repayment history',
+    });
+  }
 }
 
 export default Repayments;
