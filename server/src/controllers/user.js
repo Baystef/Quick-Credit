@@ -1,8 +1,8 @@
-import { users } from '../db';
+import { users } from '../models/db';
 import Authentication from '../middleware/authentication';
+import Helper from '../helper/auth-helper';
 
 /**
- * @class User controller
  * @description contains methods for each user endpoint
  * @exports User
  */
@@ -11,7 +11,7 @@ class User {
    * @description Creates new user account
    * @param {object} req request object
    * @param {object} res response object
-   * @returns {object} JSON response
+   * @returns {object}  new user object
    */
   static signUp(req, res) {
     const {
@@ -19,12 +19,16 @@ class User {
     } = req.body;
 
     const exists = users.find(user => user.email === email);
-    if (exists) return res.status(422).json({ status: 422, error: 'User already exists' });
+    if (exists) return res.status(409).json({ status: 409, error: 'User already exists' });
 
     const id = users.length + 1;
     const status = 'unverified';
     const isAdmin = false;
-    const token = Authentication.generateToken({ id, email, isAdmin });
+    const createdOn = new Date().toLocaleString();
+    const hPassword = Helper.hashPassword(password);
+    const token = Authentication.generateToken({
+      id, firstName, lastName, email, isAdmin,
+    });
 
 
     const newUser = {
@@ -33,13 +37,13 @@ class User {
       firstName,
       lastName,
       email,
-      password: Authentication.hashPassword(password),
+      password: hPassword,
       phoneNo,
       homeAddress,
       workAddress,
       status,
       isAdmin,
-      createdAt: new Date().toLocaleString(),
+      createdOn,
     };
 
     users.push(newUser);
@@ -57,7 +61,7 @@ class User {
     const withEmail = users.findIndex(user => user.email === email);
 
     if (withEmail !== -1) {
-      const verify = Authentication.comparePassword(
+      const verify = Helper.comparePassword(
         users[withEmail].password,
         password,
       );
@@ -75,6 +79,12 @@ class User {
     });
   }
 
+  /**
+   * @description User Verification
+   * @param {object} req request object
+   * @param {object} res response object
+   * @returns {object} user object with verified status
+   */
   static newUserVerify(req, res) {
     const { email } = req.params;
     const unverified = users.find(user => user.email === email);

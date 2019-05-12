@@ -1,12 +1,23 @@
+/**
+ * @description A validation class for validation of fields and parameters of user endpoints
+ * @exports Validation
+ */
+
 class Validation {
+  /**
+  * @description Validates all fields in signup request body
+  * @param {object} req request object
+  * @param {object} res response object
+  * @param {function} next move to next middleware
+  */
   static signupValidate(req, res, next) {
     req
       .checkBody('firstName')
       .notEmpty()
       .withMessage('First name is required')
       .trim()
-      .isLength({ min: 3, max: 20 })
-      .withMessage('First name should be between 3 to 20 characters')
+      .isLength({ min: 3, max: 25 })
+      .withMessage('First name should be between 3 to 25 characters')
       .isAlpha()
       .withMessage('First name should contain alphabets only');
 
@@ -15,8 +26,8 @@ class Validation {
       .notEmpty()
       .withMessage('Last name is required')
       .trim()
-      .isLength({ min: 3, max: 20 })
-      .withMessage('Last name should be between 3 to 20 characters')
+      .isLength({ min: 3, max: 25 })
+      .withMessage('Last name should be between 3 to 25 characters')
       .isAlpha()
       .withMessage('Last name should contain alphabets only');
 
@@ -37,8 +48,8 @@ class Validation {
       .isIn(['password', 'PASSWORD', 12345678, 87654321])
       .withMessage('Password is too simple')
       .trim()
-      .isLength({ min: 8, max: 24 })
-      .withMessage('Password must be atleast 8 to 24 characters');
+      .isLength({ min: 8, max: 100 })
+      .withMessage('Password must be atleast 8 to 100 characters');
 
     req
       .checkBody('phoneNo')
@@ -78,6 +89,12 @@ class Validation {
     return next();
   }
 
+  /**
+  * @description Validates all fields in signin request body
+  * @param {object} req request object
+  * @param {object} res response object
+  * @param {function} next move to next middleware
+  */
   static signinValidate(req, res, next) {
     req
       .checkBody('email')
@@ -103,6 +120,12 @@ class Validation {
     return next();
   }
 
+  /**
+  * @description Validates email field in user verification request parameter
+  * @param {object} req request object
+  * @param {object} res response object
+  * @param {function} next move to next middleware
+  */
   static newUserVerifyValidate(req, res, next) {
     req
       .checkParams('email')

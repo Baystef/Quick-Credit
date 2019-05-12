@@ -1,15 +1,14 @@
 /**
  * @description A validation class for validation of fields in each loan endpoint
- * @class LoanValidation
+ * @exports LoanValidation
  */
 
 class LoanValidation {
   /**
-   * @description loanApplyValidate validates all fields in loan
-   * application request body
+   * @description Validates all fields in loan application request body
    * @param {object} req request object
-   * @param {object} res response object {error status, error message}
-   * @function next() pass control to the next middleware function
+   * @param {object} res response object
+   * @param {function} next move to next middleware
    */
   static loanApplyValidate(req, res, next) {
     req
@@ -72,11 +71,10 @@ class LoanValidation {
   }
 
   /**
-   * @description approvedValidate validates query
-   * parameters(status and repaid) in the request query
+   * @description Validates query parameters(status and repaid) in the loan repaid request query
    * @param {object} req request object
-   * @param {object} res response object {error status, error message}
-   * @function next() pass control to the next middleware function
+   * @param {object} res response object
+   * @param {function} next move to next middleware
    */
   static approvedValidate(req, res, next) {
     req
@@ -104,6 +102,12 @@ class LoanValidation {
     return next();
   }
 
+  /**
+   * @description Validates the loan id parameter
+   * @param {object} req request object
+   * @param {object} res response object
+   * @param {function} next move to next middleware
+   */
   static oneLoanValidate(req, res, next) {
     req
       .checkParams('id')
@@ -119,6 +123,12 @@ class LoanValidation {
     return next();
   }
 
+  /**
+   * @description Validates id parameter and field in loan verification request body
+   * @param {object} req request object
+   * @param {object} res response object
+   * @param {function} next move to next middleware
+   */
   static approveRejectValidate(req, res, next) {
     req
       .checkParams('id')

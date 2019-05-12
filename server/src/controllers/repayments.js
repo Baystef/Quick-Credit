@@ -1,11 +1,17 @@
-import { loans, repayments } from '../db';
+import { loans, repayments } from '../models/db';
 
 /**
- * @class RepaymentController
  * @description Collection of methods that generates and retrieves repayment record
+ * @exports Repayments
  */
 
 class Repayments {
+  /**
+   * @description Generates new loan repayment records
+   * @param {object} req request object
+   * @param {object}  res response object
+   * @returns {object} new loan repayment record
+   */
   static generateRepaymentRecord(req, res) {
     const id = Number(req.params.id);
     const paidAmount = Number(req.body.paidAmount);
@@ -13,7 +19,6 @@ class Repayments {
 
 
     if (loanFound) {
-      // If amount repaid is greater than repayment due
       if (paidAmount > loanFound.balance) {
         return res.status(400).json({
           status: 400,
@@ -26,7 +31,7 @@ class Repayments {
       const newRecord = {
         id: repayments.length + 1,
         loanId: loanFound.id,
-        createdOn: loanFound.createdAt,
+        createdOn: loanFound.createdOn,
         amount: loanFound.loanAmount,
         monthlyInstallments: loanFound.paymentInstallment,
         paidAmount,
@@ -50,6 +55,12 @@ class Repayments {
     });
   }
 
+  /**
+   * @description Retrieves repayment records
+   * @param {object} req request object
+   * @param {object} res response object
+   * @returns {object}  repayment record object
+   */
   static getRepaymentHistory(req, res) {
     const id = Number(req.params.id);
 

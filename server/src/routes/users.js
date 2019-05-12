@@ -7,8 +7,19 @@ import authorization from '../middleware/authorization';
 const router = express.Router();
 router.use(expressValidator());
 
-router.post('/signup', validation.signupValidate, User.signUp);
-router.post('/signin', validation.signinValidate, User.signIn);
-router.patch('/users/:email/verify', authorization.verifyAdmin, validation.newUserVerifyValidate, User.newUserVerify);
+// Import { method(s) } from class;
+const { verifyAdmin } = authorization;
+const { signUp, signIn, newUserVerify } = User;
+const { signupValidate, signinValidate, newUserVerifyValidate } = validation;
+
+
+// New user signup
+router.post('/signup', signupValidate, signUp);
+
+// User signin
+router.post('/signin', signinValidate, signIn);
+
+// User verification
+router.patch('/users/:email/verify', verifyAdmin, newUserVerifyValidate, newUserVerify);
 
 export default router;

@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 describe('test', () => {
   it('should return a string', (done) => {
     chai.request(server)
-      .get('/api/v1')
+      .get('/')
       .end((err, res) => {
         expect(res.body.message).to.exist;
         expect(res.body.message).to.equal('This is Quick Credit');

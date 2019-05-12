@@ -1,18 +1,17 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 /**
- * Helper class for token generation and verification
- * Also for password hashing and verification
+ * @description Class for token generation and verification
+ * @exports Authentication
  */
 
 class Authentication {
   /**
    * @description Generates access token
-   * @param {object} payload User credential
+   * @param {object} payload User credentials
    * @returns {string} Access token
    */
   static generateToken(payload) {
@@ -26,25 +25,6 @@ class Authentication {
    */
   static verifyToken(token) {
     return jwt.verify(token, process.env.SECRET);
-  }
-
-  /**
-   * @description Hashes plain text password
-   * @param {string} password Password in plain text
-   * @returns {string} Hashed password
-   */
-  static hashPassword(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
-  }
-
-  /**
-   * @description Verifies if user password is valid by comparing with stored hashed password
-   * @param {string} hashPassword Hashed password to compare with
-   * @param {string} password Plain text password to be verified
-   * @returns {boolean} Will be true or false if password matches hashed password or not
-   */
-  static comparePassword(hashPassword, password) {
-    return bcrypt.compareSync(password, hashPassword);
   }
 }
 

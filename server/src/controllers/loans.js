@@ -1,11 +1,15 @@
-import { loans } from '../db';
+import { loans } from '../models/db';
 
+/**
+ * @description Loan class of methods for each loan endpoint
+ * @exports Loan
+ */
 class Loan {
   /**
-   * @method loanApply is used to create new loan applications
+   * @description creates new loan applications
    * @param {object} req request object
    * @param {object} res response object
-   * @returns {object} new loan application
+   * @returns {object}  new loan application object
    */
   static loanApply(req, res) {
     const {
@@ -13,12 +17,12 @@ class Loan {
     } = req.body;
 
     const loanId = loans.length + 1;
-    const interest = 0.05 * Number(loanAmount).toFixed(2);
-    const paymentInstallment = (Number(loanAmount + interest) / tenor).toFixed(2);
-    const balance = Number(loanAmount + interest).toFixed(2);
+    const interest = 0.05 * loanAmount.toFixed(2);
+    const paymentInstallment = Number(((loanAmount + interest) / tenor).toFixed(2));
+    const balance = Number((loanAmount + interest).toFixed(2));
     const repaid = false;
     const status = 'pending';
-    const createdAt = new Date().toLocaleString();
+    const createdOn = new Date().toLocaleString();
 
     // Loan data returned to user
     const loanApplied = {
@@ -32,13 +36,14 @@ class Loan {
       paymentInstallment,
       balance,
       repaid,
-      createdAt,
+      createdOn,
       status,
     };
 
-    // Loan data stored in data structure
+
     const id = loanApplied.loanId;
     const user = req.user.email;
+    // Loan data stored in data structure
     const newLoan = {
       id,
       user,
@@ -48,7 +53,7 @@ class Loan {
       balance,
       tenor,
       repaid,
-      createdAt,
+      createdOn,
       status,
     };
 
@@ -68,10 +73,10 @@ class Loan {
   }
 
   /**
-   * @method getAllLoans retrieves all loans from the data structure
+   * @description Retrieves all loans from the data structure
    * and also if query is specified, it return loans that match the specified query
    * @param {object} req request object
-   * @param {object} res response object {status,data}
+   * @param {object} res response object
    * @returns [array] array of loans
    */
   static getAllLoans(req, res) {
@@ -79,8 +84,9 @@ class Loan {
     let { repaid } = req.query;
 
     if (status && repaid) {
-      // This parses status from string back to boolean
+      // parses repaid back to boolean
       repaid = JSON.parse(repaid);
+
       const approved = loans.filter(loan => loan.status === status && loan.repaid === repaid);
       return res.status(200).json({
         status: 200,
@@ -94,14 +100,14 @@ class Loan {
   }
 
   /**
-   * @method getALoan retrieves a single specified loan
+   * @description Retrieves a single specified loan
    * @param {object} req request parameter
    * @param {object} res response object {status, data}
    * @returns {object} A specified loan
    */
   static getALoan(req, res) {
-    let { id } = req.params;
-    id = Number(id);
+    const id = Number(req.params.id);
+
     const aLoan = loans.find(loan => loan.id === id);
     if (aLoan) {
       return res.status(200).json({
@@ -116,15 +122,15 @@ class Loan {
   }
 
   /**
-   * @method approveRejectLoan approves or rejects a loan for a particular user
+   * @description Approves or rejects a loan for a particular user
    * @param {object} req request object
    * @param {object} res response object
-   * @returns {object}
+   * @returns {object} loan application with new status
    */
   static approveRejectLoan(req, res) {
     const { status } = req.body;
-    let { id } = req.params;
-    id = Number(id);
+    const id = Number(req.params.id);
+
 
     const pending = loans.find(loan => loan.id === id);
     if (pending) {
