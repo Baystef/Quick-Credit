@@ -11,7 +11,7 @@ export const users = [
     workAddress: '2, Quick Credit Complex',
     status: 'verified',
     isAdmin: true,
-    createdAt: '5/8/2019, 9:26:33 AM',
+    createdOn: '5/8/2019, 9:26:33 AM',
   },
   {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoyLCJlbWFpbCI6ImRhcmFtb2xhQHF1aWNrLmNvbSIsImlzQWRtaW4iOmZhbHNlfSwiaWF0IjoxNTU3MzA0NDk5LCJleHAiOjE1NTc5MDkyOTl9._l21iWLreCcDsHWY6TmqMKQJMI5fj-7_1ztAO9pvjXs',
@@ -25,7 +25,7 @@ export const users = [
     workAddress: '5, dolphin, lagos',
     status: 'unverified',
     isAdmin: false,
-    createdAt: '5/8/2019, 9:34:59 AM',
+    createdOn: '5/8/2019, 9:34:59 AM',
   },
   {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjozLCJlbWFpbCI6ImRhcmFtb2xhQHF1aWMuY29tIiwiaXNBZG1pbiI6ZmFsc2V9LCJpYXQiOjE1NTczMDQ2NTksImV4cCI6MTU1NzkwOTQ1OX0._lyBrHAu4L8Hd_Kx3Tdre71Wr-dvS8k6QuCVl1i286o',
@@ -39,7 +39,7 @@ export const users = [
     workAddress: '2, Ilupeju close',
     status: 'unverified',
     isAdmin: false,
-    createdAt: '5/8/2019, 9:37:39 AM',
+    createdOn: '5/8/2019, 9:37:39 AM',
   },
   {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo0LCJlbWFpbCI6ImRhcmFtb2xhLnN0ZXZlQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlfSwiaWF0IjoxNTU3MzA0ODEwLCJleHAiOjE1NTc5MDk2MTB9.rKUzAH7wzzeqq78qf2M6J1re4vsobWfbkbw2a26s8y4',
@@ -53,7 +53,7 @@ export const users = [
     workAddress: '2, Ilupeju close',
     status: 'unverified',
     isAdmin: false,
-    createdAt: '5/8/2019, 9:40:10 AM',
+    createdOn: '5/8/2019, 9:40:10 AM',
   },
 ];
 
@@ -68,7 +68,7 @@ export const loans = [
     interest: 2500,
     paymentInstallment: 10500,
     balance: 52500,
-    createdAt: '5/6/2019, 1:37:13 PM',
+    createdOn: '5/6/2019, 1:37:13 PM',
   },
   {
     id: 2,
@@ -80,7 +80,7 @@ export const loans = [
     interest: 5000,
     paymentInstallment: 15000,
     balance: 105000,
-    createdAt: '5/6/2019, 1:42:42 PM',
+    createdOn: '5/6/2019, 1:42:42 PM',
   },
   {
     id: 3,
@@ -92,7 +92,7 @@ export const loans = [
     interest: 5000,
     paymentInstallment: 15000,
     balance: 105000,
-    createdAt: '5/6/2019, 1:42:42 PM',
+    createdOn: '5/6/2019, 1:42:42 PM',
   },
   {
     id: 4,
@@ -104,7 +104,7 @@ export const loans = [
     interest: 5000,
     paymentInstallment: 15000,
     balance: 105000,
-    createdAt: '5/6/2019, 1:42:42 PM',
+    createdOn: '5/6/2019, 1:42:42 PM',
   },
   {
     id: 5,
@@ -116,7 +116,7 @@ export const loans = [
     interest: 5000,
     paymentInstallment: 15000,
     balance: 105000,
-    createdAt: '5/6/2019, 1:42:42 PM',
+    createdOn: '5/6/2019, 1:42:42 PM',
   },
 ];
 

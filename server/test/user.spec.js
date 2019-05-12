@@ -31,7 +31,7 @@ describe('SIGNUP route', () => {
       });
   });
 
-  it('should return 422 if user already exists', (done) => {
+  it('should return 409 if user already exists', (done) => {
     const newUser = {
       id: 2,
       firstName: 'Bayo',
@@ -46,7 +46,7 @@ describe('SIGNUP route', () => {
       .post('/api/v1/auth/signup')
       .send(newUser)
       .end((err, res) => {
-        expect(res.status).to.equal(422);
+        expect(res.status).to.equal(409);
         expect(res.body.error).to.equal('User already exists');
         expect(res.body.error).to.exist;
         done(err);
@@ -310,7 +310,7 @@ describe('SIGNUP route', () => {
       .send(newUser)
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal('First name should be between 3 to 20 characters');
+        expect(res.body.error).to.equal('First name should be between 3 to 25 characters');
         expect(res.body.error).to.exist;
         done(err);
       });
@@ -332,7 +332,7 @@ describe('SIGNUP route', () => {
       .send(newUser)
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal('Last name should be between 3 to 20 characters');
+        expect(res.body.error).to.equal('Last name should be between 3 to 25 characters');
         expect(res.body.error).to.exist;
         done(err);
       });
@@ -354,7 +354,7 @@ describe('SIGNUP route', () => {
       .send(newUser)
       .end((err, res) => {
         expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal('Password must be atleast 8 to 24 characters');
+        expect(res.body.error).to.equal('Password must be atleast 8 to 100 characters');
         expect(res.body.error).to.exist;
         done(err);
       });
@@ -407,7 +407,7 @@ describe('SIGNUP route', () => {
 
 // Tests for the Signin route
 describe('SIGNIN route', () => {
-  it('should login a user account successfully', (done) => {
+  it('should return 200 and login a user account successfully', (done) => {
     const user = {
       email: 'daramola.steve@gmail.com',
       password: 'testing30',

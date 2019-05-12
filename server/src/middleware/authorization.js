@@ -3,7 +3,8 @@ import Authentication from './authentication';
 const { verifyToken } = Authentication;
 
 /**
- * Helper class for User Authorization
+ * @description User Authorization
+ * @exports Authorization
  */
 class Authorization {
   /**
@@ -11,7 +12,7 @@ class Authorization {
    * to access admin resources
    * @param {object} req request object
    * @param {object} res response object
-   * @returns {object} decoded payload
+   * @returns {boolean} returns true or false for admin verification
    */
   static verifyAdmin(req, res, next) {
     try {
@@ -38,7 +39,7 @@ class Authorization {
    * to access user resources
    * @param {object} req request object
    * @param {object} res response object
-   * @returns {object} decoded payload
+   * @returns {boolean} returns true or false for user verification
    */
   static verifyUser(req, res, next) {
     try {

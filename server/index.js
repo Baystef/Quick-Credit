@@ -17,7 +17,7 @@ app.use('/api/v1/', user);
 app.use('/api/v1', loan);
 app.use('/api/v1', repayment);
 
-app.get('/api/v1', (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).send({ message: 'This is Quick Credit' });
 });
 
