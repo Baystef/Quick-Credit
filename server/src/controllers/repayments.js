@@ -14,32 +14,35 @@ class Repayments {
    */
   static generateRepaymentRecord(req, res) {
     const id = Number(req.params.id);
-    const paidAmount = Number(req.body.paidAmount);
     const loanFound = loans.find(loan => loan.id === id);
 
 
     if (loanFound) {
-      if (paidAmount > loanFound.balance) {
-        return res.status(400).json({
-          status: 400,
-          error: 'Amount paid is more than Repayment due',
-        });
-      }
-
+      const loanId = loanFound.id;
+      const amount = loanFound.loanAmount;
+      const createdOn = new Date().toLocaleString();
+      const monthlyInstallment = loanFound.paymentInstallment;
+      const paidAmount = loanFound.paymentInstallment;
       const newBalance = loanFound.balance - paidAmount;
 
       const newRecord = {
         id: repayments.length + 1,
-        loanId: loanFound.id,
-        createdOn: loanFound.createdOn,
-        amount: loanFound.loanAmount,
-        monthlyInstallments: loanFound.paymentInstallment,
+        loanId,
+        createdOn,
+        amount,
+        monthlyInstallment,
         paidAmount,
         balance: newBalance,
       };
 
       loanFound.balance = newBalance;
-      if (loanFound.balance === 0) loanFound.repaid = true;
+      if (loanFound.balance <= 0) {
+        loanFound.repaid = true;
+        return res.status(200).json({
+          status: 200,
+          error: 'Loan has been fully repaid',
+        });
+      }
 
       repayments.push(newRecord);
 
