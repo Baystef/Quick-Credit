@@ -204,7 +204,7 @@ describe('LOANS route', () => {
     it('should return 403 if user is not an admin', (done) => {
       const notAdmin = {
         email: 'daramola@quick.com',
-        password: 'quickcredit',
+        password: 'testing30',
       };
       chai
         .request(server)

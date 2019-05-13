@@ -12,9 +12,8 @@ class Loan {
    * @returns {object}  new loan application object
    */
   static loanApply(req, res) {
-    const {
-      firstName, lastName, email, loanAmount, tenor,
-    } = req.body;
+    const { loanAmount, tenor } = req.body;
+    const { firstName, lastName, email } = req.user;
 
     const loanId = loans.length + 1;
     const interest = 0.05 * loanAmount.toFixed(2);
@@ -42,7 +41,7 @@ class Loan {
 
 
     const id = loanApplied.loanId;
-    const user = req.user.email;
+    const user = email;
     // Loan data stored in data structure
     const newLoan = {
       id,
@@ -57,7 +56,7 @@ class Loan {
       status,
     };
 
-    const currentLoan = loans.find(loan => loan.user === req.user.email);
+    const currentLoan = loans.find(loan => loan.user === email);
     if (currentLoan) {
       return res.status(409).json({
         status: 409,

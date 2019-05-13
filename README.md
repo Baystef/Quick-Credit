@@ -48,7 +48,7 @@ https://www.pivotaltracker.com/n/projects/2326863
 // login as user
 {
   email: "daramola@quick.com",
-  password: "quickcredit"
+  password: "testing30"
 }
 ```
 

@@ -12,35 +12,6 @@ class LoanValidation {
    */
   static loanApplyValidate(req, res, next) {
     req
-      .checkBody('firstName')
-      .notEmpty()
-      .withMessage('First name is required')
-      .trim()
-      .isLength({ min: 3, max: 20 })
-      .withMessage('First name should be between 3 to 20 characters')
-      .isAlpha()
-      .withMessage('First name should contain alphabets only');
-
-    req
-      .checkBody('lastName')
-      .notEmpty()
-      .withMessage('Last name is required')
-      .trim()
-      .isLength({ min: 3, max: 20 })
-      .withMessage('Last name should be between 3 to 20 characters')
-      .isAlpha()
-      .withMessage('Last name should contain alphabets only');
-
-    req
-      .checkBody('email')
-      .notEmpty()
-      .withMessage('Email is required')
-      .trim()
-      .isEmail()
-      .withMessage('Invalid Email Address')
-      .customSanitizer(email => email.toLowerCase());
-
-    req
       .checkBody('loanAmount')
       .notEmpty()
       .withMessage('Please specify an amount')
