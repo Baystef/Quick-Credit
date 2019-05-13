@@ -14,10 +14,10 @@ const { signupValidate, signinValidate, newUserVerifyValidate } = validation;
 
 
 // New user signup
-router.post('/signup', signupValidate, signUp);
+router.post('/auth/signup', signupValidate, signUp);
 
 // User signin
-router.post('/signin', signinValidate, signIn);
+router.post('/auth/signin', signinValidate, signIn);
 
 // User verification
 router.patch('/users/:email/verify', verifyAdmin, newUserVerifyValidate, newUserVerify);
