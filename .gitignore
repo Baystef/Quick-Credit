@@ -1,2 +1,6 @@
 node_modules
+.env
+.nyc_output
+coverage/
+build
 Enemy of Progress

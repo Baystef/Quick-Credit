@@ -10,9 +10,6 @@ fieldset {
   border: 0;
 }
 
-.footer {
-  margin-top: 3rem;
-}
 
 @media (min-width: 40rem) {
   .container {
