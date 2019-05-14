@@ -40,7 +40,3 @@ body {
 .signin-button:active {
   background-color: var(--lighterGreen);
 }
-
-.footer {
-  margin-top: -3rem;
-}
