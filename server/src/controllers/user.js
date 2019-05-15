@@ -25,19 +25,19 @@ class User {
     const status = 'unverified';
     const isAdmin = false;
     const createdOn = new Date().toLocaleString();
-    const hPassword = Helper.hashPassword(password);
+    const hashPassword = Helper.hashPassword(password);
     const token = Authentication.generateToken({
       id, firstName, lastName, email, isAdmin,
     });
 
-
+    // Data stored in data structure
     const newUser = {
       token,
       id,
       firstName,
       lastName,
       email,
-      password: hPassword,
+      password: hashPassword,
       phoneNo,
       homeAddress,
       workAddress,
@@ -46,8 +46,28 @@ class User {
       createdOn,
     };
 
+
     users.push(newUser);
-    return res.status(201).json({ status: '201', data: newUser });
+
+    // Data sent as response to user
+    const data = {
+      token: newUser.token,
+      id: newUser.id,
+      firstName: newUser.firstname,
+      lastName: newUser.lastName,
+      email: newUser.email,
+      phoneNo: newUser.phoneNo,
+      homeAddress: newUser.homeAddress,
+      workAddress: newUser.workAddress,
+      status: newUser.status,
+      isAdmin: newUser.isAdmin,
+      createdOn: newUser.createdOn,
+    };
+
+    return res.status(201).json({
+      status: '201',
+      data,
+    });
   }
 
   /**
@@ -67,9 +87,23 @@ class User {
       );
 
       if (verify) {
+        const data = {
+          token: users[withEmail].token,
+          id: users[withEmail].id,
+          firstName: users[withEmail].firstname,
+          lastName: users[withEmail].lastName,
+          email: users[withEmail].email,
+          phoneNo: users[withEmail].phoneNo,
+          homeAddress: users[withEmail].homeAddress,
+          workAddress: users[withEmail].workAddress,
+          status: users[withEmail].status,
+          isAdmin: users[withEmail].isAdmin,
+          createdOn: users[withEmail].createdOn,
+        };
+
         return res.status(200).json({
           status: 200,
-          data: users[withEmail],
+          data,
         });
       }
     }
@@ -96,7 +130,6 @@ class User {
         email: unverified.email,
         firstName: unverified.firstName,
         lastName: unverified.lastName,
-        password: unverified.password,
         address: unverified.workAddress,
         status: unverified.status,
       };

@@ -97,7 +97,7 @@ describe('SIGNUP route', () => {
       });
   });
 
-  it('should return 400 if phone number is empty', (done) => {
+  it.skip('should return 400 if phone number is empty', (done) => {
     const newUser = {
       id: 2,
       firstName: 'Bayo',
