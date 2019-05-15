@@ -13,12 +13,11 @@ table {
 tr {
   background-color: var(--extraLightGrey);
   transition: var(--transition);
+  cursor: cell;
 }
 
 tbody tr:hover {
-  background: var(--darkGrey);
-  color: var(--white);
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  background: rgba(202, 202, 202, 0.781);
 }
 
 th {

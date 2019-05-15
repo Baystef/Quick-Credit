@@ -152,8 +152,8 @@ label {
 }
 
 .main-nav__item a:hover {
-    background-color: var(--white);
-    color: var(--darkGreen);
+    border: 1px solid var(--lightGreen);
+    color: var(--lightGreen);
 }
 
 
@@ -249,7 +249,7 @@ label {
 .modal {
     position: fixed;
     opacity: 0;
-    transform: translateY(-3rem);
+    transform: translateY(-20rem);
     transition: var(--modal-transition);
     z-index: 200;
     top: 20%;
@@ -298,7 +298,7 @@ label {
 }
 
 /* Desktop Styles */
-@media (min-width: 40rem) {
+@media (min-width: 50rem) {
     body {
         font-size: 1.2rem;
     }
