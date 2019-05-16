@@ -49,3 +49,18 @@ if (modalNo) modalNo.addEventListener('click', closeModal);
 
 // When backdrop is clicked on, close modal and remove backdrop
 backdrop.addEventListener('click', closeModal);
+
+// Dashboard sidebar
+const closeSide = document.querySelector('.close-sidebar');
+const sideBar = document.querySelector('aside');
+const menu = document.querySelector('.menu-btn');
+
+closeSide.addEventListener('click', () => {
+  sideBar.classList.add('close-side');
+  sideBar.classList.remove('open-side');
+});
+
+menu.addEventListener('click', () => {
+  sideBar.classList.add('open-side');
+  sideBar.classList.remove('close-side');
+});

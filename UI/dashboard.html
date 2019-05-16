@@ -27,6 +27,7 @@
   <div class="container">
     <aside>
       <div class="welcome-container">
+        <span class="close-sidebar">&#10006;</span>
         <h3 class="welcome">Welcome, <br>Daramola Adebayo</h3>
       </div>
       <nav class="dashboard-nav">
@@ -50,13 +51,33 @@
           <p class="dashboard-card__title loan-stat__title">Loan Application</p>
           <h4 class="loan-stat__verified">Pending</h4>
         </section>
-        <!-- <section class="dashboard-card"></section> -->
-      </div>
+      </div> -->
+
+      <button class="logout"><i class="fas fa-power-off"></i> Log Out</button>
+    </aside>
+
+    <div class="menu-btn">
+        <div class="btn-line"></div>
+        <div class="btn-line"></div>
+        <div class="btn-line"></div>
+    </div>
+
+    <section class="dashboard-body">
+
 
       <p class="instructions">Interest on all Loans is at a fixed rate of <span class="rate">5%</span><br>
         Minimum Loan Amount is <span class="amount"><span>&#8358</span>5000</span> and Maximum is <span
           class="amount"><span>&#8358</span>500000</span><br>
         Maximum Tenor(Duration of Loan repayment) is <span class="duration">12months</span></p>
+
+      <form action="" class="form loan-form">
+        <label for="amount">Amount (&#8358)</label>
+        <input type="number" name="amount" id="amount" class="input" min="5000" max="500000" step="1000"
+          oninput="estimateRepayment()">
+        <span class="tenorError"></span>
+        <label for="tenor">Tenor (Months)</label>
+        <input type="number" name="tenor" id="tenor" class="input" min="1" max="12" oninput="estimateRepayment()">
+      </form>
 
       <div class="dashboard-card__loan--container">
         <section class="dashboard-card__loan">
@@ -88,8 +109,6 @@
       </div>
 
     </section>
-
-
   </div>
 
   <script src="js/dashboard.js"></script>

@@ -252,9 +252,9 @@ label {
     transform: translateY(-3rem);
     transition: var(--modal-transition);
     z-index: 200;
-    top: 20%;
+    top: 30%;
     left: 30%;
-    width: 40%;
+    width: 50%;
     background: white;
     padding: 1rem;
     border: 1px solid var(--extraLightGrey);
