@@ -79,10 +79,30 @@ menu.addEventListener('click', () => {
 });
 
 // Searching a table
+// eslint-disable-next-line no-unused-vars
+function filter() {
+  let td;
+  let txtValue;
+  const input = document.querySelector('dashboard-search-input');
+  const filter = input.value.toUpperCase();
+  const table = document.querySelector('dashboard-table');
+  const tr = table.getElementsByTagName('tr');
+  for (let i = 0; i < tr.length; i += 1) {
+    // eslint-disable-next-line prefer-destructuring
+    td = tr[i].getElementsByTagName('td')[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = '';
+      } else {
+        tr[i].style.display = 'none';
+      }
+    }
+  }
+}
 // const table = document.querySelector('.dashboard-table');
 // const search = document.querySelector('dashboard-search-input');
 
 // table.forEach(row => )
 
 // console.log(table.rows[1].cells[0].textContent);
-
