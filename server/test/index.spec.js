@@ -13,7 +13,7 @@ describe('test', () => {
         expect(res.body.message).to.exist;
         expect(res.body.message).to.equal('Welcome to Quick Credit');
         expect(res.status).to.equal(200);
-        done(err);
+        done();
       });
   });
 });

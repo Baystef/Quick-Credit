@@ -2,6 +2,7 @@ import { users } from '../models/db';
 import Authentication from '../middleware/authentication';
 import Helper from '../helper/auth-helper';
 
+
 /**
  * @description contains methods for each user endpoint
  * @exports User
@@ -29,6 +30,7 @@ class User {
     const token = Authentication.generateToken({
       id, firstName, lastName, email, isAdmin,
     });
+
 
     // Data stored in data structure
     const newUser = {
@@ -107,9 +109,9 @@ class User {
         });
       }
     }
-    return res.status(400).json({
-      status: 400,
-      error: 'Invalid Email or Password',
+    return res.status(401).json({
+      status: 401,
+      error: 'You are unauthorized',
     });
   }
 
@@ -122,6 +124,13 @@ class User {
   static newUserVerify(req, res) {
     const { email } = req.params;
     const unverified = users.find(user => user.email === email);
+
+    if (unverified && unverified.status === 'verified') {
+      return res.status(409).json({
+        status: 409,
+        error: 'User is already verified',
+      });
+    }
 
     if (unverified) {
       unverified.status = 'verified';

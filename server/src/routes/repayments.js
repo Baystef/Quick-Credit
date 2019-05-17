@@ -1,7 +1,7 @@
 import express from 'express';
 import expressValidator from 'express-validator';
 import authorization from '../middleware/authorization';
-import repayment from '../controllers/repayments';
+import { Repayment } from '../controllers';
 import validation from '../middleware/repayment-validate';
 
 
@@ -11,7 +11,7 @@ router.use(expressValidator());
 // Import { method(s) } from class;
 const { repaymentRecordValidate, historyRepaymentValidate } = validation;
 const { verifyAdmin, verifyUser } = authorization;
-const { generateRepaymentRecord, getRepaymentHistory } = repayment;
+const { generateRepaymentRecord, getRepaymentHistory } = Repayment;
 
 // Generate repayment record
 router.post('/loans/:id/repayments', verifyAdmin, repaymentRecordValidate, generateRepaymentRecord);
