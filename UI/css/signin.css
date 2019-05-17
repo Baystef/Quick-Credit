@@ -8,6 +8,10 @@
 }
 
 @media (min-width: 40rem) {
+  .form {
+    max-width: 40rem;
+  }
+
   .forgot-password {
     font-size: 0.8rem;
   }

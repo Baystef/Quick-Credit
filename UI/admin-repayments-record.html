@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/admin.css">
-  <link rel="stylesheet" href="css/unverified.css">
+  <link rel="stylesheet" href="css/admin-repayments-record.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
     integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 </head>
@@ -35,8 +35,8 @@
       <nav class="dashboard-nav">
         <ul class="dashboard-nav__items">
           <li class="dashboard-nav__item"><a href="admin.html">Users</a></li>
-          <li class="dashboard-nav__item active"><a href="admin-loans.html">Loans</a></li>
-          <li class="dashboard-nav__item"><a href="admin-repayments.html">Repayments</a></li>
+          <li class="dashboard-nav__item"><a href="admin-loans.html">Loans</a></li>
+          <li class="dashboard-nav__item active"><a href="admin-repayments.html">Repayments</a></li>
         </ul>
       </nav>
 
@@ -54,10 +54,9 @@
       <section class="users-container">
         <nav class="dashboard-subnav">
           <ul class="dashboard-subnav__items">
-            <li class="dashboard-subnav__item"><a href="admin-loans.html">All</a></li>
-            <li class="dashboard-subnav__item"><a href="admin-loans-approved.html">Approved</a></li>
-            <li class="dashboard-subnav__item active"><a href="admin-loans-pending.html">Pending</a></li>
-            <li class="dashboard-subnav__item"><a href="admin-loans-rejected.html">Rejected</a></li>
+            <li class="dashboard-subnav__item"><a href="admin-repayments.html">Repaid</a></li>
+            <li class="dashboard-subnav__item"><a href="admin-repayments-unrepaid.html">Unrepaid</a></li>
+            <li class="dashboard-subnav__item active"><a href="admin-repayments-record.html">Make Repayment</a></li>
           </ul>
         </nav>
 
@@ -67,10 +66,8 @@
               <tr>
                 <th>id</th>
                 <th>User</th>
-                <th>Amount (&#8358)</th>
-                <th>Interest (&#8358)</th>
-                <th>Monthly Installment (&#8358)</th>
-                <th>Repayment Due (&#8358)</th>
+                <th>Monthly Installment (&#8358;)</th>
+                <th>Repayment Due (&#8358;)</th>
                 <th>Tenor (Months)</th>
                 <th>Repaid</th>
                 <th>Application Date</th>
@@ -81,16 +78,13 @@
               <tr>
                 <td>1</td>
                 <td>B.stef@yahoomail.com</td>
-                <td>15000</td>
-                <td>525</td>
                 <td>2300</td>
                 <td>15525</td>
                 <td>3</td>
                 <td>false</td>
                 <td>29 Jan, 2019</td>
                 <td>
-                  <button class="dashboard-reject__btn button" value="rejected">Reject</button>
-                  <button class="dashboard-verify__btn button" value="approved">Approve</button>
+                  <button class="dashboard-verify__btn button" value="pay">Make Payment</button>
                 </td>
               </tr>
             </tbody>

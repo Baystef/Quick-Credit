@@ -1,7 +1,10 @@
 .container {
   height: 100%;
+  width: 100%;
   display: flex;
   font-size: 0.6rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .backdrop {
@@ -17,25 +20,48 @@
   transition: opacity 0.3s linear;
 }
 
+.close-side {
+  transform: translate(-18rem);
+}
+
+.open-side {
+  transform: translate(0);
+}
+
+/* Sidebar Styles */
 aside {
+  width: 9rem;
   display: flex;
   flex-direction: column;
-  flex: 0.25;
+  /* flex: 0.2; */
   height: 100%;
   background-color: var(--dashboard);
   box-shadow: 1px 0 5px var(--lighterGrey);
-  overflow: auto;
-  position: relative;
+  position: absolute;
+  left: 0;
+  z-index: 300;
+  transition: all .3s ease-out;
 }
 
 .welcome-container {
   text-align: center;
   margin-top: 0;
+  height: 8rem;
   padding: 1rem;
+}
+
+.close-sidebar {
+  position: relative;
+  left: 50%;
+  top: 1%;
+  color: red;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .welcome {
   color: var(--darkGrey);
+  margin: rem 0;
 }
 
 .dashboard-nav__items {
@@ -43,7 +69,7 @@ aside {
   text-align: left;
 }
 
-.dashboard-nav__item a{
+.dashboard-nav__item a {
   padding: 0.5rem 0 0.5rem 1rem;
   background-color: var(--lighterGrey);
   border-bottom: 1px solid rgba(255, 252, 252, 0.856);
@@ -52,9 +78,12 @@ aside {
   display: block;
 }
 
-.dashboard-nav__item a:hover,
+.dashboard-nav__item a:hover {
+  opacity: 0.65;
+}
+
 .dashboard-nav__item a:active,
-.active a{
+.active a {
   color: var(--white);
   background-color: var(--lightGrey)
 }
@@ -80,19 +109,37 @@ aside {
   color: var(--red);
 }
 
+/* Dashboard body styles; */
 .dashboard-body {
-  flex: 0.75;
+  flex: 1;
   align-self: flex-end;
   align-items: center;
   justify-content: center;
   height: 100%;
   background-color: var(--dashboard);
-  padding: 1.2rem 0.5rem;
-  overflow: auto;
+  padding: 3.2rem 0.5rem;
+}
+
+.menu-btn {
+  z-index: 8;
+  position: absolute;
+  left: 30px;
+  top: 16px;
+  cursor: pointer;
+  margin-right: auto;
+}
+
+.menu-btn .btn-line {
+  width: 25px;
+  height: 1.5px;
+  margin: 0 0 5px 0;
+  background: var(--darkGrey);
 }
 
 .instructions {
   text-align: center;
+  line-height: 2;
+  padding: 8px;
 }
 
 .rate {
@@ -104,7 +151,7 @@ aside {
 }
 
 .duration {
-  font-weight:bold;
+  font-weight: bold;
 }
 
 .dashboard-card__container {
@@ -112,16 +159,9 @@ aside {
   justify-content: space-evenly;
 }
 
-.dashboard-card__loan--container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 2rem;
-}
-
-.dashboard-card {
-  width: 5rem;
-  height: 5rem;
+/* .dashboard-card {
+  width: 2rem;
+  height: 2rem;
   margin: 0.5rem;
   padding: 0.2rem;
   background-color: var(--lighterGrey);
@@ -135,26 +175,34 @@ aside {
 
 .dashboard-card__title {
   text-align: center;
-  font-size: 0.5rem;
+  font-size: 0.1rem;
   font-weight: bolder;
-}
+} */
 
-.acct-stat__verified,
+/* .acct-stat__verified,
 .loan-stat__verified {
   padding-left: 25%;
+} */
+
+.dashboard-card__loan--container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
 }
 
 .dashboard-card__loan {
-  width: 20rem;
-  height: 13rem;
+  width: 16.5rem;
+  height: 5rem;
   margin: 0.5rem;
+  font-size: 0.4rem;
   background-color: var(--lighterGrey);
 }
 
 .estimate {
   display: flex;
   align-items: center;
-  height: 10rem;
+  height: 6rem;
   justify-content: center;
   padding: 2rem;
 }
@@ -167,15 +215,24 @@ aside {
 }
 
 .estimate div {
-  width: 4rem;
-  height: 4rem;
+  width: 2rem;
+  height: 2rem;
   text-align: center;
   margin: 1rem;
 }
 
+.form {
+  margin: 0 auto 1rem;
+}
+
 .loan-form {
-  height: 100%;
-  max-width: 100%;
+  height: 15rem;
+  width: 90%;
+}
+
+.loan-apply__btn--container {
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .loan-apply__btn {
@@ -188,9 +245,25 @@ aside {
   background-color: var(--lighterGreen);
 }
 
-@media (min-width: 40rem) {
+@media (min-width: 48rem) {
   .container {
-    font-size: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .menu-btn {
+    display: block;
+    left: 50px;
+    top: 52px;
+  }
+
+  .menu-btn .btn-line {
+    height: 3px;
+    margin: 0 0 5px 0;
+  }
+
+  aside {
+    display: flex;
+    width: 17rem;
   }
 
   .dashboard-card {
@@ -208,7 +281,9 @@ aside {
   }
 
   .estimate {
-    width: 35rem;
+    width: 25rem;
+    height: 10rem;
+    font-size: 0.8rem;
   }
 
   .estimate div {

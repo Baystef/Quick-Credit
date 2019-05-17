@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/admin.css">
-  <link rel="stylesheet" href="css/responsive-table.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
     integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 </head>
@@ -29,6 +28,7 @@
   <div class="container">
     <aside>
       <div class="welcome-container">
+        <span class="close-sidebar">&#10006;</span>
         <h3 class="welcome">Welcome <br>Admin</h3>
       </div>
       <nav class="dashboard-nav">
@@ -42,6 +42,12 @@
       <button class="logout"><i class="fas fa-power-off"></i> Log Out</button>
     </aside>
 
+    <div class="menu-btn">
+      <div class="btn-line"></div>
+      <div class="btn-line"></div>
+      <div class="btn-line"></div>
+    </div>
+
     <section class="dashboard-body">
       <h2 class="users dashboard-title">Repaid Loans</h2>
       <section class="users-container">
@@ -49,49 +55,46 @@
           <ul class="dashboard-subnav__items">
             <li class="dashboard-subnav__item active"><a href="admin-repayments.html">Repaid</a></li>
             <li class="dashboard-subnav__item"><a href="admin-repayments-unrepaid.html">Unrepaid</a></li>
+            <li class="dashboard-subnav__item"><a href="admin-repayments-record.html">Make Repayment</a></li>
           </ul>
-
-          <form class="dashboard-search__form">
-            <input class="dashboard-search-input" type="search" placeholder="Search with email">
-            <button class="dashboard-search-btn" type="submit">&#8594</button>
-          </form>
         </nav>
 
-        <table role="table" class="dashboard-table">
-          <thead role="rowgroup">
-            <tr role="row">
-              <th role="columnheader">id</th>
-              <th role="columnheader">User</th>
-              <th role="columnheader">Amount (&#8358)</th>
-              <th role="columnheader">Interest (&#8358)</th>
-              <th role="columnheader">Monthly Installment (&#8358)</th>
-              <th role="columnheader">Repayment Due (&#8358)</th>
-              <th role="columnheader">Tenor (Months)</th>
-              <th role="columnheader">Repaid</th>
-              <th role="columnheader">Application Date</th>
-              <th role="columnheader">Status</th>
-            </tr>
-          </thead>
-          <tbody role="rowgroup">
-            <tr role="row">
-              <td role="cell">1</td>
-              <td role="cell">afolabi.mustapha@gmail.com</td>
-              <td role="cell">45000</td>
-              <td role="cell">850</td>
-              <td role="cell">3700</td>
-              <td role="cell">0</td>
-              <td role="cell">6</td>
-              <td role="cell">true</td>
-              <td role="cell">5 Mar, 2019</td>
-              <td role="cell">approved</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="dashboard-table__container">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>User</th>
+                <th>Amount (&#8358)</th>
+                <th>Interest (&#8358)</th>
+                <th>Monthly Installment (&#8358)</th>
+                <th>Repayment Due (&#8358)</th>
+                <th>Tenor (Months)</th>
+                <th>Repaid</th>
+                <th>Application Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>afolabi.mustapha@gmail.com</td>
+                <td>45000</td>
+                <td>850</td>
+                <td>3700</td>
+                <td>0</td>
+                <td>6</td>
+                <td>true</td>
+                <td>5 Mar, 2019</td>
+                <td>approved</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </section>
   </div>
 
-  <script src="js/responsive-table.js"></script>
   <script src="js/dashboard.js"></script>
 </body>
 

@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/admin.css">
-  <link rel="stylesheet" href="css/responsive-table.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
     integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 </head>
@@ -29,6 +28,7 @@
   <div class="container">
     <aside>
       <div class="welcome-container">
+        <span class="close-sidebar">&#10006;</span>
         <h3 class="welcome">Welcome <br>Admin</h3>
       </div>
       <nav class="dashboard-nav">
@@ -42,6 +42,12 @@
       <button class="logout"><i class="fas fa-power-off"></i> Log Out</button>
     </aside>
 
+    <div class="menu-btn">
+      <div class="btn-line"></div>
+      <div class="btn-line"></div>
+      <div class="btn-line"></div>
+    </div>
+
     <section class="dashboard-body">
       <h2 class="users dashboard-title">All Loans</h2>
       <section class="users-container">
@@ -54,82 +60,83 @@
           </ul>
 
           <form class="dashboard-search__form">
-            <input class="dashboard-search-input" type="search" placeholder="Search with email">
-            <button class="dashboard-search-btn" type="submit">&#8594</button>
+            <input class="dashboard-search-input" type="search" placeholder="Search with loan id">
+            <button class="dashboard-search-btn" type="submit">&#8594;</button>
           </form>
         </nav>
 
-        <table role="table" class="dashboard-table">
-          <thead role="rowgroup">
-            <tr role="row">
-              <th role="columnheader">id</th>
-              <th role="columnheader">User</th>
-              <th role="columnheader">Amount (&#8358)</th>
-              <th role="columnheader">Interest (&#8358)</th>
-              <th role="columnheader">Monthly Installment (&#8358)</th>
-              <th role="columnheader">Repayment Due (&#8358)</th>
-              <th role="columnheader">Tenor (Months)</th>
-              <th role="columnheader">Repaid</th>
-              <th role="columnheader">Application Date</th>
-              <th role="columnheader">Status</th>
-            </tr>
-          </thead>
-          <tbody role="rowgroup">
-            <tr role="row">
-              <td role="cell">1</td>
-              <td role="cell">daramola.quic@yahoo.com</td>
-              <td role="cell">50000</td>
-              <td role="cell">1250</td>
-              <td role="cell">5000</td>
-              <td role="cell">51250</td>
-              <td role="cell">9</td>
-              <td role="cell">false</td>
-              <td role="cell">27 Nov, 2018</td>
-              <td role="cell">approved</td>
-            </tr>
-            <tr role="row">
-              <td role="cell">2</td>
-              <td role="cell">afolabi.mustapha@gmail.com</td>
-              <td role="cell">45000</td>
-              <td role="cell">850</td>
-              <td role="cell">3700</td>
-              <td role="cell">0</td>
-              <td role="cell">6</td>
-              <td role="cell">true</td>
-              <td role="cell">5 Mar, 2019</td>
-              <td role="cell">approved</td>
-            </tr>
-            <tr role="row">
-              <td role="cell">3</td>
-              <td role="cell">duro.gab@hotmail.com</td>
-              <td role="cell">32000</td>
-              <td role="cell">900</td>
-              <td role="cell">2600</td>
-              <td role="cell">32900</td>
-              <td role="cell">5</td>
-              <td role="cell">false</td>
-              <td role="cell">10 Jul, 2019</td>
-              <td role="cell">rejected</td>
-            </tr>
-            <tr role="row">
-              <td role="cell">4</td>
-              <td role="cell">B.stef@yahoomail.com</td>
-              <td role="cell">15000</td>
-              <td role="cell">525</td>
-              <td role="cell">2300</td>
-              <td role="cell">15525</td>
-              <td role="cell">3</td>
-              <td role="cell">false</td>
-              <td role="cell">29 Jan, 2019</td>
-              <td role="cell">pending</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="dashboard-table__container">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>User</th>
+                <th>Amount (&#8358;)</th>
+                <th>Interest (&#8358;)</th>
+                <th>Monthly Installment (&#8358;)</th>
+                <th>Repayment Due (&#8358;)</th>
+                <th>Tenor (Months)</th>
+                <th>Repaid</th>
+                <th>Application Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>daramola.quic@yahoo.com</td>
+                <td>50000</td>
+                <td>1250</td>
+                <td>5000</td>
+                <td>51250</td>
+                <td>9</td>
+                <td>false</td>
+                <td>27 Nov, 2018</td>
+                <td>approved</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>afolabi.mustapha@gmail.com</td>
+                <td>45000</td>
+                <td>850</td>
+                <td>3700</td>
+                <td>0</td>
+                <td>6</td>
+                <td>true</td>
+                <td>5 Mar, 2019</td>
+                <td>approved</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>duro.gab@hotmail.com</td>
+                <td>32000</td>
+                <td>900</td>
+                <td>2600</td>
+                <td>32900</td>
+                <td>5</td>
+                <td>false</td>
+                <td>10 Jul, 2019</td>
+                <td>rejected</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>B.stef@yahoomail.com</td>
+                <td>15000</td>
+                <td>525</td>
+                <td>2300</td>
+                <td>15525</td>
+                <td>3</td>
+                <td>false</td>
+                <td>29 Jan, 2019</td>
+                <td>pending</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </section>
   </div>
 
-  <script src="js/responsive-table.js"></script>
   <script src="js/dashboard.js"></script>
 </body>
 

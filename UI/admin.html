@@ -29,6 +29,7 @@
   <div class="container">
     <aside>
       <div class="welcome-container">
+        <span class="close-sidebar">&#10006;</span>
         <h3 class="welcome">Welcome <br>Admin</h3>
       </div>
       <nav class="dashboard-nav">
@@ -42,6 +43,12 @@
       <button class="logout"><i class="fas fa-power-off"></i> Log Out</button>
     </aside>
 
+    <div class="menu-btn">
+      <div class="btn-line"></div>
+      <div class="btn-line"></div>
+      <div class="btn-line"></div>
+    </div>
+
     <section class="dashboard-body">
       <h2 class="users dashboard-title">Registered Users</h2>
       <section class="users-container">
@@ -54,71 +61,72 @@
 
           <form class="dashboard-search__form">
             <input class="dashboard-search-input" type="search" placeholder="Search with email">
-            <button class="dashboard-search-btn" type="submit">&#8594</button>
+            <button class="dashboard-search-btn" type="submit">&#8594;</button>
           </form>
         </nav>
 
-        <table role="table" class="dashboard-table">
-          <thead role="rowgroup">
-            <tr role="row">
-              <th role="columnheader">id</th>
-              <th role="columnheader">First Name</th>
-              <th role="columnheader">Last Name</th>
-              <th role="columnheader">Email</th>
-              <th role="columnheader">Work Address</th>
-              <th role="columnheader">Home Address</th>
-              <th role="columnheader">Phone &#8470</th>
-              <th role="columnheader">Status</th>
-            </tr>
-          </thead>
-          <tbody role="rowgroup">
-            <tr role="row">
-              <td role="cell">1</td>
-              <td role="cell">Adebayo</td>
-              <td role="cell">Daramola</td>
-              <td role="cell">daramola.quic@yahoo.com</td>
-              <td role="cell">27, Johnson Street, Lagos</td>
-              <td role="cell">2, Dideolu Drive, Ibadan</td>
-              <td role="cell">07012345678</td>
-              <td role="cell">Verified</td>
-            </tr>
-            <tr role="row">
-              <td role="cell">2</td>
-              <td role="cell">Afolabi</td>
-              <td role="cell">Mustapha</td>
-              <td role="cell">afolabi.mustapha@gmail.com</td>
-              <td role="cell">1, Ipaja Road, Lagos</td>
-              <td role="cell">3, Ebedi Street, Ilorin</td>
-              <td role="cell">07098765432</td>
-              <td role="cell">unverified</td>
-            </tr>
-            <tr role="row">
-              <td role="cell">3</td>
-              <td role="cell">Durowaiye</td>
-              <td role="cell">Gabriel</td>
-              <td role="cell">duro.gab@hotmail.com</td>
-              <td role="cell">5, Chevron Drive, Lekki</td>
-              <td role="cell">281D, Ajao Estate, Lagos</td>
-              <td role="cell">07034343434</td>
-              <td role="cell">verified</td>
-            </tr>
-            <tr role="row">
-              <td role="cell">4</td>
-              <td role="cell">Bolaji</td>
-              <td role="cell">Stephen</td>
-              <td role="cell">B.stef@yahoomail.com</td>
-              <td role="cell">75, Abule-Egba Road, Lagos-Abeokuta way</td>
-              <td role="cell">16, old Ota road, Ogun</td>
-              <td role="cell">07012983476</td>
-              <td role="cell">unverified</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="dashboard-table__container">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Work Address</th>
+                <th>Home Address</th>
+                <th>Phone &#8470</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Adebayo</td>
+                <td>Daramola</td>
+                <td>daramola.quic@yahoo.com</td>
+                <td>27, Johnson Street, Lagos</td>
+                <td>2, Dideolu Drive, Ibadan</td>
+                <td>07012345678</td>
+                <td>Verified</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Afolabi</td>
+                <td>Mustapha</td>
+                <td>afolabi.mustapha@gmail.com</td>
+                <td>1, Ipaja Road, Lagos</td>
+                <td>3, Ebedi Street, Ilorin</td>
+                <td>07098765432</td>
+                <td>unverified</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Durowaiye</td>
+                <td>Gabriel</td>
+                <td>duro.gab@hotmail.com</td>
+                <td>5, Chevron Drive, Lekki</td>
+                <td>281D, Ajao Estate, Lagos</td>
+                <td>07034343434</td>
+                <td>verified</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Bolaji</td>
+                <td>Stephen</td>
+                <td>B.stef@yahoomail.com</td>
+                <td>75, Abule-Egba Road, Lagos-Abeokuta way</td>
+                <td>16, old Ota road, Ogun</td>
+                <td>07012983476</td>
+                <td>unverified</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
     </section>
   </div>
 
-  <script src="js/responsive-table.js"></script>
   <script src="js/dashboard.js"></script>
 </body>
 
