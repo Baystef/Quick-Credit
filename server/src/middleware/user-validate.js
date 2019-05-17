@@ -49,12 +49,13 @@ class Validation {
       .withMessage('Password is too simple')
       .trim()
       .isLength({ min: 8, max: 100 })
-      .withMessage('Password must be atleast 8 to 100 characters');
+      .withMessage('Password must be atleast 8 to 100 characters')
+      .matches(/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{8,100}$/)
+      .withMessage('Password must contain letters and atleast 1 number');
 
     req
       .checkBody('phoneNo')
-      .notEmpty()
-      .withMessage('Phone number is required')
+      .optional()
       .isInt()
       .withMessage('Phone number should be numbers only')
       .trim()

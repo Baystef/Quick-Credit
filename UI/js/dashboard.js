@@ -85,3 +85,4 @@ menu.addEventListener('click', () => {
 // table.forEach(row => )
 
 // console.log(table.rows[1].cells[0].textContent);
+

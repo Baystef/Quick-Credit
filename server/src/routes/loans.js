@@ -1,7 +1,7 @@
 import express from 'express';
 import expressValidator from 'express-validator';
 import authorization from '../middleware/authorization';
-import Loan from '../controllers/loans';
+import { Loan } from '../controllers';
 import validation from '../middleware/loan-validate';
 
 const router = express.Router();
