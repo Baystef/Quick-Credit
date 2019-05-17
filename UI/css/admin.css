@@ -31,8 +31,7 @@
 }
 
 .dashboard-subnav__item a:hover {
-  background-color: var(--lightGrey);
-  color: var(--white);
+  color: var(--lighterGrey);
 }
 
 .active a {
@@ -53,7 +52,7 @@
 
 .dashboard-search-input:focus {
   outline: none;
-  border: 1px solid var(--darkGrey);
+  border: 1px solid var(--lightGrey);
 }
 
 .dashboard-search-input::placeholder {

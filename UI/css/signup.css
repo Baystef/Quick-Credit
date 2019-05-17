@@ -1,9 +1,9 @@
-.container {
-  margin-top: 5rem;
+body {
+  overflow-y: scroll;
 }
 
-.main-nav__brand--container {
-  margin-bottom: 2rem;
+.container {
+  margin-top: 6.9rem;
 }
 
 fieldset {
@@ -11,9 +11,13 @@ fieldset {
 }
 
 
-@media (min-width: 40rem) {
+@media (min-width: 50rem) {
+  body {
+    overflow: hidden;
+  }
+  
   .container {
-    margin-top: auto;
+    margin-top: -2rem;
   }
 
   .form {

@@ -20,10 +20,10 @@
 
   <section class="modal">
     <h1 class="modal__title">Are you sure you want to log out?</h1>
-    <section class="modal__actions">
+    <div class="modal__actions">
       <a href="signin.html" class="modal__action">Yes</a>
       <button class="modal__action modal__action--negative" type="button">No</button>
-    </section>
+    </div>
   </section>
 
   <div class="container">
@@ -51,7 +51,7 @@
 
     <section class="dashboard-body">
       <h2 class="users dashboard-title">Pending Loans</h2>
-      <section class="users-container">
+      <div class="users-container">
         <nav class="dashboard-subnav">
           <ul class="dashboard-subnav__items">
             <li class="dashboard-subnav__item"><a href="admin-loans.html">All</a></li>
@@ -59,11 +59,6 @@
             <li class="dashboard-subnav__item active"><a href="admin-loans-pending.html">Pending</a></li>
             <li class="dashboard-subnav__item"><a href="admin-loans-rejected.html">Rejected</a></li>
           </ul>
-
-          <form class="dashboard-search__form">
-            <input class="dashboard-search-input" type="search" placeholder="Search with email">
-            <button class="dashboard-search-btn" type="submit">&#8594</button>
-          </form>
         </nav>
 
         <div class="dashboard-table__container">
@@ -72,10 +67,10 @@
               <tr>
                 <th>id</th>
                 <th>User</th>
-                <th>Amount (&#8358)</th>
-                <th>Interest (&#8358)</th>
-                <th>Monthly Installment (&#8358)</th>
-                <th>Repayment Due (&#8358)</th>
+                <th>Amount (&#8358;)</th>
+                <th>Interest (&#8358;)</th>
+                <th>Monthly Installment (&#8358;)</th>
+                <th>Repayment Due (&#8358;)</th>
                 <th>Tenor (Months)</th>
                 <th>Repaid</th>
                 <th>Application Date</th>
@@ -101,7 +96,7 @@
             </tbody>
           </table>
         </div>
-      </section>
+      </div>
     </section>
   </div>
 

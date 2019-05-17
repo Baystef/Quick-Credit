@@ -1,0 +1,9 @@
+.dashboard-verify__btn {
+  background-color: var(--lighterGreen);
+  color: var(--white);
+}
+
+.dashboard-verify__btn:hover {
+  background-color: var(--lighterGreen);
+  box-shadow: 1.5px 1.5px 3px var(--lightGrey), -1.5px -1.5px 3px var(--lightGrey);
+}

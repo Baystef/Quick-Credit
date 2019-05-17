@@ -1,6 +1,6 @@
 .repayment-history {
   color: var(--darkGrey);
-  margin-left: 1rem;
+  margin-left: 3rem;
 }
 
 .repayment-history__container {
@@ -21,6 +21,6 @@
 
 @media (min-width: 48rem) {
   .repayment-history {
-    margin: 3rem 5rem;
+    margin: 3rem 10rem;
   }
 }
