@@ -40,3 +40,16 @@ body {
 .signin-button:active {
   background-color: var(--lighterGreen);
 }
+
+@media (max-width: 25rem) {
+  body {
+    overflow: hidden;
+  }
+
+  .signin-form, 
+  .forgot-password_form {
+    margin-top: 12rem;
+    height: 100%;
+    padding-top: auto;
+  }
+}

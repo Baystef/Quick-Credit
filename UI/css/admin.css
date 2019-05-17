@@ -1,9 +1,12 @@
+/* Table title */
 .users-container,
 .dashboard-title {
+  margin-top: 2rem;
   margin-left: 2rem;
   margin-right: 2rem;
 }
 
+/* Table nav */
 .dashboard-subnav {
   display: flex;
   flex-direction: column;
@@ -75,38 +78,94 @@
   transform: translateX(1px);
 }
 
+.dashboard-body {
+  overflow: hidden;
+  padding: 1em;
+}
+
+/* Table styles (Reference: Smashing Magazine)*/
+.dashboard-table__container {
+  padding-top: 1rem;
+  overflow: auto;
+  position: relative;
+  max-width: 100%;
+  background:
+    linear-gradient(to right, white 30%, rgba(255, 255, 255, 0)),
+    linear-gradient(to right, rgba(255, 255, 255, 0), white 70%) 0 100%,
+    radial-gradient(farthest-side at 0% 50%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)),
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+  background-position: 0 0, 100%, 0 0, 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+tr {
+  background-color: var(--extraLightGrey);
+  transition: var(--transition);
+  cursor: cell;
+}
+
+tbody tr:hover {
+  background: rgba(202, 202, 202, 0.781);
+}
+
+th {
+  background-color: #555;
+  color: var(--white);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5em 1em;
+}
+
+td::before {
+  display: none;
+}
+
 /* Desktop Styles */
-@media (min-width: 50rem) {
+@media (min-width: 48rem) {
   table {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   aside {
-    flex: 0.15;
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
-  .dashboard-body {
-    flex: 0.85;
-  }
+  .users-container,
+  .dashboard-title {
+      margin-top: 5rem;
+    }
 
-  .dashboard-subnav {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+    .dashboard-body {
+      padding-left: 15rem;
+    }
 
-  .dashboard-subnav__items {
-    margin-bottom: 0
-  }
+    .dashboard-table {
+      width: 100%;
+    }
 
-  .dashboard-search-input {
-    padding: 4px;
-    font-size: 1.1rem;
-  }
+    .dashboard-subnav {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-  .dashboard-search-btn {
-    padding: 3px 10px;
-    font-size: 1.1rem;
+    .dashboard-subnav__items {
+      margin-bottom: 0;
+    }
+
+    .dashboard-search-input {
+      padding: 4px;
+      font-size: 1.1rem;
+    }
+
+    .dashboard-search-btn {
+      padding: 3px 10px;
+      font-size: 1.1rem;
+    }
   }
-}

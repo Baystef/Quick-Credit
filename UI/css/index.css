@@ -13,7 +13,7 @@
     background: url(../images/header-1.jpg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: 100% 100%;
     text-align: center;
     height: 100vh;
     padding: 2rem;
@@ -171,6 +171,7 @@
 
     .main-works-title {
         margin-top: 8rem;
+        margin-bottom: -4rem;
     }
     
     .main-works-container {

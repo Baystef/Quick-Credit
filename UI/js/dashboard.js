@@ -7,10 +7,8 @@ function estimateRepayment() {
   const interestAccrued = document.querySelector('#interest-accr');
   const totalPayment = document.querySelector('#total-repayment');
   const interestRate = 0.05;
-  console.log(Number(tenor));
   const interest = parseFloat(((amount * interestRate) / tenor).toFixed(2));
   const payment = ((amount / tenor) + interest).toFixed(2);
-  // payment = payment.toLocaleString('en');
   const total = Number(amount) + interest;
 
   if (!tenor) return 0;
@@ -35,12 +33,12 @@ function estimateRepayment() {
   }
 }
 
-// This opens the modal
 const backdrop = document.querySelector('.backdrop');
 const modal = document.querySelector('.modal');
 const modalNo = document.querySelector('.modal__action--negative');
 const logOut = document.querySelector('.logout');
 
+// This opens the modal
 logOut.addEventListener('click', () => {
   modal.classList.add('open');
   setTimeout(() => {
@@ -63,3 +61,27 @@ if (modalNo) modalNo.addEventListener('click', closeModal);
 
 // When backdrop is clicked on, close modal and remove backdrop
 backdrop.addEventListener('click', closeModal);
+
+// Dashboard sidebar
+const closeSide = document.querySelector('.close-sidebar');
+const sideBar = document.querySelector('aside');
+const menu = document.querySelector('.menu-btn');
+
+closeSide.addEventListener('click', () => {
+  sideBar.classList.add('close-side');
+  sideBar.classList.remove('open-side');
+});
+
+// When hamburger menu is clicked on
+menu.addEventListener('click', () => {
+  sideBar.classList.add('open-side');
+  sideBar.classList.remove('close-side');
+});
+
+// Searching a table
+// const table = document.querySelector('.dashboard-table');
+// const search = document.querySelector('dashboard-search-input');
+
+// table.forEach(row => )
+
+// console.log(table.rows[1].cells[0].textContent);

@@ -20,26 +20,48 @@
   transition: opacity 0.3s linear;
 }
 
+.close-side {
+  transform: translate(-18rem);
+}
+
+.open-side {
+  transform: translate(0);
+}
+
 /* Sidebar Styles */
 aside {
-  display: none;
-  /* display: flex; */
+  width: 9rem;
+  display: flex;
   flex-direction: column;
   /* flex: 0.2; */
   height: 100%;
   background-color: var(--dashboard);
   box-shadow: 1px 0 5px var(--lighterGrey);
-  position: relative;
+  position: absolute;
+  left: 0;
+  z-index: 300;
+  transition: all .3s ease-out;
 }
 
 .welcome-container {
   text-align: center;
   margin-top: 0;
+  height: 8rem;
   padding: 1rem;
+}
+
+.close-sidebar {
+  position: relative;
+  left: 50%;
+  top: 1%;
+  color: red;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .welcome {
   color: var(--darkGrey);
+  margin: rem 0;
 }
 
 .dashboard-nav__items {
@@ -95,13 +117,29 @@ aside {
   justify-content: center;
   height: 100%;
   background-color: var(--dashboard);
-  padding: 1.2rem 0.5rem;
-  overflow-y: auto;
+  padding: 3.2rem 0.5rem;
+}
+
+.menu-btn {
+  z-index: 8;
+  position: absolute;
+  left: 30px;
+  top: 16px;
+  cursor: pointer;
+  margin-right: auto;
+}
+
+.menu-btn .btn-line {
+  width: 25px;
+  height: 1.5px;
+  margin: 0 0 5px 0;
+  background: var(--darkGrey);
 }
 
 .instructions {
   text-align: center;
   line-height: 2;
+  padding: 8px;
 }
 
 .rate {
@@ -189,7 +227,7 @@ aside {
 
 .loan-form {
   height: 15rem;
-  width: 100%;
+  width: 90%;
 }
 
 .loan-apply__btn--container {
@@ -207,9 +245,25 @@ aside {
   background-color: var(--lighterGreen);
 }
 
-/* @media (min-width: 50rem) {
+@media (min-width: 48rem) {
   .container {
     font-size: 1rem;
+  }
+
+  .menu-btn {
+    display: block;
+    left: 50px;
+    top: 52px;
+  }
+
+  .menu-btn .btn-line {
+    height: 3px;
+    margin: 0 0 5px 0;
+  }
+
+  aside {
+    display: flex;
+    width: 17rem;
   }
 
   .dashboard-card {
@@ -227,10 +281,12 @@ aside {
   }
 
   .estimate {
-    width: 35rem;
+    width: 25rem;
+    height: 10rem;
+    font-size: 0.8rem;
   }
 
   .estimate div {
     margin: 1.5rem;
   }
-} */
+}

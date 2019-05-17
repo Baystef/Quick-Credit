@@ -1,16 +1,12 @@
 .repayment-history {
   color: var(--darkGrey);
-  margin-left: 1rem;
+  margin-left: 3rem;
 }
 
 .repayment-history__container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   margin-top: 3rem;
-}
-
-.repayment-history__container>div {
-  flex: 0 50%;
 }
 
 .repayment-history__items {
@@ -21,4 +17,10 @@
 .repayment-history__item {
   color: var(--lightGrey);
   width: 100%;
+}
+
+@media (min-width: 48rem) {
+  .repayment-history {
+    margin: 3rem 10rem;
+  }
 }

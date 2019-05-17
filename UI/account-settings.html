@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Quick Credit</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/forgot-password.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+    integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="backdrop"></div>
+
+  <section class="modal">
+    <h1 class="modal__title">Are you sure you want to log out?</h1>
+    <section class="modal__actions">
+      <a href="signin.html" class="modal__action">Yes</a>
+      <button class="modal__action modal__action--negative" type="button">No</button>
+    </section>
+  </section>
+
+  <div class="container">
+    <aside>
+      <div class="welcome-container">
+        <span class="close-sidebar">&#10006;</span>
+        <h3 class="welcome">Account Settings</h3>
+      </div>
+      <nav class="dashboard-nav">
+        <ul class="dashboard-nav__items">
+          <li class="dashboard-nav__item"><a href="dashboard.html">Apply for Loan</a></li>
+          <li class="dashboard-nav__item"><a href="repayment-history.html">History</a></li>
+          <li class="dashboard-nav__item active"><a href="account-settings.html">Account Settings</a></li>
+        </ul>
+      </nav>
+
+      <!-- <div class="dashboard-card__container">
+        <section class="dashboard-card acct-stat">
+          <p class="dashboard-card__title acct-stat__title">Account Status</p>
+          <h4 class="acct-stat__verified">Verified</h4>
+        </section>
+        <section class="dashboard-card loan-stat">
+          <p class="dashboard-card__title loan-stat__title">Loan Application</p>
+          <h4 class="loan-stat__verified">Pending</h4>
+        </section>
+      </div> -->
+
+      <button class="logout"><i class="fas fa-power-off"></i> Log Out</button>
+    </aside>
+
+    <div class="menu-btn">
+      <div class="btn-line"></div>
+      <div class="btn-line"></div>
+      <div class="btn-line"></div>
+    </div>
+
+    <section class="dashboard-body">
+
+      <div class="container">
+        <form action="" class="form forgot-password_form">
+          <h2 class="form-title">Reset Your Password</h2>
+          <label for="password">Current Password</label>
+          <input type="password" name="password" class="password input" placeholder="@#$%^&*">
+          <label for="new-password">New Password</label>
+          <input type="password" name="new-password" class="new-password input" placeholder="@#$%^&*">
+          <label for="confirm-password">Confirm New Password</label>
+          <input type="password" name="confirm-password" class="confirm-password input" placeholder="@#$%^&*">
+          <button class="reset-password_button button">Reset Password</button>
+        </form>
+      </div>
+
+    </section>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+  <script src="js/account-settings.js"></script>
+</body>
+
+</html>
