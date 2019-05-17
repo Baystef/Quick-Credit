@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/admin-repayments-record.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
     integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 </head>
@@ -49,13 +50,13 @@
     </div>
 
     <section class="dashboard-body">
-      <h2 class="users dashboard-title">Repaid Loans</h2>
+      <h2 class="users dashboard-title">Pending Loans</h2>
       <div class="users-container">
         <nav class="dashboard-subnav">
           <ul class="dashboard-subnav__items">
             <li class="dashboard-subnav__item"><a href="admin-repayments.html">Repaid</a></li>
-            <li class="dashboard-subnav__item active"><a href="admin-repayments-unrepaid.html">Unrepaid</a></li>
-            <li class="dashboard-subnav__item"><a href="admin-repayments-record.html">Make Repayment</a></li>
+            <li class="dashboard-subnav__item"><a href="admin-repayments-unrepaid.html">Unrepaid</a></li>
+            <li class="dashboard-subnav__item active"><a href="admin-repayments-record.html">Make Repayment</a></li>
           </ul>
         </nav>
 
@@ -65,28 +66,26 @@
               <tr>
                 <th>id</th>
                 <th>User</th>
-                <th>Amount (&#8358;)</th>
-                <th>Interest (&#8358;)</th>
                 <th>Monthly Installment (&#8358;)</th>
                 <th>Repayment Due (&#8358;)</th>
                 <th>Tenor (Months)</th>
                 <th>Repaid</th>
                 <th>Application Date</th>
-                <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>1</td>
-                <td>daramola.quic@yahoo.com</td>
-                <td>50000</td>
-                <td>1250</td>
-                <td>5000</td>
-                <td>51250</td>
-                <td>9</td>
+                <td>B.stef@yahoomail.com</td>
+                <td>2300</td>
+                <td>15525</td>
+                <td>3</td>
                 <td>false</td>
-                <td>27 Nov, 2018</td>
-                <td>approved</td>
+                <td>29 Jan, 2019</td>
+                <td>
+                  <button class="dashboard-verify__btn button" value="pay">Make Payment</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -94,6 +93,7 @@
       </div>
     </section>
   </div>
+
 
   <script src="js/dashboard.js"></script>
 </body>

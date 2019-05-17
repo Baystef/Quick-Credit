@@ -18,7 +18,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -6.5rem;
+  margin-top: -4rem;
 }
 
 .form-title {
@@ -39,4 +39,17 @@ body {
 .signin-button:hover,
 .signin-button:active {
   background-color: var(--lighterGreen);
+}
+
+@media (max-width: 25rem) {
+  body {
+    overflow: hidden;
+  }
+
+  .signin-form, 
+  .forgot-password_form {
+    margin-top: 12rem;
+    height: 100%;
+    padding-top: auto;
+  }
 }

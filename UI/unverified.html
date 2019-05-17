@@ -10,26 +10,26 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/admin.css">
-  <link rel="stylesheet" href="css/responsive-table.css">
   <link rel="stylesheet" href="css/unverified.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
     integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="backdrop"></div>
-  
+  <div class="backdrop"></div>
+
   <section class="modal">
     <h1 class="modal__title">Are you sure you want to log out?</h1>
-    <section class="modal__actions">
+    <div class="modal__actions">
       <a href="signin.html" class="modal__action">Yes</a>
       <button class="modal__action modal__action--negative" type="button">No</button>
-    </section>
+    </div>
   </section>
 
   <div class="container">
     <aside>
       <div class="welcome-container">
+        <span class="close-sidebar">&#10006;</span>
         <h3 class="welcome">Welcome <br>Admin</h3>
       </div>
       <nav class="dashboard-nav">
@@ -43,9 +43,15 @@
       <button class="logout"><i class="fas fa-power-off"></i> Log Out</button>
     </aside>
 
+    <div class="menu-btn">
+      <div class="btn-line"></div>
+      <div class="btn-line"></div>
+      <div class="btn-line"></div>
+    </div>
+
     <section class="dashboard-body">
       <h2 class="users dashboard-title">Unverified Users</h2>
-      <section class="users-container">
+      <div class="users-container">
         <nav class="dashboard-subnav">
           <ul class="dashboard-subnav__items">
             <li class="dashboard-subnav__item"><a href="admin.html">All</a></li>
@@ -55,57 +61,58 @@
 
           <form class="dashboard-search__form">
             <input class="dashboard-search-input" type="search" placeholder="Search with email">
-            <button class="dashboard-search-btn" type="submit">&#8594</button>
+            <button class="dashboard-search-btn" type="submit">&#8594;</button>
           </form>
         </nav>
 
-        <table role="table" class="dashboard-table">
-          <thead role="rowgroup">
-            <tr role="row">
-              <th role="columnheader">id</th>
-              <th role="columnheader">First Name</th>
-              <th role="columnheader">Last Name</th>
-              <th role="columnheader">Email</th>
-              <th role="columnheader">Work Address</th>
-              <th role="columnheader">Home Address</th>
-              <th role="columnheader">Phone &#8470</th>
-              <th role="columnheader">Actions</th>
-            </tr>
-          </thead>
-          <tbody role="rowgroup">
-            <tr role="row">
-              <td role="cell">1</td>
-              <td role="cell">Afolabi</td>
-              <td role="cell">Mustapha</td>
-              <td role="cell">afolabi.mustapha@gmail.com</td>
-              <td role="cell">1, Ipaja Road, Lagos</td>
-              <td role="cell">3, Ebedi Street, Ilorin</td>
-              <td role="cell">07098765432</td>
-              <td role="cell">
-                <button class="dashboard-reject__btn button" value="unverified">Reject</button>
-                <button class="dashboard-verify__btn button" value="verify">Verify</button>
-              </td>
-            </tr>
-            <tr role="row">
-              <td role="cell">2</td>
-              <td role="cell">Bolaji</td>
-              <td role="cell">Stephen</td>
-              <td role="cell">B.stef@yahoomail.com</td>
-              <td role="cell">75, Abule-Egba Road, Lagos-Abeokuta way</td>
-              <td role="cell">16, old Ota road, Ogun</td>
-              <td role="cell">07012983476</td>
-              <td role="cell">
-                <button class="dashboard-reject__btn button" value="unverified">Reject</button>
-                <button class="dashboard-verify__btn button" value="verify">Verify</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+        <div class="dashboard-table__container">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Work Address</th>
+                <th>Home Address</th>
+                <th>Phone &#8470;</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Afolabi</td>
+                <td>Mustapha</td>
+                <td>afolabi.mustapha@gmail.com</td>
+                <td>1, Ipaja Road, Lagos</td>
+                <td>3, Ebedi Street, Ilorin</td>
+                <td>07098765432</td>
+                <td>
+                  <button class="dashboard-reject__btn button" value="unverified">Reject</button>
+                  <button class="dashboard-verify__btn button" value="verify">Verify</button>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Bolaji</td>
+                <td>Stephen</td>
+                <td>B.stef@yahoomail.com</td>
+                <td>75, Abule-Egba Road, Lagos-Abeokuta way</td>
+                <td>16, old Ota road, Ogun</td>
+                <td>07012983476</td>
+                <td>
+                  <button class="dashboard-reject__btn button" value="unverified">Reject</button>
+                  <button class="dashboard-verify__btn button" value="verify">Verify</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
   </div>
 
-  <script src="js/responsive-table.js"></script>
   <script src="js/dashboard.js"></script>
 </body>
 

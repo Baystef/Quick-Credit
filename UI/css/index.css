@@ -13,7 +13,7 @@
     background: url(../images/header-1.jpg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: 100% 100%;
     text-align: center;
     height: 100vh;
     padding: 2rem;
@@ -82,6 +82,7 @@
 .main-works-card__text {
     font-size: 0.8rem;
     color: var(--lightGrey);
+    line-height: 1.5;
 }
 
 .fas {
@@ -95,7 +96,7 @@
     color: var(--white);
     padding: 3rem 2rem;
     background-color: var(--darkGrey);
-    margin-top: 12rem;
+    margin-top: 14rem;
 }
 
 .footer-logo {
@@ -161,16 +162,22 @@
     padding: 0.5rem;
 }
 
-@media (min-width: 40rem) {
+@media (min-width: 50rem) {
     .main-header {
         text-align: left;
         align-items: flex-start;
         padding-left: 6rem;
     }
+
+    .main-works-title {
+        margin-top: 8rem;
+        margin-bottom: -4rem;
+    }
     
     .main-works-container {
         flex-direction: row;
         margin: auto 0;
+        padding-top: -4rem;
     }
 
     .footer {
