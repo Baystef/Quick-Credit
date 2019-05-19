@@ -31,13 +31,13 @@ describe('SIGNUP route', () => {
       });
   });
 
-  it.skip('should return 409 if user already exists', (done) => {
+  it('should return 409 if user already exists', (done) => {
     const newUser = {
       id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'daramola@quick.com',
-      password: 'quickcredit',
+      password: 'quickcredit10',
       phoneNo: 2347012345678,
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
@@ -92,27 +92,6 @@ describe('SIGNUP route', () => {
       .end((err, res) => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Password is required');
-        expect(res.body.error).to.exist;
-        done();
-      });
-  });
-
-  it.skip('should return 400 if phone number is empty', (done) => {
-    const newUser = {
-      id: 2,
-      firstName: 'Bayo',
-      lastName: 'Steve',
-      email: 'adebayo@quickcredit.com',
-      password: 'quickcredit10',
-      homeAddress: '1, osbourne, lagos',
-      workAddress: '5, dolphin, lagos',
-    };
-    chai.request(server)
-      .post('/api/v1/auth/signup')
-      .send(newUser)
-      .end((err, res) => {
-        expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal('Phone number is required');
         expect(res.body.error).to.exist;
         done();
       });
@@ -443,7 +422,7 @@ describe('SIGNIN route', () => {
       });
   });
 
-  it.skip('should return 400 if email is not found', (done) => {
+  it('should return 400 if email is not found', (done) => {
     const user = {
       email: 'daramola.ste@gmail.com',
       password: 'testing30',
@@ -453,15 +432,15 @@ describe('SIGNIN route', () => {
       .post('/api/v1/auth/signin')
       .send(user)
       .end((err, res) => {
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(401);
         expect(res.body).to.be.a('object');
         expect(res.body.error).to.exist;
-        expect(res.body.error).to.equal('Invalid Email or Password');
+        expect(res.body.error).to.equal('You are unauthorized');
         done();
       });
   });
 
-  it.skip('should return 400 if password is wrong/invalid', (done) => {
+  it('should return 400 if password is wrong/invalid', (done) => {
     const user = {
       email: 'daramola.steve@gmail.com',
       password: 'testing38',
@@ -471,10 +450,10 @@ describe('SIGNIN route', () => {
       .post('/api/v1/auth/signin')
       .send(user)
       .end((err, res) => {
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(401);
         expect(res.body).to.be.a('object');
         expect(res.body.error).to.exist;
-        expect(res.body.error).to.equal('Invalid Email or Password');
+        expect(res.body.error).to.equal('You are unauthorized');
         done();
       });
   });
@@ -521,7 +500,7 @@ describe('VERIFY USER route', () => {
   it('should return 200 for a successful verification', (done) => {
     const admin = {
       email: 'admin@quickcredit.com',
-      password: 'quickcreditsecret',
+      password: 'quickcreditsecret10',
     };
     chai
       .request(server)
@@ -545,7 +524,7 @@ describe('VERIFY USER route', () => {
   it('should return 404 for a user that does not exist', (done) => {
     const admin = {
       email: 'admin@quickcredit.com',
-      password: 'quickcreditsecret',
+      password: 'quickcreditsecret10',
     };
     chai
       .request(server)
@@ -570,7 +549,7 @@ describe('VERIFY USER route', () => {
   it('should return 400 if parameter is not a valid email', (done) => {
     const admin = {
       email: 'admin@quickcredit.com',
-      password: 'quickcreditsecret',
+      password: 'quickcreditsecret10',
     };
     chai
       .request(server)

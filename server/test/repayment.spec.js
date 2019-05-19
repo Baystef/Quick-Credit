@@ -40,7 +40,7 @@ describe('GET REPAYMENT HISTORY route', () => {
   it('should return 400 if loan id is invalid', (done) => {
     const admin = {
       email: 'admin@quickcredit.com',
-      password: 'quickcreditsecret',
+      password: 'quickcreditsecret10',
     };
     chai
       .request(server)

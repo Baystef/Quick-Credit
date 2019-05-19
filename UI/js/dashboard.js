@@ -1,8 +1,11 @@
 // Calculate loan repayment on the fly
-// eslint-disable-next-line no-unused-vars
+
+const getAmount = document.querySelector('#amount');
+const getTenor = document.querySelector('#tenor');
+
 function estimateRepayment() {
-  const amount = document.querySelector('#amount').value;
-  const tenor = document.querySelector('#tenor').value;
+  const amount = getAmount.value;
+  const tenor = getTenor.value;
   const monthlyInstallment = document.querySelector('#installment');
   const interestAccrued = document.querySelector('#interest-accr');
   const totalPayment = document.querySelector('#total-repayment');
@@ -11,28 +14,39 @@ function estimateRepayment() {
   const payment = ((amount / tenor) + interest).toFixed(2);
   const total = Number(amount) + interest;
 
-  if (!tenor) return 0;
-
-  const error = document.querySelector('.tenorError');
+  const amountError = document.querySelector('.amountError');
+  const tenorError = document.querySelector('.tenorError');
+  if (amount < 5000 || amount > 500000) {
+    amountError.textContent = 'Amount must be within 5000 - 500000';
+    amountError.style.fontSize = '0.6rem';
+    amountError.style.color = 'red';
+    monthlyInstallment.innerHTML = '';
+    interestAccrued.innerHTML = '';
+    totalPayment.innerHTML = '';
+  } else
   if (tenor < 1 || tenor > 12) {
-    error.textContent = 'Tenor must be within 1 - 12 months';
-    error.style.fontSize = '0.5rem';
-    error.style.padding = '0.5rem';
-    error.style.marginBottom = '0.5rem';
-    error.style.color = 'red';
-    error.style.backgroundColor = 'orange';
-    monthlyInstallment.innerHTML = 0;
-    interestAccrued.innerHTML = 0;
-    totalPayment.innerHTML = 0;
+    tenorError.textContent = 'Tenor must be within 1 - 12 months';
+    tenorError.style.fontSize = '0.6rem';
+    tenorError.style.color = 'red';
+    monthlyInstallment.innerHTML = '';
+    interestAccrued.innerHTML = '';
+    totalPayment.innerHTML = '';
   } else {
-    error.textContent = '';
-    error.style.backgroundColor = '';
+    tenorError.textContent = '';
+    tenorError.style.backgroundColor = '';
+    amountError.textContent = '';
+    amountError.style.backgroundColor = '';
     monthlyInstallment.innerHTML = payment;
     interestAccrued.innerHTML = interest;
     totalPayment.innerHTML = total;
   }
 }
 
+getAmount.addEventListener('input', estimateRepayment);
+getTenor.addEventListener('input', estimateRepayment);
+
+
+// Modal Script
 const backdrop = document.querySelector('.backdrop');
 const modal = document.querySelector('.modal');
 const modalNo = document.querySelector('.modal__action--negative');
@@ -62,6 +76,7 @@ if (modalNo) modalNo.addEventListener('click', closeModal);
 // When backdrop is clicked on, close modal and remove backdrop
 backdrop.addEventListener('click', closeModal);
 
+
 // Dashboard sidebar
 const closeSide = document.querySelector('.close-sidebar');
 const sideBar = document.querySelector('aside');
@@ -78,18 +93,26 @@ menu.addEventListener('click', () => {
   sideBar.classList.remove('close-side');
 });
 
+
 // Searching a table
-// eslint-disable-next-line no-unused-vars
-function filter() {
+const table = document.querySelector('.dashboard-table');
+const input = document.querySelector('.dashboard-search-input');
+const column = document.getElementsByTagName('thead')[0];
+const heading = column.rows[0].cells[1].textContent;
+
+function filterTable() {
   let td;
   let txtValue;
-  const input = document.querySelector('dashboard-search-input');
   const filter = input.value.toUpperCase();
-  const table = document.querySelector('dashboard-table');
   const tr = table.getElementsByTagName('tr');
   for (let i = 0; i < tr.length; i += 1) {
-    // eslint-disable-next-line prefer-destructuring
-    td = tr[i].getElementsByTagName('td')[0];
+    if (heading === 'First Name') {
+      // eslint-disable-next-line prefer-destructuring
+      td = tr[i].getElementsByTagName('td')[3];
+    } else if (heading === 'User') {
+      // eslint-disable-next-line prefer-destructuring
+      td = tr[i].getElementsByTagName('td')[0];
+    }
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -100,9 +123,5 @@ function filter() {
     }
   }
 }
-// const table = document.querySelector('.dashboard-table');
-// const search = document.querySelector('dashboard-search-input');
 
-// table.forEach(row => )
-
-// console.log(table.rows[1].cells[0].textContent);
+input.addEventListener('input', filterTable);
