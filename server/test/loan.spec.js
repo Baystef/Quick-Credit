@@ -13,7 +13,7 @@ describe('LOANS route', () => {
       const user = {
         firstName: 'Steve',
         lastName: 'Gates',
-        email: 'steve.gates@hotmail.com',
+        email: 'steve.gates@gmail.com',
         password: 'macinwindow6',
         phoneNo: 2347012345678,
         homeAddress: '1, Silicon Valley, San Francisco',
@@ -26,9 +26,6 @@ describe('LOANS route', () => {
         .end((signuperr, signupres) => {
           const token = `Bearer ${signupres.body.data.token}`;
           const loanApply = {
-            firstName: 'Steve',
-            lastName: 'Gates',
-            email: 'steve.gates@hotmail.com',
             loanAmount: 100000,
             tenor: 3,
           };
@@ -46,10 +43,10 @@ describe('LOANS route', () => {
         });
     });
 
-    it.skip('should return 400 if loan amount is empty', (done) => {
+    it('should return 400 if loan amount is empty', (done) => {
       const loginUser = {
         email: 'steve.gates@hotmail.com',
-        password: 'macinwindow',
+        password: 'macinwindow10',
       };
       chai
         .request(server)
@@ -58,9 +55,6 @@ describe('LOANS route', () => {
         .end((loginerr, loginres) => {
           const token = `Bearer ${loginres.body.data.token}`;
           const loanApply = {
-            firstName: 'Steve',
-            lastName: 'Gates',
-            email: 'steve.gates@hotmail.com',
             tenor: 3,
           };
           chai
@@ -77,10 +71,10 @@ describe('LOANS route', () => {
         });
     });
 
-    it.skip('should return 400 if loan amount is not a number', (done) => {
+    it('should return 400 if loan amount is not a number', (done) => {
       const loginUser = {
         email: 'steve.gates@hotmail.com',
-        password: 'macinwindow',
+        password: 'macinwindow10',
       };
       chai
         .request(server)
@@ -89,9 +83,6 @@ describe('LOANS route', () => {
         .end((loginerr, loginres) => {
           const token = `Bearer ${loginres.body.data.token}`;
           const loanApply = {
-            firstName: 'Steve',
-            lastName: 'Gates',
-            email: 'steve.gates@hotmail.com',
             loanAmount: 'string',
             tenor: 3,
           };
@@ -109,10 +100,10 @@ describe('LOANS route', () => {
         });
     });
 
-    it.skip('should return 400 if tenor is empty', (done) => {
+    it('should return 400 if tenor is empty', (done) => {
       const loginUser = {
         email: 'steve.gates@hotmail.com',
-        password: 'macinwindow',
+        password: 'macinwindow10',
       };
       chai
         .request(server)
@@ -121,9 +112,6 @@ describe('LOANS route', () => {
         .end((loginerr, loginres) => {
           const token = `Bearer ${loginres.body.data.token}`;
           const loanApply = {
-            firstName: 'Steve',
-            lastName: 'Gates',
-            email: 'steve.gates@hotmail.com',
             loanAmount: 100000,
           };
           chai
@@ -140,10 +128,10 @@ describe('LOANS route', () => {
         });
     });
 
-    it.skip('should return 400 if tenor is not a number', (done) => {
+    it('should return 400 if tenor is not a number', (done) => {
       const loginUser = {
         email: 'steve.gates@hotmail.com',
-        password: 'macinwindow',
+        password: 'macinwindow10',
       };
       chai
         .request(server)
@@ -152,9 +140,6 @@ describe('LOANS route', () => {
         .end((loginerr, loginres) => {
           const token = `Bearer ${loginres.body.data.token}`;
           const loanApply = {
-            firstName: 'Steve',
-            lastName: 'Gates',
-            email: 'steve.gates@hotmail.com',
             loanAmount: 100000,
             tenor: 'string',
           };
@@ -178,7 +163,7 @@ describe('LOANS route', () => {
     it('should return a status 200 with all loan applications', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -204,7 +189,7 @@ describe('LOANS route', () => {
     it('should return 403 if user is not an admin', (done) => {
       const notAdmin = {
         email: 'daramola@quick.com',
-        password: 'testing30',
+        password: 'quickcredit10',
       };
       chai
         .request(server)
@@ -229,7 +214,7 @@ describe('LOANS route', () => {
     it('should return 401 if token is not provided or invalid', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -257,7 +242,7 @@ describe('LOANS route', () => {
     it('should return 200 and all approved & repaid loans', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -283,7 +268,7 @@ describe('LOANS route', () => {
     it('should return 200 and all approved & unrepaid loans', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -309,7 +294,7 @@ describe('LOANS route', () => {
     it('should return 400 for invalid status query', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -334,7 +319,7 @@ describe('LOANS route', () => {
     it('should return 400 for invalid repaid query', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -361,7 +346,7 @@ describe('LOANS route', () => {
     it('should return 200 and a specific loan application', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -387,7 +372,7 @@ describe('LOANS route', () => {
     it('should return 400 if parameter is not a number', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -412,7 +397,7 @@ describe('LOANS route', () => {
     it('should return 404 if loan id not found', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -440,7 +425,7 @@ describe('LOANS route', () => {
     it('should return 200 and update the loan status of a specific user', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -467,7 +452,7 @@ describe('LOANS route', () => {
     it('should return 400 if an invalid status is provided', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
@@ -494,7 +479,7 @@ describe('LOANS route', () => {
     it('should return 404 if loanID is not found', (done) => {
       const admin = {
         email: 'admin@quickcredit.com',
-        password: 'quickcreditsecret',
+        password: 'quickcreditsecret10',
       };
       chai
         .request(server)
