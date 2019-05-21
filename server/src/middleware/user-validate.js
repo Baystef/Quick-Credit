@@ -54,7 +54,7 @@ class Validation {
       .withMessage('Password must contain letters and atleast 1 number');
 
     req
-      .checkBody('phoneNo')
+      .checkBody('phoneNumber')
       .optional()
       .isInt()
       .withMessage('Phone number should be numbers only')

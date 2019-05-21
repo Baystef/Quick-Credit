@@ -58,7 +58,7 @@ API BASE URL https://quick-credit-quick.herokuapp.com/. It is recommended to att
 
 | method | route        | description               | data                                          |
 | ------ | ------------ | ------------------------- | ----------------------------------------------|
-| POST   | /auth/signup  | Sign Up                 | `{firstName, lastName, email, password, phoneNo, homeAddress, workAddress}`                           |
+| POST   | /auth/signup  | Sign Up                 | `{firstName, lastName, email, password, phoneNumber, homeAddress, workAddress}`                           |
 | POST   | /auth/signin | Sign In                   | `{email, password}` |
 ## User Verification endpoint `/api/v1/users`
 
