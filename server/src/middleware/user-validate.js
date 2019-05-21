@@ -54,17 +54,6 @@ class Validation {
       .withMessage('Password must contain letters and atleast 1 number');
 
     req
-      .checkBody('phoneNumber')
-      .optional()
-      .isInt()
-      .withMessage('Phone number should be numbers only')
-      .trim()
-      .isLength({ min: 13 })
-      .withMessage('Phone number should be 13 digits')
-      .matches(/^(234).\d{9}$/)
-      .withMessage('Invalid Phone number');
-
-    req
       .checkBody('homeAddress')
       .notEmpty()
       .withMessage('Home Address is required')

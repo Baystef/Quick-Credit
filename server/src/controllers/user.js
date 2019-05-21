@@ -2,6 +2,7 @@ import { users } from '../models/db';
 import Authentication from '../middleware/authentication';
 import Helper from '../helper/auth-helper';
 import db from '../../db';
+import logger from '../helper/debugger';
 
 
 /**
@@ -20,12 +21,13 @@ class User {
       firstName, lastName, email, password, homeAddress, workAddress,
     } = req.body;
 
+    logger(firstName);
     const hashPassword = Helper.hashPassword(password);
 
     const createUserQuery = `INSERT INTO 
-    users(firstName, lastName, email, password, homeAddress, workAddress)
+    users("firstName", "lastName", email, password, "homeAddress", "workAddress")
     VALUES($1,$2,$3,$4,$5,$6) 
-    RETURNING firstName, lastName, email, homeAddress, workAddress, status, isAdmin`;
+    RETURNING "firstName", "lastName", email, "homeAddress", "workAddress", status, "isAdmin"`;
 
     const values = [
       firstName,
@@ -42,7 +44,7 @@ class User {
       const token = Authentication.generateToken({
         id, firstName, lastName, email, isAdmin,
       });
-      return res.status(201).json({
+      return res.status(201).header('x-auth-token', token).json({
         status: '201',
         data: {
           token,
@@ -63,41 +65,48 @@ class User {
    * @param {object} res response object
    * @returns {object} user object
    */
-  static signIn(req, res) {
+  static async signIn(req, res) {
     const { email, password } = req.body;
-    const withEmail = users.findIndex(user => user.email === email);
 
-    if (withEmail !== -1) {
-      const verify = Helper.comparePassword(
-        users[withEmail].password,
-        password,
-      );
+    const findUserQuery = 'SELECT * FROM users WHERE email = $1';
 
-      if (verify) {
-        const data = {
-          token: users[withEmail].token,
-          id: users[withEmail].id,
-          firstName: users[withEmail].firstname,
-          lastName: users[withEmail].lastName,
-          email: users[withEmail].email,
-          phoneNumber: users[withEmail].phoneNumber,
-          homeAddress: users[withEmail].homeAddress,
-          workAddress: users[withEmail].workAddress,
-          status: users[withEmail].status,
-          isAdmin: users[withEmail].isAdmin,
-          createdOn: users[withEmail].createdOn,
-        };
-
-        return res.status(200).json({
-          status: 200,
-          data,
+    try {
+      const { rows } = await db.query(findUserQuery, [email])
+      if (!rows[0]) {
+        return res.status(401).json({
+          status: 401,
+          error: 'You are unauthorized',
         });
       }
+      if (!Helper.comparePassword(rows[0].password, password)) {
+        return res.status(401).json({
+          status: 401,
+          error: 'You are unauthorized',
+        });
+      }
+      const {
+        id, firstname, lastname, isAdmin,
+      } = rows[0];
+
+      const firstName = firstname;
+      const lastName = lastname;
+
+      const token = Authentication.generateToken({
+        id, firstName, lastName, isAdmin,
+      });
+
+      return res.status(200).json({
+        status: 200,
+        data: {
+          token,
+          firstName,
+          lastName,
+          email,
+        },
+      });
+    } catch (error) {
+      return res.status(400).json(error.message);
     }
-    return res.status(401).json({
-      status: 401,
-      error: 'You are unauthorized',
-    });
   }
 
   /**

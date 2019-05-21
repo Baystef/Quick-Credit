@@ -4,7 +4,6 @@ dist: trusty
 
 node_js:
   - "10.15.3"
-  - "9"
   - "node"
   
 cache:
@@ -12,6 +11,7 @@ cache:
       - "$HOME/.npm"
 
 before_script:
+  - psql -c 'create database "quick_credit_test";' -U postgres
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
