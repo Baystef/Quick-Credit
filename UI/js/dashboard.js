@@ -42,8 +42,8 @@ function estimateRepayment() {
   }
 }
 
-getAmount.addEventListener('input', estimateRepayment);
-getTenor.addEventListener('input', estimateRepayment);
+// getAmount.addEventListener('input', estimateRepayment);
+// getTenor.addEventListener('input', estimateRepayment);
 
 
 // Modal Script

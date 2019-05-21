@@ -1,6 +1,7 @@
 node_modules
 .env
 .nyc_output
+.vscode
 coverage/
 build
 Enemy of Progress

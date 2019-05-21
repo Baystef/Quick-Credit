@@ -9,7 +9,8 @@
     "build": "babel server --out-dir build",
     "nyc": "nyc --reporter=lcov npm run test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test",
-    "test": "nyc --reporter=text mocha --timeout 10000 -c server/test --require @babel/register --exit"
+    "test": "nyc --reporter=text mocha --timeout 10000 -c server/test --require @babel/register --exit",
+    "db:migrate": "set DEBUG=dev && babel-node ./server/src/schema/migration"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,7 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
-    "@babel/polyfill": "^7.4.4",
+    "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
     "babel-watch": "^7.0.0",
@@ -45,12 +46,14 @@
     "nyc": "^14.1.0"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "bcrypt": "^3.0.6",
     "debug": "^4.1.1",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "pg": "^7.11.0"
   }
 }
