@@ -1,6 +1,7 @@
 import { users } from '../models/db';
 import Authentication from '../middleware/authentication';
 import Helper from '../helper/auth-helper';
+import db from '../../db';
 
 
 /**
@@ -14,62 +15,46 @@ class User {
    * @param {object} res response object
    * @returns {object}  new user object
    */
-  static signUp(req, res) {
+  static async signUp(req, res) {
     const {
-      firstName, lastName, email, password, phoneNo, homeAddress, workAddress,
+      firstName, lastName, email, password, homeAddress, workAddress,
     } = req.body;
 
-    const exists = users.find(user => user.email === email);
-    if (exists) return res.status(409).json({ status: 409, error: 'User already exists' });
-
-    const id = users.length + 1;
-    const status = 'unverified';
-    const isAdmin = false;
-    const createdOn = new Date().toLocaleString();
     const hashPassword = Helper.hashPassword(password);
-    const token = Authentication.generateToken({
-      id, firstName, lastName, email, isAdmin,
-    });
 
+    const createUserQuery = `INSERT INTO 
+    users(firstName, lastName, email, password, homeAddress, workAddress)
+    VALUES($1,$2,$3,$4,$5,$6) 
+    RETURNING firstName, lastName, email, homeAddress, workAddress, status, isAdmin`;
 
-    // Data stored in data structure
-    const newUser = {
-      token,
-      id,
+    const values = [
       firstName,
       lastName,
       email,
-      password: hashPassword,
-      phoneNo,
+      hashPassword,
       homeAddress,
       workAddress,
-      status,
-      isAdmin,
-      createdOn,
-    };
+    ];
 
-
-    users.push(newUser);
-
-    // Data sent as response to user
-    const data = {
-      token: newUser.token,
-      id: newUser.id,
-      firstName: newUser.firstname,
-      lastName: newUser.lastName,
-      email: newUser.email,
-      phoneNo: newUser.phoneNo,
-      homeAddress: newUser.homeAddress,
-      workAddress: newUser.workAddress,
-      status: newUser.status,
-      isAdmin: newUser.isAdmin,
-      createdOn: newUser.createdOn,
-    };
-
-    return res.status(201).json({
-      status: '201',
-      data,
-    });
+    try {
+      const { rows } = await db.query(createUserQuery, values);
+      const { id, isAdmin } = rows[0];
+      const token = Authentication.generateToken({
+        id, firstName, lastName, email, isAdmin,
+      });
+      return res.status(201).json({
+        status: '201',
+        data: {
+          token,
+          ...rows[0],
+        },
+      });
+    } catch (error) {
+      if (error.routine === '_bt_check_unique') {
+        return res.status(409).json({ status: 409, error: 'User already exists' });
+      }
+      return res.status(400).send(error);
+    }
   }
 
   /**
@@ -95,7 +80,7 @@ class User {
           firstName: users[withEmail].firstname,
           lastName: users[withEmail].lastName,
           email: users[withEmail].email,
-          phoneNo: users[withEmail].phoneNo,
+          phoneNumber: users[withEmail].phoneNumber,
           homeAddress: users[withEmail].homeAddress,
           workAddress: users[withEmail].workAddress,
           status: users[withEmail].status,
