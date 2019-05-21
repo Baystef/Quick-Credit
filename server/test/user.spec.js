@@ -2,6 +2,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../index';
+import logger from '../src/helper/debugger';
 
 
 const { expect } = chai;
@@ -9,7 +10,7 @@ chai.use(chaiHttp);
 
 // Tests for the Signup route
 describe('SIGNUP route', () => {
-  it.skip('should create a new user account', (done) => {
+  it('should create a new user account', (done) => {
     const newUser = {
       firstName: 'Bayo',
       lastName: 'Steve',
@@ -25,16 +26,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(201);
         expect(res.body).to.be.a('object');
         expect(res.body.data.status).to.exist;
-        // expect(res.body.data.isAdmin).to.exist;
+        expect(res.body.data.isAdmin).to.exist;
         done();
       });
   });
 
-  it.skip('should return 409 if user already exists', (done) => {
+  it('should return 409 if user already exists', (done) => {
     const newUser = {
       firstName: 'Steve',
       lastName: 'Gates',
-      email: 'steve.gates@hotmail.com',
+      email: 'adebayo@quick.com',
       password: 'macinwindow10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
@@ -43,6 +44,7 @@ describe('SIGNUP route', () => {
       .post('/api/v1/auth/signup')
       .send(newUser)
       .end((err, res) => {
+        logger(res);
         expect(res.status).to.equal(409);
         expect(res.body.error).to.equal('User already exists');
         expect(res.body.error).to.exist;
@@ -52,7 +54,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if email is empty', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: '',
@@ -73,7 +74,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if password is empty', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quickcredit.com',
@@ -94,7 +94,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if home address is empty', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quickcredit.com',
@@ -115,7 +114,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if work address is empty', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quickcredit.com',
@@ -136,7 +134,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if first name is not an alphabet', (done) => {
     const newUser = {
-      id: 2,
       firstName: 1234,
       lastName: 'Steve',
       email: 'adebayo@quick.com',
@@ -157,7 +154,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if last name is not an alphabet', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 1234,
       email: 'adebayo@quick.com',
@@ -178,7 +174,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if email is invalid', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick',
@@ -199,7 +194,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if password is too simple', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
@@ -220,7 +214,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if home address is invalid', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
@@ -241,7 +234,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if work address is invalid', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
@@ -262,7 +254,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if first name is not of required length', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'da',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
@@ -283,7 +274,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if last name is not of required length', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'St',
       email: 'adebayo@quick.com',
@@ -304,7 +294,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if password is not of required length', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
@@ -325,7 +314,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if home address is not of required length', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
@@ -346,7 +334,6 @@ describe('SIGNUP route', () => {
 
   it('should return 400 if work address is not of required length', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
@@ -369,20 +356,33 @@ describe('SIGNUP route', () => {
 // Tests for the Signin route
 describe('SIGNIN route', () => {
   it('should return 200 and login a user account successfully', (done) => {
-    const user = {
-      email: 'admin@quickcredit.com',
-      password: 'quickcreditsecret10',
+    const newUser = {
+      firstName: 'Bayo',
+      lastName: 'Steve',
+      email: 'steve@quick.com',
+      password: 'quickcredit10',
+      homeAddress: '1, osbourne, lagos',
+      workAddress: 'lagos',
     };
-    chai
-      .request(server)
-      .post('/api/v1/auth/signin')
-      .send(user)
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.be.a('object');
-        expect(res.body.data).to.exist;
-        expect(res.body.data.token).to.exist;
-        done();
+    chai.request(server)
+      .post('/api/v1/auth/signup')
+      .send(newUser)
+      .end((signuperr, signupres) => {
+        const user = {
+          email: 'steve@quick.com',
+          password: 'quickcredit10',
+        };
+        chai
+          .request(server)
+          .post('/api/v1/auth/signin')
+          .send(user)
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.a('object');
+            expect(res.body.data).to.exist;
+            expect(res.body.data.token).to.exist;
+            done();
+          });
       });
   });
 

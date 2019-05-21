@@ -2,6 +2,7 @@ import { users } from '../models/db';
 import Authentication from '../middleware/authentication';
 import Helper from '../helper/auth-helper';
 import db from '../../db';
+import logger from '../helper/debugger';
 
 
 /**
@@ -20,12 +21,13 @@ class User {
       firstName, lastName, email, password, homeAddress, workAddress,
     } = req.body;
 
+    logger(firstName);
     const hashPassword = Helper.hashPassword(password);
 
     const createUserQuery = `INSERT INTO 
-    users(firstName, lastName, email, password, homeAddress, workAddress)
+    users("firstName", "lastName", email, password, "homeAddress", "workAddress")
     VALUES($1,$2,$3,$4,$5,$6) 
-    RETURNING firstName, lastName, email, homeAddress, workAddress, status, isAdmin`;
+    RETURNING "firstName", "lastName", email, "homeAddress", "workAddress", status, "isAdmin"`;
 
     const values = [
       firstName,
