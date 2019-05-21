@@ -137,7 +137,7 @@ export const loans = [
 export const repayments = [
   {
     id: 1,
-    loanId: 2,
+    loanId: 3,
     createdOn: '5/6/2019, 1:42:42 PM',
     amount: 100000,
     monthlyInstallment: 15000,

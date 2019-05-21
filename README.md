@@ -42,17 +42,17 @@ https://www.pivotaltracker.com/n/projects/2326863
 // login as admin
 {
   email: "admin@quickcredit.com",
-  password: "quickcreditsecret"
+  password: "quickcreditsecret10"
 }
 
 // login as user
 {
   email: "daramola@quick.com",
-  password: "testing30"
+  password: "quickcredit10"
 }
 ```
 
-API BASE URL https://quick-credit-quick.herokuapp.com/api/v1. It is recommended to attach an `authorization` Header containing the generated `token` from `/api/v1/auth/signin` to access all routes. It should be added as `"Bearer token"`
+API BASE URL https://quick-credit-quick.herokuapp.com/. It is recommended to attach an `authorization` Header containing the generated `token` from `/api/v1/auth/signin` to access all routes. It should be added as `"Bearer token"`
 
 ## Authentication endpoints `/api/v1/auth`
 

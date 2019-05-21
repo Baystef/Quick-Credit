@@ -10,8 +10,8 @@ chai.use(chaiHttp);
 describe('CREATE REPAYMENT RECORD route', () => {
   it('should return 403 if a user, not admin tries to access the route', (done) => {
     const user = {
-      email: 'daramola.steve@gmail.com',
-      password: 'testing30',
+      email: 'daramola@quick.com',
+      password: 'quickcredit10',
     };
     chai
       .request(server)
@@ -63,8 +63,8 @@ describe('GET REPAYMENT HISTORY route', () => {
 
   it('should return 200 if repayment history is found', (done) => {
     const user = {
-      email: 'daramola.steve@gmail.com',
-      password: 'testing30',
+      email: 'daramola@quick.com',
+      password: 'quickcredit10',
     };
     chai
       .request(server)
