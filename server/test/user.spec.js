@@ -23,6 +23,7 @@ describe('SIGNUP route', () => {
       .post('/api/v1/auth/signup')
       .send(newUser)
       .end((err, res) => {
+        console.log(res.body.error);
         expect(res.status).to.equal(201);
         expect(res.body).to.be.a('object');
         expect(res.body.data.status).to.exist;
