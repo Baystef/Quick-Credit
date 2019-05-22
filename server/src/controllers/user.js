@@ -115,36 +115,41 @@ class User {
    * @param {object} res response object
    * @returns {object} user object with verified status
    */
-  static newUserVerify(req, res) {
+  static async newUserVerify(req, res) {
     const { email } = req.params;
-    const unverified = users.find(user => user.email === email);
+    const { status } = req.body;
 
-    if (unverified && unverified.status === 'verified') {
-      return res.status(409).json({
-        status: 409,
-        error: 'User is already verified',
-      });
-    }
+    const findUserQuery = 'SELECT * FROM users WHERE email = $1';
+    try {
+      const { rows } = await db.query(findUserQuery, [email]);
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'User does not exist',
+        });
+      }
+      if (rows[0].status === 'verified') {
+        return res.status(409).json({
+          status: 409,
+          error: 'User is already verified',
+        });
+      }
 
-    if (unverified) {
-      unverified.status = 'verified';
-
-      const newStatus = {
-        email: unverified.email,
-        firstName: unverified.firstName,
-        lastName: unverified.lastName,
-        address: unverified.workAddress,
-        status: unverified.status,
-      };
+      const verifyQuery = 'UPDATE users SET status = $1 WHERE email = $2 RETURNING *';
+      const verify = await db.query(verifyQuery, [status, email]);
       return res.status(200).json({
         status: 200,
-        data: newStatus,
+        data: {
+          email: verify.rows[0].email,
+          firstName: verify.rows[0].firstName,
+          lastName: verify.rows[0].lastName,
+          address: verify.rows[0].address,
+          status: verify.rows[0].status,
+        },
       });
+    } catch (error) {
+      return res.status(400).json(error.message);
     }
-    return res.status(404).json({
-      status: 404,
-      error: 'User does not exist',
-    });
   }
 }
 
