@@ -117,7 +117,6 @@ class User {
    */
   static async newUserVerify(req, res) {
     const { email } = req.params;
-    const { status } = req.body;
 
     const findUserQuery = 'SELECT * FROM users WHERE email = $1';
     try {
@@ -135,8 +134,8 @@ class User {
         });
       }
 
-      const verifyQuery = 'UPDATE users SET status = $1 WHERE email = $2 RETURNING *';
-      const verify = await db.query(verifyQuery, [status, email]);
+      const verifyQuery = "UPDATE users SET status = 'verified' WHERE email = $2 RETURNING *";
+      const verify = await db.query(verifyQuery, [email]);
       return res.status(200).json({
         status: 200,
         data: {

@@ -80,25 +80,33 @@ class Loan {
    * @param {object} res response object
    * @returns [array] array of loans
    */
-  static getAllLoans(req, res) {
+  static async getAllLoans(req, res) {
     const { status } = req.query;
     let { repaid } = req.query;
+    const loanqueryQuery = 'SELECT * FROM loans WHERE status=$1 AND repaid=$2';
+    const allLoanQuery = 'SELECT * FROM loans';
+    const values = [status, repaid];
 
-    if (status && repaid) {
-      // parses repaid back to boolean
-      repaid = JSON.parse(repaid);
+    try {
+      if (status && repaid) {
+        repaid = JSON.parse(repaid); // parses repaid back to boolean
+        const { rows } = await db.query(loanqueryQuery, values);
+        return res.status(200).json({
+          status: 200,
+          data: rows[0],
+        });
+      }
 
-      const approved = loans.filter(loan => loan.status === status && loan.repaid === repaid);
+      const allLoans = await db.query(allLoanQuery);
       return res.status(200).json({
         status: 200,
-        data: approved,
+        data: [allLoans.rows[0]],
       });
+    } catch (error) {
+      return res.status(400).send(error.message);
     }
-    return res.status(200).json({
-      status: 200,
-      data: loans,
-    });
   }
+
 
   /**
    * @description Retrieves a single specified loan
@@ -112,7 +120,7 @@ class Loan {
 
     try {
       const { rows } = await db.query(oneLoanQuery, [id]);
-      logger(rows);
+
       if (rows[0]) {
         return res.status(200).json({
           status: 200,
@@ -126,7 +134,7 @@ class Loan {
         error: 'Loan does not exist',
       });
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send(error.message);
     }
   }
 
@@ -160,7 +168,7 @@ class Loan {
 
       const approveQuery = 'UPDATE loans SET status=$1 WHERE id=$2 RETURNING *';
       const approve = await db.query(approveQuery, values);
-  
+
       return res.status(200).json({
         status: 200,
         data: approve.rows[0],
