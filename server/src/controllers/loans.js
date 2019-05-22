@@ -136,31 +136,38 @@ class Loan {
    * @param {object} res response object
    * @returns {object} loan application with new status
    */
-  static approveRejectLoan(req, res) {
+  static async approveRejectLoan(req, res) {
     const { status } = req.body;
-    const id = Number(req.params.id);
+    const { id } = req.params;
 
+    const oneLoanQuery = 'SELECT * FROM loans WHERE id=$1';
+    const values = [status, id];
 
-    const pending = loans.find(loan => loan.id === id);
-    if (pending) {
-      pending.status = status;
-      const newStatus = {
-        loanId: pending.id,
-        loanAmount: pending.loanAmount,
-        tenor: pending.tenor,
-        status: pending.status,
-        monthlyInstallment: pending.paymentInstallment,
-        interest: pending.interest,
-      };
+    try {
+      const { rows } = await db.query(oneLoanQuery, [id]);
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Loan does not exist',
+        });
+      }
+      if (rows[0].status === 'approved') {
+        return res.status(409).json({
+          status: 409,
+          error: 'Loan is approved already',
+        });
+      }
+
+      const approveQuery = 'UPDATE loans SET status=$1 WHERE id=$2 RETURNING *';
+      const approve = await db.query(approveQuery, values);
+  
       return res.status(200).json({
         status: 200,
-        data: newStatus,
+        data: approve.rows[0],
       });
+    } catch (error) {
+      return res.status(400).json(error.message);
     }
-    return res.status(404).json({
-      status: 404,
-      error: 'Loan does not exist',
-    });
   }
 }
 
