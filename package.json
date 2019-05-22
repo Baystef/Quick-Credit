@@ -7,9 +7,10 @@
     "start:dev": "set DEBUG=dev && babel-watch ./server/index.js",
     "start": "set DEBUG=dev && node build/index.js",
     "build": "babel server --out-dir build",
+    "test": "set NODE_ENV=test && npm run db:migrate && nyc --reporter=text mocha --timeout 10000 -c server/test --require @babel/register --exit",
     "nyc": "nyc --reporter=lcov npm run test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test",
-    "test": "nyc --reporter=text mocha --timeout 10000 -c server/test --require @babel/register --exit"
+    "db:migrate": "set DEBUG=dev && babel-node ./server/src/schema/migration"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,7 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
-    "@babel/polyfill": "^7.4.4",
+    "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
     "babel-watch": "^7.0.0",
@@ -45,12 +46,15 @@
     "nyc": "^14.1.0"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "bcrypt": "^3.0.6",
+    "cross-env": "^5.2.0",
     "debug": "^4.1.1",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "pg": "^7.11.0"
   }
 }

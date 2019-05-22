@@ -266,6 +266,22 @@ aside {
     width: 17rem;
   }
 
+  .menu-btn {
+    display: block;
+    left: 50px;
+    top: 52px;
+  }
+
+  .menu-btn .btn-line {
+    height: 3px;
+    margin: 0 0 5px 0;
+  }
+
+  aside {
+    display: flex;
+    width: 17rem;
+  }
+
   .dashboard-card {
     width: 8rem;
     height: 8rem;

@@ -68,11 +68,12 @@
 
       <form class="form loan-form">
         <label for="amount">Amount (&#8358;)</label>
-        <input type="number" name="amount" id="amount" class="input" min="5000" max="500000" step="1000"
-          oninput="estimateRepayment()">
-        <span class="tenorError"></span>
+        <span class="amountError"></span>
+        <input type="number" name="amount" id="amount" class="input" min="5000" max="500000" step="1000" value="5000"
+        pattern="[\d]+" oninput="estimateRepayment()">
         <label for="tenor">Tenor (Months)</label>
-        <input type="number" name="tenor" id="tenor" class="input" min="1" max="12" oninput="estimateRepayment()">
+        <input type="number" name="tenor" id="tenor" class="input" min="1" max="12" value="1" pattern="[\d]+" oninput="estimateRepayment()">
+        <span class="tenorError"></span>
       </form>
 
       <div class="dashboard-card__loan--container">

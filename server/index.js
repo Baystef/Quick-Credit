@@ -1,13 +1,13 @@
+import '@babel/polyfill';
 import express from 'express';
 import morgan from 'morgan';
-import Debug from 'debug';
+import logger from './src/helper/debugger';
 import user from './src/routes/users';
 import loan from './src/routes/loans';
 import repayment from './src/routes/repayments';
 
 
 const app = express();
-const debug = Debug('dev');
 
 app.use(morgan('tiny'));
 app.use(express.json());
@@ -27,7 +27,7 @@ app.use('*', (req, res) => {
 const port = process.env.PORT || 4700;
 
 const server = app.listen(port, () => {
-  debug(`App is listening on port ${port}`);
+  logger(`App is listening on port ${port}`);
 });
 
 export default server;

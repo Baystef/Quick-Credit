@@ -1,6 +1,8 @@
+// import logger from '../src/helper/debugger';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../index';
+import logger from '../src/helper/debugger';
 
 
 const { expect } = chai;
@@ -10,12 +12,10 @@ chai.use(chaiHttp);
 describe('SIGNUP route', () => {
   it('should create a new user account', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
-      email: 'adebayo@quick.com',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      email: 'steve@quick.com',
+      password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -23,22 +23,21 @@ describe('SIGNUP route', () => {
       .post('/api/v1/auth/signup')
       .send(newUser)
       .end((err, res) => {
+        console.log(err);
         expect(res.status).to.equal(201);
         expect(res.body).to.be.a('object');
         expect(res.body.data.status).to.exist;
         expect(res.body.data.isAdmin).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 409 if user already exists', (done) => {
     const newUser = {
-      id: 2,
-      firstName: 'Bayo',
-      lastName: 'Steve',
-      email: 'daramola@quick.com',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      firstName: 'Steve',
+      lastName: 'Gates',
+      email: 'steve@quick.com',
+      password: 'macinwindow10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -46,21 +45,20 @@ describe('SIGNUP route', () => {
       .post('/api/v1/auth/signup')
       .send(newUser)
       .end((err, res) => {
+        logger(res);
         expect(res.status).to.equal(409);
         expect(res.body.error).to.equal('User already exists');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if email is empty', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: '',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -71,18 +69,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Email is required');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if password is empty', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quickcredit.com',
       password: '',
-      phoneNo: 2347012345678,
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -93,39 +89,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Password is required');
         expect(res.body.error).to.exist;
-        done(err);
-      });
-  });
-
-  it('should return 400 if phone number is empty', (done) => {
-    const newUser = {
-      id: 2,
-      firstName: 'Bayo',
-      lastName: 'Steve',
-      email: 'adebayo@quickcredit.com',
-      password: 'quickcredit',
-      homeAddress: '1, osbourne, lagos',
-      workAddress: '5, dolphin, lagos',
-    };
-    chai.request(server)
-      .post('/api/v1/auth/signup')
-      .send(newUser)
-      .end((err, res) => {
-        expect(res.status).to.equal(400);
-        expect(res.body.error).to.equal('Phone number is required');
-        expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if home address is empty', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quickcredit.com',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      password: 'quickcredit10',
       homeAddress: '',
       workAddress: '5, dolphin, lagos',
     };
@@ -136,18 +109,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Home Address is required');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if work address is empty', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quickcredit.com',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '',
     };
@@ -158,18 +129,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Work Address is required');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if first name is not an alphabet', (done) => {
     const newUser = {
-      id: 2,
       firstName: 1234,
       lastName: 'Steve',
       email: 'adebayo@quick.com',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -180,18 +149,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('First name should contain alphabets only');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if last name is not an alphabet', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 1234,
       email: 'adebayo@quick.com',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -202,18 +169,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Last name should contain alphabets only');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if email is invalid', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -224,18 +189,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Invalid Email Address');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if password is too simple', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
       password: 'password',
-      phoneNo: 2347012345678,
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -246,18 +209,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Password is too simple');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if home address is invalid', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      password: 'quickcredit10',
       homeAddress: '@#1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -268,18 +229,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Invalid Address entered');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if work address is invalid', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '@#5, dolphin, lagos',
     };
@@ -290,18 +249,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Invalid Address entered');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if first name is not of required length', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'da',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
       password: 'quickcredit',
-      phoneNo: 2347012345678,
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -312,18 +269,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('First name should be between 3 to 25 characters');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if last name is not of required length', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'St',
       email: 'adebayo@quick.com',
       password: 'quickcredit',
-      phoneNo: 2347012345678,
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -334,18 +289,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Last name should be between 3 to 25 characters');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if password is not of required length', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
       password: 'quickcr',
-      phoneNo: 2347012345678,
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -356,18 +309,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Password must be atleast 8 to 100 characters');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if home address is not of required length', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      password: 'quickcredit10',
       homeAddress: 'lagos',
       workAddress: '5, dolphin, lagos',
     };
@@ -378,18 +329,16 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Address should be between 10 to 60 characters');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 
   it('should return 400 if work address is not of required length', (done) => {
     const newUser = {
-      id: 2,
       firstName: 'Bayo',
       lastName: 'Steve',
       email: 'adebayo@quick.com',
-      password: 'quickcredit',
-      phoneNo: 2347012345678,
+      password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: 'lagos',
     };
@@ -400,7 +349,7 @@ describe('SIGNUP route', () => {
         expect(res.status).to.equal(400);
         expect(res.body.error).to.equal('Address should be between 10 to 60 characters');
         expect(res.body.error).to.exist;
-        done(err);
+        done();
       });
   });
 });
@@ -408,20 +357,33 @@ describe('SIGNUP route', () => {
 // Tests for the Signin route
 describe('SIGNIN route', () => {
   it('should return 200 and login a user account successfully', (done) => {
-    const user = {
-      email: 'daramola.steve@gmail.com',
-      password: 'testing30',
+    const newUser = {
+      firstName: 'Bayo',
+      lastName: 'Steve',
+      email: 'adebayo@quick.com',
+      password: 'quickcredit10',
+      homeAddress: '1, osbourne, lagos',
+      workAddress: 'lagos',
     };
-    chai
-      .request(server)
-      .post('/api/v1/auth/signin')
-      .send(user)
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res.body).to.be.a('object');
-        expect(res.body.data).to.exist;
-        expect(res.body.data.token).to.exist;
-        done(err);
+    chai.request(server)
+      .post('/api/v1/auth/signup')
+      .send(newUser)
+      .end((signuperr, signupres) => {
+        const user = {
+          email: 'steve@quick.com',
+          password: 'quickcredit10',
+        };
+        chai
+          .request(server)
+          .post('/api/v1/auth/signin')
+          .send(user)
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.a('object');
+            expect(res.body.data).to.exist;
+            expect(res.body.data.token).to.exist;
+            done();
+          });
       });
   });
 
@@ -439,7 +401,7 @@ describe('SIGNIN route', () => {
         expect(res.body).to.be.a('object');
         expect(res.body.error).to.exist;
         expect(res.body.error).to.equal('Email Address is invalid');
-        done(err);
+        done();
       });
   });
 
@@ -453,11 +415,11 @@ describe('SIGNIN route', () => {
       .post('/api/v1/auth/signin')
       .send(user)
       .end((err, res) => {
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(401);
         expect(res.body).to.be.a('object');
         expect(res.body.error).to.exist;
-        expect(res.body.error).to.equal('Invalid Email or Password');
-        done(err);
+        expect(res.body.error).to.equal('You are unauthorized');
+        done();
       });
   });
 
@@ -471,11 +433,11 @@ describe('SIGNIN route', () => {
       .post('/api/v1/auth/signin')
       .send(user)
       .end((err, res) => {
-        expect(res.status).to.equal(400);
+        expect(res.status).to.equal(401);
         expect(res.body).to.be.a('object');
         expect(res.body.error).to.exist;
-        expect(res.body.error).to.equal('Invalid Email or Password');
-        done(err);
+        expect(res.body.error).to.equal('You are unauthorized');
+        done();
       });
   });
 
@@ -493,7 +455,7 @@ describe('SIGNIN route', () => {
         expect(res.body).to.be.a('object');
         expect(res.body.error).to.exist;
         expect(res.body.error).to.equal('Email is required');
-        done(err);
+        done();
       });
   });
 
@@ -511,84 +473,85 @@ describe('SIGNIN route', () => {
         expect(res.body).to.be.a('object');
         expect(res.body.error).to.exist;
         expect(res.body.error).to.equal('Password is required');
-        done(err);
+        done();
       });
   });
 });
 
 // Tests for User Verification by Admin
-describe('VERIFY USER route', () => {
-  it('should return 200 for a successful verification', (done) => {
-    const admin = {
-      email: 'admin@quickcredit.com',
-      password: 'quickcreditsecret',
-    };
-    chai
-      .request(server)
-      .post('/api/v1/auth/signin')
-      .send(admin)
-      .end((loginerr, loginres) => {
-        const token = `Bearer ${loginres.body.data.token}`;
-        chai
-          .request(server)
-          .patch('/api/v1/users/daramola.steve@gmail.com/verify')
-          .set('authorization', token)
-          .end((err, res) => {
-            expect(res.body).to.be.a('object');
-            expect(res.body.status).to.equal(200);
-            expect(res.body.data.status).to.equal('verified');
-            done();
-          });
-      });
-  });
+// describe('VERIFY USER route', () => {
+//   it('should return 200 for a successful verification', (done) => {
+//     const admin = {
+//       email: 'admin@quickcredit.com',
+//       password: 'quickcreditsecret10',
+//     };
+//     chai
+//       .request(server)
+//       .post('/api/v1/auth/signin')
+//       .send(admin)
+//       .end((loginerr, loginres) => {
+//         const token = `Bearer ${loginres.body.data.token}`;
+//         chai
+//           .request(server)
+//           .patch('/api/v1/users/daramola.steve@gmail.com/verify')
+//           .set('authorization', token)
+//           .end((err, res) => {
+//             expect(res.body).to.be.a('object');
+//             expect(res.body.status).to.equal(200);
+//             expect(res.body.data.status).to.equal('verified');
+//             done();
+//           });
+//       });
+//   });
 
-  it('should return 404 for a user that does not exist', (done) => {
-    const admin = {
-      email: 'admin@quickcredit.com',
-      password: 'quickcreditsecret',
-    };
-    chai
-      .request(server)
-      .post('/api/v1/auth/signin')
-      .send(admin)
-      .end((loginerr, loginres) => {
-        const token = `Bearer ${loginres.body.data.token}`;
-        chai
-          .request(server)
-          .patch('/api/v1/users/men@yahoomail.com/verify')
-          .set('authorization', token)
-          .end((err, res) => {
-            expect(res.body).to.be.a('object');
-            expect(res.status).to.equal(404);
-            expect(res.body.error).to.exist;
-            expect(res.body.error).to.equal('User does not exist');
-            done();
-          });
-      });
-  });
+//   it('should return 404 for a user that does not exist', (done) => {
+//     const admin = {
+//       email: 'admin@quickcredit.com',
+//       password: 'quickcreditsecret10',
+//     };
+//     chai
+//       .request(server)
+//       .post('/api/v1/auth/signin')
+//       .send(admin)
+//       .end((loginerr, loginres) => {
+//         const token = `Bearer ${loginres.body.data.token}`;
+//         chai
+//           .request(server)
+//           .patch('/api/v1/users/men@yahoomail.com/verify')
+//           .set('authorization', token)
+//           .end((err, res) => {
+//             expect(res.body).to.be.a('object');
+//             expect(res.status).to.equal(404);
+//             expect(res.body.error).to.exist;
+//             expect(res.body.error).to.equal('User does not exist');
+//             done();
+//           });
+//       });
+//   });
 
-  it('should return 400 if parameter is not a valid email', (done) => {
-    const admin = {
-      email: 'admin@quickcredit.com',
-      password: 'quickcreditsecret',
-    };
-    chai
-      .request(server)
-      .post('/api/v1/auth/signin')
-      .send(admin)
-      .end((loginerr, loginres) => {
-        const token = `Bearer ${loginres.body.data.token}`;
-        chai
-          .request(server)
-          .patch('/api/v1/users/man@onmoon/verify')
-          .set('authorization', token)
-          .end((err, res) => {
-            expect(res.body).to.be.a('object');
-            expect(res.status).to.equal(400);
-            expect(res.body.error).to.exist;
-            expect(res.body.error).to.equal('Email Address is invalid');
-            done();
-          });
-      });
-  });
-});
+//   it('should return 400 if parameter is not a valid email', (done) => {
+//     const admin = {
+//       email: 'admin@quickcredit.com',
+//       password: 'quickcreditsecret10',
+//     };
+//     chai
+//       .request(server)
+//       .post('/api/v1/auth/signin')
+//       .send(admin)
+//       .end((loginerr, loginres) => {
+//         const token = `Bearer ${loginres.body.data.token}`;
+//         logger(token);
+//         chai
+//           .request(server)
+//           .patch('/api/v1/users/man@onmoon/verify')
+//           .set('authorization', token)
+//           .end((err, res) => {
+//             expect(res.body).to.be.a('object');
+//             expect(res.status).to.equal(400);
+//             expect(res.body.error).to.exist;
+//             expect(res.body.error).to.equal('Email Address is invalid');
+//             done();
+//           });
+//       });
+//   });
+// });

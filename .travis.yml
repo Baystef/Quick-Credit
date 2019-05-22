@@ -4,7 +4,6 @@ dist: trusty
 
 node_js:
   - "10.15.3"
-  - "9"
   - "node"
   
 cache:
