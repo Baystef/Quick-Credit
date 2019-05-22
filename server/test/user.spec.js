@@ -14,7 +14,7 @@ describe('SIGNUP route', () => {
     const newUser = {
       firstName: 'Bayo',
       lastName: 'Steve',
-      email: 'adebayo@quick.com',
+      email: 'steve@quick.com',
       password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
@@ -23,6 +23,7 @@ describe('SIGNUP route', () => {
       .post('/api/v1/auth/signup')
       .send(newUser)
       .end((err, res) => {
+        console.log(err);
         expect(res.status).to.equal(201);
         expect(res.body).to.be.a('object');
         expect(res.body.data.status).to.exist;
@@ -35,7 +36,7 @@ describe('SIGNUP route', () => {
     const newUser = {
       firstName: 'Steve',
       lastName: 'Gates',
-      email: 'adebayo@quick.com',
+      email: 'steve@quick.com',
       password: 'macinwindow10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
@@ -359,7 +360,7 @@ describe('SIGNIN route', () => {
     const newUser = {
       firstName: 'Bayo',
       lastName: 'Steve',
-      email: 'steve@quick.com',
+      email: 'adebayo@quick.com',
       password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: 'lagos',

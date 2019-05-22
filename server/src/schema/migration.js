@@ -5,6 +5,15 @@ import helper from '../helper/auth-helper';
 const Migration = {
   async migrate() {
     try {
+      logger('Dropping users table');
+      await db.query('DROP TABLE IF EXISTS users CASCADE');
+
+      logger('Dropping loans table');
+      await db.query('DROP TABLE IF EXISTS loans CASCADE');
+
+      logger('Dropping repayments table');
+      await db.query('DROP TABLE IF EXISTS repayments CASCADE');
+
       logger('Creating User table');
       await db.query(`
     CREATE TABLE IF NOT EXISTS 
