@@ -7,12 +7,7 @@
     "start:dev": "set DEBUG=dev && babel-watch ./server/index.js",
     "start": "set DEBUG=dev && node build/index.js",
     "build": "babel server --out-dir build",
-    "test:db-create": "createdb -U postgres quick_credit_test",
-    "test:db-drop": "dropdb --if-exists -U postgres quick_credit_test",
-    "pretest": "npm run test:db-drop && npm run test:db-create && cross-env NODE_ENV=test npm run db:migrate",
-    "test": "nyc --reporter=text mocha --timeout 10000 -c server/test --require @babel/register --exit",
-    "db:create": "createdb -U postgres quick_credit",
-    "db:drop": "dropdb --if-exists -U postgres quick_credit",
+    "test": "set NODE_ENV=test && npm run db:migrate && nyc --reporter=text mocha --timeout 10000 -c server/test --require @babel/register --exit",
     "nyc": "nyc --reporter=lcov npm run test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test",
     "db:migrate": "set DEBUG=dev && babel-node ./server/src/schema/migration"

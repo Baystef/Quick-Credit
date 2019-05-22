@@ -14,7 +14,7 @@ describe('SIGNUP route', () => {
     const newUser = {
       firstName: 'Bayo',
       lastName: 'Steve',
-      email: 'adebayo@quick.com',
+      email: 'steve@quick.com',
       password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
@@ -35,7 +35,7 @@ describe('SIGNUP route', () => {
     const newUser = {
       firstName: 'Steve',
       lastName: 'Gates',
-      email: 'adebayo@quick.com',
+      email: 'steve@quick.com',
       password: 'macinwindow10',
       homeAddress: '1, osbourne, lagos',
       workAddress: '5, dolphin, lagos',
@@ -359,7 +359,7 @@ describe('SIGNIN route', () => {
     const newUser = {
       firstName: 'Bayo',
       lastName: 'Steve',
-      email: 'steve@quick.com',
+      email: 'adebayo@quick.com',
       password: 'quickcredit10',
       homeAddress: '1, osbourne, lagos',
       workAddress: 'lagos',

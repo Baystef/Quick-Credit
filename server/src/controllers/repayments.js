@@ -1,4 +1,6 @@
+import logger from '../helper/debugger';
 import { loans, repayments } from '../models/db';
+import db from '../../db';
 
 /**
  * @description Collection of methods that generates and retrieves repayment record
@@ -64,22 +66,30 @@ class Repayments {
    * @param {object} res response object
    * @returns {object}  repayment record object
    */
-  static getRepaymentHistory(req, res) {
-    const id = Number(req.params.id);
+  static async getRepaymentHistory(req, res) {
+    const { id } = req.params;
+    const loanId = Number(id);
+    const getUserQuery = 'SELECT * FROM loans WHERE id = $1';
 
-    const history = repayments.filter(repayment => repayment.loanId === id);
+    try {
+      const { rows } = await db.query(getUserQuery, [loanId]);
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'You have no repayment history',
+        });
+      }
+      const historyQuery = `SELECT, "paymentInstallment", balance, repaid, status, repayment.amount" 
+      FROM loans JOIN repayments ON loans.id = repayments."loanId" WHERE repayments."loanId" = $1;`;
 
-
-    if (history) {
+      const history = await db.query(historyQuery, [loanId]);
       return res.status(200).json({
         status: 200,
-        data: history,
+        data: history.rows,
       });
+    } catch (error) {
+      return res.status(400).json(error.message);
     }
-    return res.status(404).json({
-      status: 404,
-      error: 'You have no repayment history',
-    });
   }
 }
 

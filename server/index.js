@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import logger from './src/helper/debugger';
 import user from './src/routes/users';
 import loan from './src/routes/loans';
-// import repayment from './src/routes/repayments';
+import repayment from './src/routes/repayments';
 
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use('/api/v1', user);
 app.use('/api/v1', loan);
-// app.use('/api/v1', repayment);
+app.use('/api/v1', repayment);
 
 app.get('/', (req, res) => {
   res.status(200).send({ message: 'Welcome to Quick Credit' });

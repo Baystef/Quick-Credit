@@ -1,4 +1,3 @@
-import { users } from '../models/db';
 import Authentication from '../middleware/authentication';
 import Helper from '../helper/auth-helper';
 import db from '../../db';
@@ -85,11 +84,8 @@ class User {
         });
       }
       const {
-        id, firstname, lastname, isAdmin,
+        id, firstName, lastName, isAdmin,
       } = rows[0];
-
-      const firstName = firstname;
-      const lastName = lastname;
 
       const token = Authentication.generateToken({
         id, firstName, lastName, isAdmin,
@@ -117,6 +113,7 @@ class User {
    */
   static async newUserVerify(req, res) {
     const { email } = req.params;
+    const values = ['verified', email];
 
     const findUserQuery = 'SELECT * FROM users WHERE email = $1';
     try {
@@ -134,8 +131,8 @@ class User {
         });
       }
 
-      const verifyQuery = "UPDATE users SET status = 'verified' WHERE email = $2 RETURNING *";
-      const verify = await db.query(verifyQuery, [email]);
+      const verifyQuery = 'UPDATE users SET status = $1 WHERE email = $2 RETURNING *';
+      const verify = await db.query(verifyQuery, values);
       return res.status(200).json({
         status: 200,
         data: {
