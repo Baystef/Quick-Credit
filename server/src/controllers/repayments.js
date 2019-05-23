@@ -14,50 +14,86 @@ class Repayments {
    * @param {object}  res response object
    * @returns {object} new loan repayment record
    */
-  static generateRepaymentRecord(req, res) {
+  static async generateRepaymentRecord(req, res) {
     const id = Number(req.params.id);
-    const loanFound = loans.find(loan => loan.id === id);
+    const { paidAmount } = req.body;
+    const findLoanQuery = 'SELECT * FROM loans WHERE id = $1';
+    const updateBalanceQuery = 'UPDATE loans SET repaid = $1 WHERE id = $2';
+    // const updateLoanQuery = 'UPDATE loans SET balance = $1 WHERE id = $2 RETURNING *';
 
 
-    if (loanFound) {
-      const loanId = loanFound.id;
-      const amount = loanFound.amount;
-      const createdOn = new Date().toLocaleString();
-      const monthlyInstallment = loanFound.paymentInstallment;
-      const paidAmount = loanFound.paymentInstallment;
-      const newBalance = loanFound.balance - paidAmount;
-
-      const newRecord = {
-        id: repayments.length + 1,
-        loanId,
-        createdOn,
-        amount,
-        monthlyInstallment,
-        paidAmount,
-        balance: newBalance,
-      };
-
-      loanFound.balance = newBalance;
-      if (loanFound.balance <= 0) {
-        loanFound.repaid = true;
-        return res.status(200).json({
-          status: 200,
+    try {
+      const { rows } = await db.query(findLoanQuery, [id]);
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Loan does not exist',
+        });
+      }
+      if (rows[0].repaid) {
+        return res.status(400).json({
+          status: 400,
           error: 'Loan has been fully repaid',
         });
       }
+      if (paidAmount > rows[0].balance) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Payment is more than balance',
+        });
 
-      repayments.push(newRecord);
+      }
 
-      return res.status(201).json({
-        status: 201,
-        data: newRecord,
-      });
+      const newBalance = rows[0].balance - paidAmount;
+
+      if (newBalance === 0) {
+        await db.query(updateBalanceQuery, [true, id]);
+      }
+
+      // const updatedLoan = await db.query(updateLoanQuery, [newBalance, id]);
+
+      // return res.status(201).json({
+      //   status: 201,
+      //   data: repayment,
+      // });
+    } catch (error) {
+      return res.status(400).json(error.message);
     }
 
-    return res.status(404).json({
-      status: 404,
-      error: 'Loan does not exist',
-    });
+    // if (loanFound) {
+    //   const loanId = loanFound.id;
+    //   const amount = loanFound.amount;
+    //   const createdOn = new Date().toLocaleString();
+    //   const monthlyInstallment = loanFound.paymentInstallment;
+    //   const paidAmount = loanFound.paymentInstallment;
+     
+
+    //   const newRecord = {
+    //     id: repayments.length + 1,
+    //     loanId,
+    //     createdOn,
+    //     amount,
+    //     monthlyInstallment,
+    //     paidAmount,
+    //     balance: newBalance,
+    //   };
+
+    //   loanFound.balance = newBalance;
+    //   if (loanFound.balance <= 0) {
+    //     loanFound.repaid = true;
+    //     return res.status(200).json({
+    //       status: 200,
+    //       error: 'Loan has been fully repaid',
+    //     });
+    //   }
+
+    //   repayments.push(newRecord);
+
+    //   return res.status(201).json({
+    //     status: 201,
+    //     data: newRecord,
+    //   });
+    // }
   }
 
   /**
