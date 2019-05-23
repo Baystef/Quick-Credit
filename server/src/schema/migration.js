@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import db from '../../db';
 import logger from '../helper/debugger';
 import helper from '../helper/auth-helper';
