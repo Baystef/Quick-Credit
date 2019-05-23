@@ -41,6 +41,7 @@ const Migration = {
       status TEXT DEFAULT ('pending'),
       repaid BOOLEAN DEFAULT false,
       amount NUMERIC NOT NULL,
+      interest NUMERIC NOT NULL,
       "paymentInstallment" NUMERIC NOT NULL,
       balance NUMERIC NOT NULL,
       "createdOn" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
