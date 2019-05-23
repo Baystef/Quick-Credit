@@ -12,7 +12,7 @@ class LoanValidation {
    */
   static loanApplyValidate(req, res, next) {
     req
-      .checkBody('loanAmount')
+      .checkBody('amount')
       .notEmpty()
       .withMessage('Please specify an amount')
       .trim()

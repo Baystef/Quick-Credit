@@ -20,7 +20,6 @@ class User {
       firstName, lastName, email, password, homeAddress, workAddress,
     } = req.body;
 
-    logger(firstName);
     const hashPassword = Helper.hashPassword(password);
 
     const createUserQuery = `INSERT INTO 

@@ -13,65 +13,45 @@ class Loan {
    * @param {object} res response object
    * @returns {object}  new loan application object
    */
-  static loanApply(req, res) {
-    const { loanAmount, tenor } = req.body;
+  static async loanApply(req, res) {
+    const { amount, tenor } = req.body;
     const { firstName, lastName, email } = req.user;
 
-    const loanId = loans.length + 1;
-    const interest = 0.05 * loanAmount.toFixed(2);
-    const paymentInstallment = Number(((loanAmount + interest) / tenor).toFixed(2));
-    const balance = Number((loanAmount + interest).toFixed(2));
-    const repaid = false;
-    const status = 'pending';
-    const createdOn = new Date().toLocaleString();
 
-    // Loan data returned to user
-    const loanApplied = {
-      loanId,
-      firstName,
-      lastName,
-      email,
-      loanAmount,
-      tenor,
-      interest,
-      paymentInstallment,
-      balance,
-      repaid,
-      createdOn,
-      status,
-    };
+    const interest = 0.05 * amount.toFixed(2);
+    const paymentInstallment = Number(((amount + interest) / tenor).toFixed(2));
+    const balance = Number((amount + interest).toFixed(2));
 
+    const values = [email, amount, tenor, interest, paymentInstallment, balance];
 
-    const id = loanApplied.loanId;
-    const user = email;
-    // Loan data stored in data structure
-    const newLoan = {
-      id,
-      user,
-      loanAmount,
-      interest,
-      paymentInstallment,
-      balance,
-      tenor,
-      repaid,
-      createdOn,
-      status,
-    };
+    const findLoanQuery = 'SELECT * FROM loans WHERE "userMail" = $1';
+    const loanApplyQuery = `INSERT INTO 
+    loans("userMail", amount, tenor, interest, "paymentInstallment", balance)
+    VALUES($1, $2, $3, $4, $5, $6)
+    RETURNING *`;
 
-    const currentLoan = loans.find(loan => loan.user === email);
-    if (currentLoan) {
-      return res.status(409).json({
-        status: 409,
-        error: 'You have a current unrepaid loan',
+    try {
+      const currentLoan = await db.query(findLoanQuery, [email]);
+      if (currentLoan.rows[0] || !currentLoan.rows.repaid) {
+        return res.status(409).json({
+          status: 409,
+          error: 'You have a current unrepaid loan',
+        });
+      }
+      const { rows } = await db.query(loanApplyQuery, values);
+      return res.status(201).json({
+        status: 201,
+        data: {
+          firstName,
+          lastName,
+          ...rows[0],
+        },
       });
+    } catch (error) {
+      return res.status(400).send(error.message);
     }
-
-    loans.push(newLoan);
-    return res.status(201).json({
-      status: 201,
-      data: loanApplied,
-    });
   }
+
 
   /**
    * @description Retrieves all loans from the data structure

@@ -21,7 +21,7 @@ class Repayments {
 
     if (loanFound) {
       const loanId = loanFound.id;
-      const amount = loanFound.loanAmount;
+      const amount = loanFound.amount;
       const createdOn = new Date().toLocaleString();
       const monthlyInstallment = loanFound.paymentInstallment;
       const paidAmount = loanFound.paymentInstallment;
