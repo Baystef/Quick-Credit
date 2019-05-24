@@ -38,13 +38,13 @@ const Migration = {
     loans (
       id SERIAL UNIQUE PRIMARY KEY,
       "userMail" VARCHAR(100) REFERENCES users (email) ON DELETE CASCADE,
-      tenor SMALLINT NOT NULL,
+      tenor SMALLINT NOT NULL CHECK(tenor >= 0 AND tenor <= 12),
       status TEXT DEFAULT ('pending'),
       repaid BOOLEAN DEFAULT false,
-      amount NUMERIC NOT NULL,
-      interest NUMERIC NOT NULL,
+      amount NUMERIC(10, 2) NOT NULL,
+      interest NUMERIC(10, 2) NOT NULL,
       "paymentInstallment" NUMERIC NOT NULL,
-      balance NUMERIC NOT NULL,
+      balance NUMERIC(10, 2) NOT NULL,
       "createdOn" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     `);
@@ -56,7 +56,9 @@ const Migration = {
         id SERIAL UNIQUE PRIMARY KEY,
         "createdOn" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         "loanId" INT REFERENCES loans (id) ON DELETE CASCADE,
-        amount NUMERIC NOT NULL
+        amount NUMERIC(10, 2) NOT NULL,
+        "paidAmount" NUMERIC(10, 2) NOT NULL,
+        balance NUMERIC(10, 2) NOT NULL
     );
     `);
 

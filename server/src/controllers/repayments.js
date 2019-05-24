@@ -1,5 +1,4 @@
 import logger from '../helper/debugger';
-import { loans, repayments } from '../models/db';
 import db from '../../db';
 
 /**
@@ -19,7 +18,8 @@ class Repayments {
     const { paidAmount } = req.body;
     const findLoanQuery = 'SELECT * FROM loans WHERE id = $1';
     const updateBalanceQuery = 'UPDATE loans SET repaid = $1 WHERE id = $2';
-    // const updateLoanQuery = 'UPDATE loans SET balance = $1 WHERE id = $2 RETURNING *';
+    const updateLoanQuery = 'UPDATE loans SET balance = $1 WHERE id = $2 RETURNING *';
+    const repaidQuery = 'INSERT INTO repayments ("loanId", "paidAmount", balance, amount) VALUES ($1, $2, $3, $4) RETURNING *';
 
 
     try {
@@ -41,7 +41,12 @@ class Repayments {
           status: 400,
           error: 'Payment is more than balance',
         });
-
+      }
+      if (paidAmount < rows[0].paymentInstallment) {
+        return res.status(400).json({
+          status: 400,
+          error: `Minimum payment for this user is ${rows[0].paymentInstallment}`,
+        });
       }
 
       const newBalance = rows[0].balance - paidAmount;
@@ -49,51 +54,24 @@ class Repayments {
       if (newBalance === 0) {
         await db.query(updateBalanceQuery, [true, id]);
       }
+      const balance = newBalance;
+      const updateLoan = await db.query(updateLoanQuery, [newBalance, id]);
+      const repaid = await db.query(repaidQuery, [id, paidAmount, balance, rows[0].amount]);
 
-      // const updatedLoan = await db.query(updateLoanQuery, [newBalance, id]);
+      const monthlyInstallment = updateLoan.rows[0].paymentInstallment;
 
-      // return res.status(201).json({
-      //   status: 201,
-      //   data: repayment,
-      // });
+      const newRecord = {
+        ...repaid.rows[0],
+        monthlyInstallment,
+        balance,
+      };
+      return res.status(201).json({
+        status: 201,
+        data: newRecord,
+      });
     } catch (error) {
       return res.status(400).json(error.message);
     }
-
-    // if (loanFound) {
-    //   const loanId = loanFound.id;
-    //   const amount = loanFound.amount;
-    //   const createdOn = new Date().toLocaleString();
-    //   const monthlyInstallment = loanFound.paymentInstallment;
-    //   const paidAmount = loanFound.paymentInstallment;
-     
-
-    //   const newRecord = {
-    //     id: repayments.length + 1,
-    //     loanId,
-    //     createdOn,
-    //     amount,
-    //     monthlyInstallment,
-    //     paidAmount,
-    //     balance: newBalance,
-    //   };
-
-    //   loanFound.balance = newBalance;
-    //   if (loanFound.balance <= 0) {
-    //     loanFound.repaid = true;
-    //     return res.status(200).json({
-    //       status: 200,
-    //       error: 'Loan has been fully repaid',
-    //     });
-    //   }
-
-    //   repayments.push(newRecord);
-
-    //   return res.status(201).json({
-    //     status: 201,
-    //     data: newRecord,
-    //   });
-    // }
   }
 
   /**
@@ -105,6 +83,7 @@ class Repayments {
   static async getRepaymentHistory(req, res) {
     const { id } = req.params;
     const loanId = Number(id);
+
     const getUserQuery = 'SELECT * FROM loans WHERE id = $1';
 
     try {
@@ -115,8 +94,10 @@ class Repayments {
           error: 'You have no repayment history',
         });
       }
-      const historyQuery = `SELECT, "paymentInstallment", balance, repaid, status, repayment.amount" 
-      FROM loans JOIN repayments ON loans.id = repayments."loanId" WHERE repayments."loanId" = $1;`;
+      const historyQuery = `SELECT repayments.id, "loanId", repayments."createdOn", repayments."paidAmount", repayments.balance, loans.amount, loans."paymentInstallment" 
+      FROM repayments
+      JOIN loans ON loans.id = "loanId"
+      WHERE "loanId" = $1`;
 
       const history = await db.query(historyQuery, [loanId]);
       return res.status(200).json({
