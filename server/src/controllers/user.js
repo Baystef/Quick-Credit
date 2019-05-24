@@ -87,7 +87,7 @@ class User {
       } = rows[0];
 
       const token = Authentication.generateToken({
-        id, firstName, lastName, isAdmin,
+        id, firstName, lastName, isAdmin, email,
       });
 
       return res.status(200).json({

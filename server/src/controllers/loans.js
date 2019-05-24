@@ -1,5 +1,4 @@
 import logger from '../helper/debugger';
-import { loans } from '../models/db';
 import db from '../../db';
 
 /**
@@ -32,7 +31,7 @@ class Loan {
 
     try {
       const currentLoan = await db.query(findLoanQuery, [email]);
-      if (currentLoan.rows[0] || !currentLoan.rows.repaid) {
+      if (currentLoan.rows[0]) {
         return res.status(409).json({
           status: 409,
           error: 'You have a current unrepaid loan',
@@ -64,23 +63,31 @@ class Loan {
     const { status } = req.query;
     let { repaid } = req.query;
     const loanqueryQuery = 'SELECT * FROM loans WHERE status=$1 AND repaid=$2';
-    const allLoanQuery = 'SELECT * FROM loans';
-    const values = [status, repaid];
+    const allLoanQuery = 'SELECT * FROM loans ORDER BY id ASC';
+    
 
     try {
       if (status && repaid) {
         repaid = JSON.parse(repaid); // parses repaid back to boolean
+        const values = [status, repaid];
+        
         const { rows } = await db.query(loanqueryQuery, values);
+        if (!rows[0]) {
+          return res.status(404).json({
+            status: 404,
+            error: 'No approved loan found',
+          });
+        }
         return res.status(200).json({
           status: 200,
-          data: rows[0],
+          data: rows,
         });
       }
 
       const allLoans = await db.query(allLoanQuery);
       return res.status(200).json({
         status: 200,
-        data: [allLoans.rows[0]],
+        data: allLoans.rows,
       });
     } catch (error) {
       return res.status(400).send(error.message);
