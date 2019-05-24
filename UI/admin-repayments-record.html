@@ -50,6 +50,23 @@
     </div>
 
     <section class="dashboard-body">
+
+        <div id="myModal" class="modal-repay">
+            <div class="modal-repay__content">
+              <div class="modal-repay-header">
+                <span class="close-repay">&times;</span>
+                <h2>Mr Akano's Monthly Installment is &#8358;21,000 and Balance is &#8358;48,000</h2>
+              </div>
+              <div class="modal-repay-body">
+                <input class="repay-input input" type="number" min="400" max="600000">
+              </div>
+              <div class="modal-repay-footer">
+                <button class="dashboard-pay__btn button">Pay &#8358;21,000</button>
+                <button id="payMore" class="dashboard-pay__btn button">Pay More</button>
+              </div>
+            </div>
+          </div>
+
       <h2 class="users dashboard-title">Pending Loans</h2>
       <div class="users-container">
         <nav class="dashboard-subnav">
@@ -84,7 +101,7 @@
                 <td>false</td>
                 <td>29 Jan, 2019</td>
                 <td>
-                  <button class="dashboard-verify__btn button" value="pay">Make Payment</button>
+                  <button id="myBtn" class="dashboard-verify__btn button" value="Make Payment">Repayment</button>
                 </td>
               </tr>
             </tbody>
@@ -95,6 +112,7 @@
   </div>
 
 
+<script src="js/repayment.js"></script>
   <script src="js/dashboard.js"></script>
 </body>
 

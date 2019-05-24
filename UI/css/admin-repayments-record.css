@@ -7,3 +7,100 @@
   background-color: var(--lighterGreen);
   box-shadow: 1.5px 1.5px 3px var(--lightGrey), -1.5px -1.5px 3px var(--lightGrey);
 }
+
+.dashboard-pay__btn {
+  background-color: white;
+}
+
+.modal-repay {
+  display: none;
+  position: fixed;
+  z-index: 500;
+  padding-top: 100px;
+  right: 0;
+  top: 0;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.modal-repay__content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+.repay-input {
+  height: 100%;
+  line-height: 2;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
+}
+
+/* The Close Button */
+.close-repay {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-repay:hover,
+.close-repay:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-repay-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.modal-repay-body {
+  padding: 12px 12px 0 12px;
+}
+
+.modal-repay-footer {
+  padding: 6px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
