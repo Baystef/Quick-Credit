@@ -20,7 +20,6 @@ class User {
       firstName, lastName, email, password, homeAddress, workAddress,
     } = req.body;
 
-    logger(firstName);
     const hashPassword = Helper.hashPassword(password);
 
     const createUserQuery = `INSERT INTO 
@@ -88,7 +87,7 @@ class User {
       } = rows[0];
 
       const token = Authentication.generateToken({
-        id, firstName, lastName, isAdmin,
+        id, firstName, lastName, isAdmin, email,
       });
 
       return res.status(200).json({

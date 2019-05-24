@@ -25,7 +25,7 @@
 //         .end((signuperr, signupres) => {
 //           const token = `Bearer ${signupres.body.data.token}`;
 //           const loanApply = {
-//             loanAmount: 100000,
+//             amount: 100000,
 //             tenor: 3,
 //           };
 //           chai
@@ -82,7 +82,7 @@
 //         .end((loginerr, loginres) => {
 //           const token = `Bearer ${loginres.body.data.token}`;
 //           const loanApply = {
-//             loanAmount: 'string',
+//             amount: 'string',
 //             tenor: 3,
 //           };
 //           chai
@@ -111,7 +111,7 @@
 //         .end((loginerr, loginres) => {
 //           const token = `Bearer ${loginres.body.data.token}`;
 //           const loanApply = {
-//             loanAmount: 100000,
+//             amount: 100000,
 //           };
 //           chai
 //             .request(server)
@@ -139,7 +139,7 @@
 //         .end((loginerr, loginres) => {
 //           const token = `Bearer ${loginres.body.data.token}`;
 //           const loanApply = {
-//             loanAmount: 100000,
+//             amount: 100000,
 //             tenor: 'string',
 //           };
 //           chai
