@@ -14,11 +14,11 @@ span.onclick = function () {
 };
 
 window.onclick = function (event) {
-  if (event.target === modal) {
+  if (event.target === modalRepay) {
     modalRepay.style.display = 'none';
   }
 };
 
-payMore.onclick = function() {
+payMore.onclick = function () {
   repayInput.focus();
 }

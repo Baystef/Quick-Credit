@@ -10,6 +10,7 @@
 
 .dashboard-pay__btn {
   background-color: white;
+  margin-right: 5px;
 }
 
 .modal-repay {
@@ -103,4 +104,14 @@
   padding: 6px 16px;
   background-color: #5cb85c;
   color: white;
+}
+
+@media (max-width: 48rem) {
+  .modal-repay-footer {
+    display: flex;
+  }
+
+  .modal-repay-footer button{
+    width: 30%;
+  }
 }
