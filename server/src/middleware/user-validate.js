@@ -1,3 +1,4 @@
+import { badRequestResponse } from '../helper/error-handler';
 /**
  * @description A validation class for validation of fields and parameters of user endpoints
  * @exports Validation
@@ -74,7 +75,7 @@ class Validation {
       .withMessage('Invalid Address entered');
 
     const errors = req.validationErrors();
-    if (errors) return res.status(400).json({ status: 400, error: errors[0].msg });
+    if (errors) return badRequestResponse(req, res, errors[0].msg);
 
     return next();
   }
@@ -101,12 +102,8 @@ class Validation {
       .withMessage('Password is required');
 
     const errors = req.validationErrors();
-    if (errors) {
-      return res.status(400).json({
-        status: 400,
-        error: errors[0].msg,
-      });
-    }
+    if (errors) return badRequestResponse(req, res, errors[0].msg);
+
     return next();
   }
 
@@ -123,12 +120,8 @@ class Validation {
       .withMessage('Email Address is invalid')
       .customSanitizer(email => email.toLowerCase());
     const errors = req.validationErrors();
-    if (errors) {
-      return res.status(400).json({
-        status: 400,
-        error: errors[0].msg,
-      });
-    }
+    if (errors) return badRequestResponse(req, res, errors[0].msg);
+
     return next();
   }
 }

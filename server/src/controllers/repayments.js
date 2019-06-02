@@ -1,5 +1,6 @@
-import logger from '../helper/debugger';
-import db from '../../db';
+// import logger from '../helper/debugger';
+import Model from '../models';
+import { nullResponse, badRequestResponse, forbiddenResponse } from '../helper/error-handler';
 
 /**
  * @description Collection of methods that generates and retrieves repayment record
@@ -7,6 +8,20 @@ import db from '../../db';
  */
 
 class Repayments {
+  /**
+   * @description  Creates the Repayments Model instance
+   */
+  static repayModel() {
+    return new Model('repayments');
+  }
+
+  /**
+   * @description Creates the Loans Model instance
+   */
+  static loanModel() {
+    return new Model('loans');
+  }
+
   /**
    * @description Generates new loan repayment records
    * @param {object} req request object
@@ -16,52 +31,38 @@ class Repayments {
   static async generateRepaymentRecord(req, res) {
     const id = Number(req.params.id);
     const { paidAmount } = req.body;
-    const findLoanQuery = 'SELECT * FROM loans WHERE id = $1';
-    const updateBalanceQuery = 'UPDATE loans SET repaid = $1 WHERE id = $2';
-    const updateLoanQuery = 'UPDATE loans SET balance = $1 WHERE id = $2 RETURNING *';
-    const repaidQuery = 'INSERT INTO repayments ("loanId", "paidAmount", balance, amount) VALUES ($1, $2, $3, $4) RETURNING *';
-
 
     try {
-      const { rows } = await db.query(findLoanQuery, [id]);
-      if (!rows[0]) {
-        return res.status(404).json({
-          status: 404,
-          error: 'Loan does not exist',
-        });
+      const data = await Repayments.loanModel().select('*', `WHERE id=${id}`);
+      if (!data[0]) {
+        return nullResponse(req, res, 'Loan does not exist');
       }
-      if (rows[0].repaid) {
-        return res.status(400).json({
-          status: 400,
-          error: 'Loan has been fully repaid',
-        });
+      if (data[0].repaid) {
+        return badRequestResponse(req, res, 'Loan has been fully repaid');
       }
-      if (paidAmount > rows[0].balance) {
-        return res.status(400).json({
-          status: 400,
-          error: 'Payment is more than balance',
-        });
+      if (paidAmount > data[0].balance) {
+        return badRequestResponse(req, res, 'Payment is more than balance');
       }
-      if (paidAmount < rows[0].paymentInstallment) {
-        return res.status(400).json({
-          status: 400,
-          error: `Minimum payment for this user is ${rows[0].paymentInstallment}`,
-        });
+      if (paidAmount < data[0].paymentInstallment) {
+        return badRequestResponse(
+          req,
+          res,
+          `Minimum payment for this user is ${data[0].paymentInstallment}`,
+        );
       }
 
-      const newBalance = rows[0].balance - paidAmount;
-
+      const newBalance = data[0].balance - paidAmount;
       if (newBalance === 0) {
-        await db.query(updateBalanceQuery, [true, id]);
+        await Repayments.loanModel().update('repaid=true', `WHERE id=${id}`);
       }
       const balance = newBalance;
-      const updateLoan = await db.query(updateLoanQuery, [newBalance, id]);
-      const repaid = await db.query(repaidQuery, [id, paidAmount, balance, rows[0].amount]);
-
-      const monthlyInstallment = updateLoan.rows[0].paymentInstallment;
-
+      const updateLoan = await Repayments.loanModel().update(`balance=${newBalance}`, `WHERE id=${id} RETURNING *`);
+      const columns = '"loanId", "paidAmount", balance, amount';
+      const values = `${id}, ${paidAmount}, ${balance}, ${data[0].amount}`;
+      const repaid = await Repayments.repayModel().insert(columns, values, 'RETURNING *');
+      const monthlyInstallment = updateLoan[0].paymentInstallment;
       const newRecord = {
-        ...repaid.rows[0],
+        ...repaid[0],
         monthlyInstallment,
         balance,
       };
@@ -83,26 +84,24 @@ class Repayments {
   static async getRepaymentHistory(req, res) {
     const { id } = req.params;
     const loanId = Number(id);
-
-    const getUserQuery = 'SELECT * FROM loans WHERE id = $1';
+    const { email } = req.user;
 
     try {
-      const { rows } = await db.query(getUserQuery, [loanId]);
-      if (!rows[0]) {
-        return res.status(404).json({
-          status: 404,
-          error: 'You have no repayment history',
-        });
+      const data = await Repayments.loanModel().select('*', `WHERE id=${loanId}`);
+      if (data[0] && data[0].userMail !== email) {
+        return forbiddenResponse(req, res, 'Access Denied');
       }
-      const historyQuery = `SELECT repayments.id, "loanId", repayments."createdOn", repayments."paidAmount", repayments.balance, loans.amount, loans."paymentInstallment" 
-      FROM repayments
-      JOIN loans ON loans.id = "loanId"
-      WHERE "loanId" = $1`;
-
-      const history = await db.query(historyQuery, [loanId]);
+      const columns = `repayments.id, "loanId", repayments."createdOn", repayments."paidAmount", repayments.balance, 
+      loans.amount, loans."paymentInstallment"`;
+      const clause = `JOIN loans ON loans.id = "loanId"
+      WHERE "loanId"=${loanId}`;
+      const history = await Repayments.repayModel().select(columns, clause);
+      if (!history[0]) {
+        return nullResponse(req, res, 'You have no repayment history');
+      }
       return res.status(200).json({
         status: 200,
-        data: history.rows,
+        data: history,
       });
     } catch (error) {
       return res.status(400).json(error.message);

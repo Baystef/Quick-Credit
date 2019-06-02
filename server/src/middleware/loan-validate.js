@@ -1,3 +1,4 @@
+import { badRequestResponse } from '../helper/error-handler';
 /**
  * @description A validation class for validation of fields in each loan endpoint
  * @exports LoanValidation
@@ -32,12 +33,8 @@ class LoanValidation {
       .withMessage('Tenor minimum is 1 and maximum is 12 months');
 
     const errors = req.validationErrors();
-    if (errors) {
-      return res.status(400).json({
-        status: 400,
-        error: errors[0].msg,
-      });
-    }
+    if (errors) return badRequestResponse(req, res, errors[0].msg);
+
     return next();
   }
 
@@ -64,12 +61,8 @@ class LoanValidation {
       .isBoolean()
       .withMessage('Invalid repaid query');
     const errors = req.validationErrors();
-    if (errors) {
-      return res.status(400).json({
-        status: 400,
-        error: errors[0].msg,
-      });
-    }
+    if (errors) return badRequestResponse(req, res, errors[0].msg);
+
     return next();
   }
 
@@ -85,12 +78,8 @@ class LoanValidation {
       .isNumeric()
       .withMessage('Invalid loan query type');
     const errors = req.validationErrors();
-    if (errors) {
-      return res.status(400).json({
-        status: 400,
-        error: errors[0].msg,
-      });
-    }
+    if (errors) return badRequestResponse(req, res, errors[0].msg);
+
     return next();
   }
 
@@ -115,12 +104,8 @@ class LoanValidation {
       .matches(/^(approved|rejected)$/)
       .withMessage('Status is invalid');
     const errors = req.validationErrors();
-    if (errors) {
-      return res.status(400).json({
-        status: 400,
-        error: errors[0].msg,
-      });
-    }
+    if (errors) return badRequestResponse(req, res, errors[0].msg);
+
     return next();
   }
 }
