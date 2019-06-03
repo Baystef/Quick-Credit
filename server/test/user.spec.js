@@ -4,7 +4,6 @@ import chaiHttp from 'chai-http';
 import server from '../index';
 import logger from '../src/helper/debugger';
 
-// process.env.NODE_ENV = 'test';
 
 const { expect } = chai;
 chai.use(chaiHttp);

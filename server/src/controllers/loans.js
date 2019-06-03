@@ -1,5 +1,5 @@
 // import logger from '../helper/debugger';
-import Model from '../models';
+import { Model } from '../models';
 import { nullResponse, conflictResponse } from '../helper/error-handler';
 
 /**

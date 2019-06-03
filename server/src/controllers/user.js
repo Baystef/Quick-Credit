@@ -1,4 +1,4 @@
-import Model from '../models';
+import { Model } from '../models';
 import Authentication from '../middleware/authentication';
 import Helper from '../helper/auth-helper';
 import { conflictResponse, unauthorizedResponse, nullResponse } from '../helper/error-handler';

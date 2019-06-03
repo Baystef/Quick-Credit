@@ -1,5 +1,5 @@
 // import logger from '../helper/debugger';
-import Model from '../models';
+import { Model } from '../models';
 import { nullResponse, badRequestResponse, forbiddenResponse } from '../helper/error-handler';
 
 /**

@@ -1,18 +1,21 @@
-import { Pool } from 'pg';
+import { Pool, types } from 'pg';
 import dotenv from 'dotenv';
 import logger from '../helper/debugger';
 
 dotenv.config();
+types.setTypeParser(1700, value => parseFloat(value));
 
 const connectionString = process.env.NODE_ENV === 'test' ? process.env.DATABASE_URL_TEST : process.env.DATABASE_URL;
+
+const pool = new Pool({
+  connectionString,
+});
 
 
 class Model {
   constructor(table) {
     this.table = table;
-    this.pool = new Pool({
-      connectionString,
-    });
+    this.pool = pool;
     this.pool.on('connect', () => {
       logger(`Connection successful to ${connectionString}`);
     });
@@ -41,4 +44,4 @@ class Model {
   }
 }
 
-export default Model;
+export { pool, Model };
