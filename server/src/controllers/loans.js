@@ -1,5 +1,6 @@
-import logger from '../helper/debugger';
-import db from '../../db';
+// import logger from '../helper/debugger';
+import { Model } from '../models';
+import { nullResponse, conflictResponse } from '../helper/error-handler';
 
 /**
  * @description Loan class of methods for each loan endpoint
@@ -12,38 +13,32 @@ class Loan {
    * @param {object} res response object
    * @returns {object}  new loan application object
    */
+  static Model() {
+    return new Model('loans');
+  }
+
   static async loanApply(req, res) {
     const { amount, tenor } = req.body;
     const { firstName, lastName, email } = req.user;
 
-
     const interest = 0.05 * amount.toFixed(2);
     const paymentInstallment = Number(((amount + interest) / tenor).toFixed(2));
     const balance = Number((amount + interest).toFixed(2));
-
-    const values = [email, amount, tenor, interest, paymentInstallment, balance];
-
-    const findLoanQuery = 'SELECT * FROM loans WHERE "userMail" = $1';
-    const loanApplyQuery = `INSERT INTO 
-    loans("userMail", amount, tenor, interest, "paymentInstallment", balance)
-    VALUES($1, $2, $3, $4, $5, $6)
-    RETURNING *`;
+    const columns = '"userMail", amount, tenor, interest, "paymentInstallment", balance';
+    const values = `'${email}', ${amount}, ${tenor}, ${interest}, ${paymentInstallment}, ${balance}`;
 
     try {
-      const currentLoan = await db.query(findLoanQuery, [email]);
-      if (currentLoan.rows[0]) {
-        return res.status(409).json({
-          status: 409,
-          error: 'You have a current unrepaid loan',
-        });
+      const data = await Loan.Model().select('*', `WHERE "userMail"='${email}'`);
+      if (data[0] && !data[0].repaid) {
+        return conflictResponse(req, res, 'You have a current unrepaid loan');
       }
-      const { rows } = await db.query(loanApplyQuery, values);
+      const loan = await Loan.Model().insert(columns, `${values}`, 'RETURNING *');
       return res.status(201).json({
         status: 201,
         data: {
           firstName,
           lastName,
-          ...rows[0],
+          ...loan[0],
         },
       });
     } catch (error) {
@@ -62,32 +57,25 @@ class Loan {
   static async getAllLoans(req, res) {
     const { status } = req.query;
     let { repaid } = req.query;
-    const loanqueryQuery = 'SELECT * FROM loans WHERE status=$1 AND repaid=$2';
-    const allLoanQuery = 'SELECT * FROM loans ORDER BY id ASC';
-    
 
     try {
       if (status && repaid) {
         repaid = JSON.parse(repaid); // parses repaid back to boolean
-        const values = [status, repaid];
-        
-        const { rows } = await db.query(loanqueryQuery, values);
-        if (!rows[0]) {
-          return res.status(404).json({
-            status: 404,
-            error: 'No approved loan found',
-          });
+        const clause = `WHERE status='${status}' AND repaid=${repaid}`;
+        const data = await Loan.Model().select('*', clause);
+        if (!data[0]) {
+          return nullResponse(req, res, 'No loan found');
         }
         return res.status(200).json({
           status: 200,
-          data: rows,
+          data,
         });
       }
 
-      const allLoans = await db.query(allLoanQuery);
+      const data = await Loan.Model().select('*');
       return res.status(200).json({
         status: 200,
-        data: allLoans.rows,
+        data,
       });
     } catch (error) {
       return res.status(400).send(error.message);
@@ -103,23 +91,18 @@ class Loan {
    */
   static async getALoan(req, res) {
     const { id } = req.params;
-    const oneLoanQuery = 'SELECT * FROM loans WHERE id=$1';
 
     try {
-      const { rows } = await db.query(oneLoanQuery, [id]);
-
-      if (rows[0]) {
+      const data = await Loan.Model().select('*', `WHERE id=${id}`);
+      if (data[0]) {
         return res.status(200).json({
           status: 200,
           data: {
-            ...rows[0],
+            ...data[0],
           },
         });
       }
-      return res.status(404).json({
-        status: 404,
-        error: 'Loan does not exist',
-      });
+      return nullResponse(req, res, 'Loan does not exist');
     } catch (error) {
       return res.status(400).send(error.message);
     }
@@ -135,30 +118,19 @@ class Loan {
     const { status } = req.body;
     const { id } = req.params;
 
-    const oneLoanQuery = 'SELECT * FROM loans WHERE id=$1';
-    const values = [status, id];
-
     try {
-      const { rows } = await db.query(oneLoanQuery, [id]);
-      if (!rows[0]) {
-        return res.status(404).json({
-          status: 404,
-          error: 'Loan does not exist',
-        });
+      const data = await Loan.Model().select('*', `WHERE id=${id}`);
+      if (!data[0]) {
+        return nullResponse(req, res, 'Loan does not exist');
       }
-      if (rows[0].status === 'approved') {
-        return res.status(409).json({
-          status: 409,
-          error: 'Loan is approved already',
-        });
+      if (data[0].status === 'approved') {
+        return conflictResponse(req, res, 'Loan is approved already');
       }
 
-      const approveQuery = 'UPDATE loans SET status=$1 WHERE id=$2 RETURNING *';
-      const approve = await db.query(approveQuery, values);
-
+      const approve = await Loan.Model().update(`status='${status}'`, `WHERE id=${id} RETURNING *`);
       return res.status(200).json({
         status: 200,
-        data: approve.rows[0],
+        data: approve[0],
       });
     } catch (error) {
       return res.status(400).json(error.message);

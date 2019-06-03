@@ -1,4 +1,5 @@
 import Authentication from './authentication';
+import { unauthorizedResponse, forbiddenResponse } from '../helper/error-handler';
 
 const { verifyToken } = Authentication;
 
@@ -20,17 +21,11 @@ class Authorization {
       const decoded = verifyToken(token);
       req.user = decoded.payload;
       if (!req.user.isAdmin) {
-        return res.status(403).json({
-          status: 403,
-          error: 'Access denied',
-        });
+        return forbiddenResponse(req, res, 'Access denied');
       }
       return next();
     } catch (error) {
-      return res.status(401).json({
-        status: 401,
-        error: 'Invalid token or none provided',
-      });
+      return unauthorizedResponse(req, res, 'Invalid token or none provided');
     }
   }
 
@@ -46,19 +41,12 @@ class Authorization {
       const token = req.headers.authorization.split(' ')[1];
       const decoded = verifyToken(token);
       req.user = decoded.payload;
-
       if (!req.user.id) {
-        return res.status(403).json({
-          status: 403,
-          error: 'You have to be Authenticated to access this route',
-        });
+        return forbiddenResponse(req, res, 'You have to be Authenticated to access this route');
       }
       return next();
     } catch (error) {
-      return res.status(401).json({
-        status: 401,
-        error: 'Invalid token or none provided',
-      });
+      return unauthorizedResponse(req, res, 'Invalid token or none provided');
     }
   }
 }

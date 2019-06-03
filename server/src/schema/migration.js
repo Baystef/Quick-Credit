@@ -1,5 +1,5 @@
 import '@babel/polyfill';
-import db from '../../db';
+import { pool } from '../models';
 import logger from '../helper/debugger';
 import helper from '../helper/auth-helper';
 
@@ -7,16 +7,16 @@ const Migration = {
   async migrate() {
     try {
       logger('Dropping users table');
-      await db.query('DROP TABLE IF EXISTS users CASCADE');
+      await pool.query('DROP TABLE IF EXISTS users CASCADE');
 
       logger('Dropping loans table');
-      await db.query('DROP TABLE IF EXISTS loans CASCADE');
+      await pool.query('DROP TABLE IF EXISTS loans CASCADE');
 
       logger('Dropping repayments table');
-      await db.query('DROP TABLE IF EXISTS repayments CASCADE');
+      await pool.query('DROP TABLE IF EXISTS repayments CASCADE');
 
       logger('Creating User table');
-      await db.query(`
+      await pool.query(`
     CREATE TABLE IF NOT EXISTS 
     users(
         id SERIAL UNIQUE PRIMARY KEY,
@@ -33,7 +33,7 @@ const Migration = {
     `);
 
       logger('Creating Loan table');
-      await db.query(`
+      await pool.query(`
     CREATE TABLE IF NOT EXISTS 
     loans (
       id SERIAL UNIQUE PRIMARY KEY,
@@ -50,7 +50,7 @@ const Migration = {
     `);
 
       logger('Creating repayment table');
-      await db.query(`
+      await pool.query(`
     CREATE TABLE IF NOT EXISTS 
     repayments(
         id SERIAL UNIQUE PRIMARY KEY,
@@ -77,7 +77,7 @@ const Migration = {
         true,
       ];
       logger('Creating Admin');
-      await db.query(createAdminQuery, values);
+      await pool.query(createAdminQuery, values);
       logger('Admin Created');
     } catch (error) {
       logger(error);
