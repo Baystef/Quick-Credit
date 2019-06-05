@@ -1,6 +1,7 @@
-// import logger from '../helper/debugger';
 import { Model } from '../models';
 import { nullResponse, conflictResponse } from '../helper/error-handler';
+import sendMail from '../helper/mailer';
+import Messages from '../helper/messages';
 
 /**
  * @description Loan class of methods for each loan endpoint
@@ -128,6 +129,8 @@ class Loan {
       }
 
       const approve = await Loan.Model().update(`status='${status}'`, `WHERE id=${id} RETURNING *`);
+      const msg = Messages.loanApprovalMessage(approve[0]);
+      sendMail(msg);
       return res.status(200).json({
         status: 200,
         data: approve[0],

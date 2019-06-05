@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
+    "@sendgrid/mail": "^6.4.0",
     "bcrypt": "^3.0.6",
     "cross-env": "^5.2.0",
     "debug": "^4.1.1",
