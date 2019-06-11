@@ -1,25 +1,34 @@
 import express from 'express';
-import expressValidator from 'express-validator';
-import User from '../controllers/user';
+import { User } from '../controllers';
 import validation from '../middleware/user-validate';
 import authorization from '../middleware/authorization';
 
-const router = express.Router();
-router.use(expressValidator());
+const userRouter = express.Router();
 
 // Import { method(s) } from class;
 const { verifyAdmin } = authorization;
-const { signUp, signIn, newUserVerify } = User;
-const { signupValidate, signinValidate, newUserVerifyValidate } = validation;
+const {
+  signUp, signIn, resetPassword, forgotPassword, newUserVerify,
+} = User;
+const {
+  signupValidate, signinValidate, resetPasswordValidate,
+  forgotPasswordValidate, newUserVerifyValidate,
+} = validation;
 
 
 // New user signup
-router.post('/auth/signup', signupValidate, signUp);
+userRouter.post('/auth/signup', signupValidate, signUp);
 
 // User signin
-router.post('/auth/signin', signinValidate, signIn);
+userRouter.post('/auth/signin', signinValidate, signIn);
+
+// Reset password
+userRouter.post('/auth/reset_password/:token', resetPasswordValidate, resetPassword);
+
+// Forgot password route
+userRouter.post('/auth/forgot_password', forgotPasswordValidate, forgotPassword);
 
 // User verification
-router.patch('/users/:email/verify', verifyAdmin, newUserVerifyValidate, newUserVerify);
+userRouter.patch('/users/:email/verify', verifyAdmin, newUserVerifyValidate, newUserVerify);
 
-export default router;
+export default userRouter;

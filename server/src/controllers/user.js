@@ -1,8 +1,10 @@
 import { Model } from '../models';
 import Authentication from '../middleware/authentication';
 import Helper from '../helper/auth-helper';
-import { conflictResponse, unauthorizedResponse, nullResponse } from '../helper/error-handler';
-// import logger from '../helper/debugger';
+import sendMail from '../helper/mailer';
+import Messages from '../helper/messages';
+import { conflictResponse, unauthorizedResponse, nullResponse, goneResponse } from '../helper/error-handler';
+import logger from '../helper/debugger';
 
 
 /**
@@ -30,7 +32,7 @@ class User {
     const hashPassword = Helper.hashPassword(password);
     const columns = '"firstName", "lastName", email, password, "homeAddress", "workAddress"';
     const values = `'${firstName}', '${lastName}', '${email}', '${hashPassword}', '${homeAddress}', '${workAddress}'`;
-    const clause = 'RETURNING "firstName", "lastName", email, "homeAddress", "workAddress", status, "isAdmin"';
+    const clause = 'RETURNING id, "firstName", "lastName", email, "homeAddress", "workAddress", status, "isAdmin"';
 
     try {
       const data = await User.Model().insert(columns, values, clause);
@@ -87,6 +89,67 @@ class User {
         },
       });
     } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  }
+
+  /**
+  * @description User forgot password
+  * @param {object} req request object
+  * @param {object} res response object
+  * @returns {string} reset token
+  */
+  static async forgotPassword(req, res) {
+    const { email } = req.body;
+
+    try {
+      const data = await User.Model().select('*', `WHERE email='${email}'`);
+      if (!data[0]) {
+        return nullResponse(req, res, 'User does not exist');
+      }
+      const secret = data[0].password;
+      const token = Authentication.generateToken({ email: data[0].email }, secret, '1h');
+      logger(token);
+      const msg = Messages.resetMessage(data[0], token);
+      sendMail(msg);
+      return res.status(200).json({
+        status: 200,
+        message: 'Password reset link has been sent to your email',
+      });
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  }
+
+  /**
+  * @description Reset user's password
+  * @param {object} req request object
+  * @param {object} res response object
+  * @returns {string} new password for user
+  */
+  static async resetPassword(req, res) {
+    const { token } = req.params;
+    const { password, confirmPassword } = req.body;
+    const { email } = Authentication.decodeToken(token);
+
+    try {
+      const data = await User.Model().select('*', `WHERE email='${email}'`);
+      if (!data[0]) {
+        return nullResponse(req, res, 'User does not exist');
+      }
+      if (!(password && confirmPassword)) return false;
+      const secret = data[0].password;
+      const hashPassword = Helper.hashPassword(password);
+      Authentication.verifyToken(token, secret);
+      await User.Model().update(`password='${hashPassword}'`, `WHERE email='${email}'`);
+      return res.status(200).json({
+        status: 200,
+        message: 'Your password has been reset successfully',
+      });
+    } catch (error) {
+      if (error.name === 'TokenExpiredError' || error.message === 'jwt expired') {
+        return goneResponse(req, res, 'Reset link has expired.');
+      }
       return res.status(400).json(error.message);
     }
   }
