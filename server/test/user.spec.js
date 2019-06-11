@@ -477,6 +477,23 @@ describe('SIGNIN route', () => {
   });
 });
 
+// Tests for the password reset and forgot password endpoints
+describe('FORGOT PASSWORD route', () => {
+  it('should return 404 if user does not exist', (done) => {
+    const email = { email: 'daramola.steve@gmail.com' };
+    chai.request(server)
+      .post('/api/v1/auth/forgot_password')
+      .send(email)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body).to.be.a('object');
+        expect(res.body.error).to.exist;
+        expect(res.body.error).to.equal('User does not exist');
+        done();
+      });
+  });
+});
+
 // Tests for User Verification by Admin
 describe('VERIFY USER route', () => {
   it('should return 200 for a successful verification', (done) => {

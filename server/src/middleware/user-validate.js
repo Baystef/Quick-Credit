@@ -73,7 +73,6 @@ class Validation {
       .withMessage('Address should be between 10 to 60 characters')
       .matches(/^[\w',-\\/.\s]*$/)
       .withMessage('Invalid Address entered');
-
     const errors = req.validationErrors();
     if (errors) return badRequestResponse(req, res, errors[0].msg);
 
@@ -100,7 +99,54 @@ class Validation {
       .checkBody('password')
       .notEmpty()
       .withMessage('Password is required');
+    const errors = req.validationErrors();
+    if (errors) return badRequestResponse(req, res, errors[0].msg);
 
+    return next();
+  }
+
+  /**
+  * @description Validates all fields in reset password request body
+  * @param {object} req request object
+  * @param {object} res response object
+  * @param {function} next move to next middleware
+  */
+  static resetPasswordValidate(req, res, next) {
+    const { password, confirmPassword } = req.body;
+    req
+      .checkBody('password')
+      .notEmpty()
+      .withMessage('Password is required')
+      .not()
+      .isIn(['password', 'PASSWORD', 12345678, 87654321])
+      .withMessage('Password is too simple')
+      .trim()
+      .isLength({ min: 8, max: 100 })
+      .withMessage('Password must be atleast 8 to 100 characters')
+      .matches(/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{8,100}$/)
+      .withMessage('Password must contain letters and atleast 1 number');
+    const errors = req.validationErrors();
+    if (errors) return badRequestResponse(req, res, errors[0].msg);
+    if (password !== confirmPassword) return badRequestResponse(req, res, 'Passwords do not match');
+
+    return next();
+  }
+
+  /**
+  * @description Validates email field in forgot password request body
+  * @param {object} req request object
+  * @param {object} res response object
+  * @param {function} next move to next middleware
+  */
+  static forgotPasswordValidate(req, res, next) {
+    req
+      .checkBody('email')
+      .notEmpty()
+      .withMessage('Email is required')
+      .trim()
+      .isEmail()
+      .withMessage('Email Address is invalid')
+      .customSanitizer(email => email.toLowerCase());
     const errors = req.validationErrors();
     if (errors) return badRequestResponse(req, res, errors[0].msg);
 

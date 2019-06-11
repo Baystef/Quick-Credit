@@ -1,11 +1,9 @@
 import express from 'express';
-import expressValidator from 'express-validator';
 import authorization from '../middleware/authorization';
 import { Loan } from '../controllers';
 import validation from '../middleware/loan-validate';
 
-const router = express.Router();
-router.use(expressValidator());
+const loanRouter = express.Router();
 
 // Import { method(s) } from class;
 const { verifyUser, verifyAdmin } = authorization;
@@ -17,16 +15,16 @@ const {
 } = Loan;
 
 // Create loan application
-router.post('/loans', verifyUser, loanApplyValidate, loanApply);
+loanRouter.post('/', verifyUser, loanApplyValidate, loanApply);
 
 // Get all loan applications or get repaid and unrepaid loans if query is provided
-router.get('/loans', verifyAdmin, approvedValidate, getAllLoans);
+loanRouter.get('/', verifyAdmin, approvedValidate, getAllLoans);
 
 // Get a specific loan application
-router.get('/loans/:id', verifyAdmin, oneLoanValidate, getALoan);
+loanRouter.get('/:id', verifyAdmin, oneLoanValidate, getALoan);
 
 // Approve or reject a loan application
-router.patch('/loans/:id', verifyAdmin, approveRejectValidate, approveRejectLoan);
+loanRouter.patch('/:id', verifyAdmin, approveRejectValidate, approveRejectLoan);
 
 
-export default router;
+export default loanRouter;

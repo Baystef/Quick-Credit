@@ -23,6 +23,11 @@ const conflictResponse = (req, res, error, status = 409) => res.status(409).json
   error: error || 'Conflict',
 });
 
+const goneResponse = (req, res, error, status = 410) => res.status(410).json({
+  status,
+  error: error || 'Gone',
+});
+
 export {
-  badRequestResponse, unauthorizedResponse, forbiddenResponse, nullResponse, conflictResponse,
+  badRequestResponse, unauthorizedResponse, forbiddenResponse, nullResponse, conflictResponse, goneResponse,
 };
